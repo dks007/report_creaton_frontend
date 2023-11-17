@@ -1,0 +1,21 @@
+.custom-box {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Adjust the box shadow as needed */
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+
+.customer-report {
+  background: red;
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: rgba(3, 100, 180, 0.747); /* Blue color with 0.5 opacity */
+  color: #fff; /* White text color */
+}
+
+.report-status {
+  padding: 5px;
+  margin: 5px;
+  background-color: rgb(255, 238, 0);
+  border-radius: 5px;
+}

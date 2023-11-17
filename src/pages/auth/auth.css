@@ -1,0 +1,16 @@
+.login-azure-btn {
+  margin-top: 20px;
+  width: 100%;
+  background-color: #33ccff;
+  color: white;
+  border-radius: 0px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  padding: 10px;
+  border: none;
+}
+.login-azure-btn:hover {
+  background-color: #067296;
+  border-radius: 0px;
+  font-weight: 700;
+}

@@ -1,0 +1,11 @@
+.idea/
+
+# dependencies
+node_modules/
+.vscode/
+.env
+pnpm-lock.yaml
+package-lock.json
+
+# production
+/build
