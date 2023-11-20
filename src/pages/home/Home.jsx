@@ -8,13 +8,13 @@ import Statistics from '../../components/statistics/Statistics'
 const Home = () => {
   const [searchParams] = useSearchParams()
   const activeTab = searchParams.get('active')
-   return (
+  return (
     <div>
-      <h3>Report</h3>
-      <CustomTabs tabs={homeTab} defaultTab={STRING.CREATE_REPORT} tabName={STRING.ACTIVE}/>
-      <div className="container-fluid" style={{marginTop:"30px"}}>
-      {activeTab === STRING.CREATE_REPORT && <AssignedIssueListing />}
-      {activeTab === STRING.STATISTICS && <Statistics/>}
+      <h3>Reports</h3>
+      <CustomTabs tabs={homeTab} defaultTab={STRING.CREATE_REPORT} tabName={STRING.ACTIVE} />
+      <div className="container-fluid" style={{ marginTop: '30px' }}>
+        {activeTab === STRING.CREATE_REPORT && <AssignedIssueListing />}
+        {activeTab === STRING.STATISTICS && <Statistics />}
       </div>
     </div>
   )

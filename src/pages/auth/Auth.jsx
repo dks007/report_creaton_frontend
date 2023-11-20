@@ -1,7 +1,6 @@
 import React from 'react'
 import { useMsal } from '@azure/msal-react'
 import { loginRequest } from '../../config/authConfig'
-import './auth.css'
 import Seo from '../../components/shared/common/Seo'
 
 const Auth = () => {
@@ -43,7 +42,7 @@ const Auth = () => {
   }
   return (
     <div className="container-fluid" style={containerStyles}>
-      <Seo title='Login'/>
+      <Seo title="Login" />
       <div style={cardStyles}>
         <div>IFS Cloud</div>
         <button className="login-azure-btn" onClick={handleRedirect}>

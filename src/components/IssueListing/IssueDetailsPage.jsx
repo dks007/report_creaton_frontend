@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import './issue.css'
 import CustomTabs from '../shared/common/CustomTabs'
-import { STRING, homeTab } from '../../constants/static'
+import { STRING, detailsPageTab, homeTab } from '../../constants/static'
 import CustomModal from '../shared/common/CustomModal'
 import { MdOutlineRemoveRedEye } from 'react-icons/md'
 import Loader from '../shared/common/Loader'
@@ -26,7 +26,7 @@ const IssueDetailsPage = () => {
         </div>
         <div className="col-md-8">
           <div className="custom-box ">
-            <CustomTabs tabs={homeTab} defaultTab={STRING.CREATE_REPORT} tabName={STRING.ACTIVE} />
+            <CustomTabs tabs={detailsPageTab} defaultTab={STRING.ONGOING_REPORT} tabName={STRING.ACTIVE} />
             <div className="p-3">
               <div className="fs-5 bold fw-bold">Customer Report History</div>
               <div className="customer-report d-flex flex-row justify-content-between">

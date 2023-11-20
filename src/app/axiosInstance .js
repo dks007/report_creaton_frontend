@@ -1,9 +1,11 @@
 import axios from 'axios'
 
 const axiosInstance = axios.create({
-  baseURL: process.env.REACT_APP_BASE_URL,
-  timeout: 5000
+  baseURL: process.env.REACT_APP_API_URL
 })
+
+/* The `axiosInstance.interceptors.request.use()` function is used to intercept and modify outgoing
+requests made using the `axiosInstance` object. */
 
 axiosInstance.interceptors.request.use(
   (config) => {
@@ -19,6 +21,8 @@ axiosInstance.interceptors.request.use(
   }
 )
 
+/* The `axiosInstance.interceptors.response.use()` function is used to intercept and handle responses
+from outgoing requests made using the `axiosInstance` object. */
 axiosInstance.interceptors.response.use(
   (response) => {
     return response

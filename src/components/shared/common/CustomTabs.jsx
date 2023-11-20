@@ -1,19 +1,18 @@
-import React, { useEffect } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
-import "./customTab.css";
+import React, { useEffect } from 'react'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 
-const CustomTabs = ({ tabs, defaultTab,tabName }) => {
-  const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
-  const activeTab = searchParams.get(tabName);
+const CustomTabs = ({ tabs, defaultTab, tabName }) => {
+  const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
+  const activeTab = searchParams.get(tabName)
 
   useEffect(() => {
-    const isValidTab = tabs.some(tab => tab.tabName === activeTab);
+    const isValidTab = tabs.some((tab) => tab.tabName === activeTab)
 
     if (!isValidTab) {
-      navigate(`?active=${defaultTab}`);
+      navigate(`?active=${defaultTab}`)
     }
-  }, [tabs, activeTab, defaultTab, navigate]);
+  }, [tabs, activeTab, defaultTab, navigate])
 
   return (
     <div className="setting-navigation-btn">
@@ -27,7 +26,7 @@ const CustomTabs = ({ tabs, defaultTab,tabName }) => {
         </button>
       ))}
     </div>
-  );
+  )
 }
 
-export default CustomTabs;
+export default CustomTabs

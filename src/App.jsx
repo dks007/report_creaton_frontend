@@ -4,6 +4,7 @@ import Auth from './pages/auth/Auth'
 import { CustomNavigationClient } from './utils/NavigationClient'
 import AppRoutes from './routes/AppRoutes'
 import React from 'react'
+import './assets/scss/styles.scss'
 
 const MainContent = () => {
   const { instance } = useMsal()
