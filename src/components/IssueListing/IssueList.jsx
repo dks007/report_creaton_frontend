@@ -10,6 +10,9 @@ const IssueList = () => {
         <TableHead headers={issueListTableHeaders} />
         <tbody>
           <IssueBody />
+          <IssueBody />
+
+
         </tbody>
       </table>
     </div>

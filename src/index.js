@@ -4,9 +4,11 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { PublicClientApplication, EventType } from '@azure/msal-browser';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { HelmetProvider } from 'react-helmet-async';
+import { Provider } from 'react-redux';
 
 import App from './App';
 import { msalConfig } from './config/authConfig';
+import store from './redux/store/store';
 
 // MSAL should be instantiated outside of the component tree to prevent re-instantiation on re-renders.
 const msalInstance = new PublicClientApplication(msalConfig);
@@ -29,7 +31,9 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 
 const AppWithRouter = (
   <Router>
+<Provider store={store}>
     <App instance={msalInstance} />
+    </Provider>
   </Router>
 );
 

@@ -26,6 +26,50 @@
   }
 }
 
+// issue detail page
+.custom-box {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+
+.customer-report {
+  margin-top: 10px;
+  padding: 5px;
+  align-items: center;
+  border-radius: 5px;
+  background-color: rgba(3, 100, 180, 0.747);
+  color: #fff;
+}
+
+.report-col {
+  display: flex;
+  align-items: center;
+}
+.report-status {
+  border-radius: 5px;
+  color: #fff;
+  padding: 2px;
+  font-size: 12px;
+  font-weight: bold;
+
+  &.green {
+    background-color: green;
+  }
+
+  &.orange {
+    background-color: orange;
+  }
+
+  &.red {
+    background-color: red;
+  }
+  &.not-created {
+    background-color: #d9e7eb;
+    color: black !important;
+  }
+}
+
 // loader css
 
 .loader {
