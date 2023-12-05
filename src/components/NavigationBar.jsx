@@ -17,9 +17,11 @@ import MenuIcon from '@mui/icons-material/Menu'
 import StarOutlineIcon from '@mui/icons-material/StarOutline'
 import QueryStatsIcon from '@mui/icons-material/QueryStats'
 import { useNavigate } from 'react-router-dom'
+import DrawerComponent from './shared/common/DrawerComponent'
 
 const NavigationBar = () => {
   const [anchorEl, setAnchorEl] = useState(null)
+  const [drawerOpen, setDrawerOpen] = useState(false)
   const open = Boolean(anchorEl)
   const navigate = useNavigate()
 
@@ -43,17 +45,8 @@ const NavigationBar = () => {
         <AppBar position="static">
           <Toolbar sx={{ justifyContent: 'space-between' }}>
             <div>
-              <IconButton size="large" edge="start" color="inherit" aria-label="open drawer" sx={{ mr: 2 }}>
+              <IconButton size="large" edge="start" color="inherit" aria-label="open drawer" sx={{ mr: 2 }} onClick={() => setDrawerOpen(true)}>
                 <MenuIcon />
-              </IconButton>
-              <IconButton size="large" edge="start" color="inherit" aria-label="open drawer" sx={{ mr: 2 }} onClick={() => navigate('/')}>
-                <HomeIcon />
-              </IconButton>
-              <IconButton size="large" edge="start" color="inherit" aria-label="open drawer" sx={{ mr: 2 }}>
-                <AppsIcon />
-              </IconButton>
-              <IconButton size="large" edge="start" color="inherit" aria-label="open drawer" sx={{ mr: 2 }}>
-                <SearchIcon />
               </IconButton>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
@@ -74,6 +67,7 @@ const NavigationBar = () => {
           </Toolbar>
         </AppBar>
       </Box>
+
       <Menu
         anchorEl={anchorEl}
         id="account-menu"
@@ -137,6 +131,7 @@ const NavigationBar = () => {
           Sign out
         </MenuItem>
       </Menu>
+      <DrawerComponent isOpen={drawerOpen} onClose={() => setDrawerOpen(false)} />
     </React.Fragment>
   )
 }

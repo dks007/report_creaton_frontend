@@ -13,7 +13,7 @@ const AppRoutes = () => {
       <Routes>
         <Route element={<PrivateRoute />}>
           <Route path={routePath.HOME} element={<Home />} />
-          <Route path={routePath.ISSUEBYID} element={<IssueDetailsPage/>} />
+          <Route path="/issue/:id" element={<IssueDetailsPage />} />
         </Route>
       </Routes>
     </div>

@@ -14,7 +14,7 @@ const IssueBody = ({ issue, index }) => {
       <tr className="table">
         <th scope="row">{index + 1}</th>
         <td className="jira-col">
-          <Link to={routePath.ISSUEBYID}>{issue.jira_id}</Link>
+          <Link to={`${routePath.ISSUEBYID}${issue.jira_id}`}>{issue.jira_id}</Link>
         </td>
         <td className="customer-col">{issue.customer_name}</td>
         <td className="menu-id-col">{issue.menu_id}</td>
@@ -39,6 +39,7 @@ const IssueBody = ({ issue, index }) => {
         <div>
           <h2>Custom Modal Title {issue.customer_name}</h2>
           <p>This is custom modal content.</p>
+          <button>Hjkddfsghfdjgf</button>
           <button onClick={handleHideModal} className="btn">
             Close
           </button>

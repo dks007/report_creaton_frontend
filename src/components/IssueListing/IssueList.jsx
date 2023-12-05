@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import TableHead from '../shared/common/TableHead'
 import { issueListTableHeaders } from '../../constants/static'
 import IssueBody from './IssueBody'
-import axios from 'axios'
+import axiosInstance from '../../axiosInstance/axiosInstance '
 
 const IssueList = () => {
   const [issueData, setIssueData] = useState([])
@@ -12,7 +12,7 @@ const IssueList = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('https://655b84d1ab37729791a93eef.mockapi.io/api/v1/issuelisting/jira_id')
+        const response = await axiosInstance.get('/issuelisting/jira_id')
         setIssueData(response.data)
       } catch (error) {
         console.error('Error fetching data:', error)
