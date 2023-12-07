@@ -18,6 +18,8 @@ import StarOutlineIcon from '@mui/icons-material/StarOutline'
 import QueryStatsIcon from '@mui/icons-material/QueryStats'
 import { useNavigate } from 'react-router-dom'
 import DrawerComponent from './shared/common/DrawerComponent'
+import ImageElement from './shared/common/ImageElement'
+import { logo } from '../assets/Images/images'
 
 const NavigationBar = () => {
   const [anchorEl, setAnchorEl] = useState(null)
@@ -42,14 +44,20 @@ const NavigationBar = () => {
   return (
     <React.Fragment>
       <Box sx={{ display: 'flex', alignItems: 'flex-end', textAlign: 'center' }}>
-        <AppBar position="static">
+        <AppBar position="static" color="inherit">
           <Toolbar sx={{ justifyContent: 'space-between' }}>
-            <div>
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <IconButton size="large" edge="start" color="inherit" aria-label="open drawer" sx={{ mr: 2 }} onClick={() => setDrawerOpen(true)}>
                 <MenuIcon />
               </IconButton>
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <IconButton onClick={() => navigate('/?active=create-report')}>
+                <ImageElement src={logo} placeholderSrc={logo} height={35} />
+              </IconButton>
+              <Typography variant="h6" sx={{ marginLeft: 5, fontWeight: '800', fontSize: 18 }}>
+                IFS Digital Assyst
+              </Typography>
+            </Box>
+            <Box style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
               <IconButton
                 onClick={handleClick}
                 size="small"
@@ -63,7 +71,7 @@ const NavigationBar = () => {
               <Typography variant="h6" component="h6">
                 Sat Pal
               </Typography>
-            </div>
+            </Box>
           </Toolbar>
         </AppBar>
       </Box>

@@ -9,12 +9,14 @@ const Home = () => {
   const [searchParams] = useSearchParams()
   const activeTab = searchParams.get('active')
   return (
-    <div>
+    <div className="container-fluid">
       <h3>Reports</h3>
-      <CustomTabs tabs={homeTab} defaultTab={STRING.CREATE_REPORT} tabName={STRING.ACTIVE} />
-      <div className="container-fluid" style={{ marginTop: '30px' }}>
-        {activeTab === STRING.CREATE_REPORT && <AssignedIssueListing />}
-        {activeTab === STRING.STATISTICS && <Statistics />}
+      <div className="mt-5">
+        <CustomTabs tabs={homeTab} defaultTab={STRING.CREATE_REPORT} tabName={STRING.ACTIVE} />
+        <div style={{ marginTop: '10px' }}>
+          {activeTab === STRING.CREATE_REPORT && <AssignedIssueListing />}
+          {activeTab === STRING.STATISTICS && <Statistics />}
+        </div>
       </div>
     </div>
   )

@@ -17,7 +17,7 @@ const ImageElement = ({ src, className, width, height, placeholderSrc }) => {
       {error ? (
         <img src={placeholderSrc || ''} alt="Placeholder" className={className} width={width} height={height} />
       ) : (
-        <img src={src} alt={alt} className={className} width={width} height={height} onError={handleImageError} />
+        <img src={src} alt="Placeholder" className={className} width={width} height={height} onError={handleImageError} />
       )}
     </>
   )
@@ -25,7 +25,6 @@ const ImageElement = ({ src, className, width, height, placeholderSrc }) => {
 
 ImageElement.propTypes = {
   src: PropTypes.string.isRequired,
-  alt: PropTypes.string.isRequired,
   className: PropTypes.string,
   width: PropTypes.number,
   height: PropTypes.number,
