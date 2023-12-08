@@ -1,20 +1,19 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
-import PrivateRoute from './PrivateRoute'
-import NavigationBar from '../components/NavigationBar'
 import Home from '../pages/home/Home'
 import { routePath } from '../constants/routes'
 import IssueDetailsPage from '../components/IssueListing/IssueDetailsPage'
+import TopNav from '../components/navabar/TopNav'
+import Auth from '../pages/auth/Auth'
 
 const AppRoutes = () => {
   return (
     <div>
-      <NavigationBar />
+      <TopNav />
       <Routes>
-        <Route element={<PrivateRoute />}>
-          <Route path={routePath.HOME} element={<Home />} />
-          <Route path="/issue/:id" element={<IssueDetailsPage />} />
-        </Route>
+        <Route path={routePath.ISSUE_LISTING} element={<Home />} />
+        <Route path="/" element={<Auth />} />
+        <Route path="/issue-details/:id" element={<IssueDetailsPage />} />
       </Routes>
     </div>
   )

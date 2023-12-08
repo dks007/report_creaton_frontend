@@ -12,9 +12,9 @@ const MainContent = () => {
 
   return (
     <div className="App">
-      <AuthenticatedTemplate></AuthenticatedTemplate>
+      <AuthenticatedTemplate>{activeAccount ? <AppRoutes /> : null}</AuthenticatedTemplate>
       <UnauthenticatedTemplate>
-        <AppRoutes />
+        <Auth />
       </UnauthenticatedTemplate>
     </div>
   )

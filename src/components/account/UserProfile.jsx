@@ -1,31 +1,20 @@
+import { Box, IconButton } from '@mui/material'
 import React, { useState } from 'react'
 import { useMsal } from '@azure/msal-react'
-import Box from '@mui/material/Box'
 import Avatar from '@mui/material/Avatar'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import Divider from '@mui/material/Divider'
-import IconButton from '@mui/material/IconButton'
 import SettingsIcon from '@mui/icons-material/Settings'
 import LogoutIcon from '@mui/icons-material/Logout'
-import { AppBar, Toolbar, Typography } from '@mui/material'
-import AppsIcon from '@mui/icons-material/Apps'
-import SearchIcon from '@mui/icons-material/Search'
-import HomeIcon from '@mui/icons-material/Home'
-import MenuIcon from '@mui/icons-material/Menu'
+import { Typography } from '@mui/material'
 import StarOutlineIcon from '@mui/icons-material/StarOutline'
 import QueryStatsIcon from '@mui/icons-material/QueryStats'
-import { useNavigate } from 'react-router-dom'
-import DrawerComponent from './shared/common/DrawerComponent'
-import ImageElement from './shared/common/ImageElement'
-import { logo } from '../assets/Images/images'
 
-const NavigationBar = () => {
+const UserProfile = () => {
   const [anchorEl, setAnchorEl] = useState(null)
-  const [drawerOpen, setDrawerOpen] = useState(false)
   const open = Boolean(anchorEl)
-  const navigate = useNavigate()
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget)
@@ -42,40 +31,22 @@ const NavigationBar = () => {
   }
 
   return (
-    <React.Fragment>
-      <Box sx={{ display: 'flex', alignItems: 'flex-end', textAlign: 'center' }}>
-        <AppBar position="static" color="inherit">
-          <Toolbar sx={{ justifyContent: 'space-between' }}>
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <IconButton size="large" edge="start" color="inherit" aria-label="open drawer" sx={{ mr: 2 }} onClick={() => setDrawerOpen(true)}>
-                <MenuIcon />
-              </IconButton>
-              <IconButton onClick={() => navigate('/?active=create-report')}>
-                <ImageElement src={logo} placeholderSrc={logo} height={35} />
-              </IconButton>
-              <Typography variant="h6" sx={{ marginLeft: 5, fontWeight: '800', fontSize: 18 }}>
-                IFS Digital Assyst
-              </Typography>
-            </Box>
-            <Box style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <IconButton
-                onClick={handleClick}
-                size="small"
-                sx={{ ml: 2 }}
-                aria-controls={open ? 'account-menu' : undefined}
-                aria-haspopup="true"
-                aria-expanded={open ? 'true' : undefined}
-              >
-                <Avatar sx={{ width: 32, height: 32 }}>S</Avatar>
-              </IconButton>
-              <Typography variant="h6" component="h6">
-                Sat Pal
-              </Typography>
-            </Box>
-          </Toolbar>
-        </AppBar>
+    <div>
+      <Box style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+        <IconButton
+          onClick={handleClick}
+          size="small"
+          sx={{ ml: 2 }}
+          aria-controls={open ? 'account-menu' : undefined}
+          aria-haspopup="true"
+          aria-expanded={open ? 'true' : undefined}
+        >
+          <Avatar sx={{ width: 32, height: 32 }}>S</Avatar>
+        </IconButton>
+        <Typography variant="h6" component="h6">
+          Sat Pal
+        </Typography>
       </Box>
-
       <Menu
         anchorEl={anchorEl}
         id="account-menu"
@@ -139,9 +110,8 @@ const NavigationBar = () => {
           Sign out
         </MenuItem>
       </Menu>
-      <DrawerComponent isOpen={drawerOpen} onClose={() => setDrawerOpen(false)} />
-    </React.Fragment>
+    </div>
   )
 }
 
-export default NavigationBar
+export default UserProfile

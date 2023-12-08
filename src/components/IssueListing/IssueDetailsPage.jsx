@@ -1,6 +1,5 @@
 import React from 'react'
 import { useSearchParams } from 'react-router-dom'
-
 import CustomTabs from '../shared/common/CustomTabs'
 import { STRING, detailsPageTab } from '../../constants/static'
 import OngoingReport from './OngoingReport'

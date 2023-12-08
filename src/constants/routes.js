@@ -2,5 +2,6 @@ export const routePath = {
   DASHBOARD: '/dashboard',
   LOGIN: '/',
   HOME: '/',
-  ISSUEBYID: '/issue/'
+  ISSUE_LISTING: '/issue-listing',
+  ISSUEBYID: '/issue-details/'
 }
