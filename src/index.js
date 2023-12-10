@@ -5,7 +5,7 @@ import { PublicClientApplication, EventType } from '@azure/msal-browser'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { HelmetProvider } from 'react-helmet-async'
 import { Provider } from 'react-redux'
-
+import { ThemeProvider } from '@mui/system'
 import App from './App'
 import { msalConfig } from './config/authConfig'
 import store from './redux/store/store'

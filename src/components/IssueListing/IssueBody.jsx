@@ -2,6 +2,9 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { routePath } from '../../constants/routes'
 import CustomModal from '../shared/common/CustomModal'
+import { Box, IconButton, Typography } from '@mui/material'
+import CloseIcon from '@mui/icons-material/Close'
+import CreateReportContent from './createReport/CreateReportContent'
 
 const IssueBody = ({ issue, index }) => {
   const [showModal, setShowModal] = useState(false)
@@ -34,16 +37,18 @@ const IssueBody = ({ issue, index }) => {
           </button>
         </td>
       </tr>
-      <CustomModal show={showModal} onHide={handleHideModal}>
-        {/* JSX content for the modal */}
-        <div>
-          <h2>Custom Modal Title {issue.customer_name}</h2>
-          <p>This is custom modal content.</p>
-          <button>Hjkddfsghfdjgf</button>
-          <button onClick={handleHideModal} className="btn">
-            Close
-          </button>
-        </div>
+      <CustomModal open={showModal}>
+        <Box sx={{ display: 'flex', padding: 0.5, paddingLeft: 2, justifyContent: 'space-between', alignItems: 'center', background: '#503998' }}>
+          <Typography variant="h6" sx={{ color: 'white', fontWeight: 'bold', fontSize: 20 }}>
+            Creating document for
+          </Typography>
+          <IconButton onClick={handleHideModal}>
+            <CloseIcon sx={{ color: 'white' }} />
+          </IconButton>
+        </Box>
+        <Box sx={{ padding: 2 }}>
+          <CreateReportContent issue={issue} />
+        </Box>
       </CustomModal>
     </>
   )
