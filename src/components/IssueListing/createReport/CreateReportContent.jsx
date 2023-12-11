@@ -1,4 +1,4 @@
-import { Box, Button, Divider, IconButton, Typography } from '@mui/material'
+import { Box, Button, divider, IconButton, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline'
 import FileUploadRoundedIcon from '@mui/icons-material/FileUploadRounded'
@@ -12,9 +12,13 @@ const CreateReportContent = ({ issue }) => {
   const ProducthandleSelect = (value) => {
     // ProductsetSelectedValue(value);
     // Do something with the selected value, e.g., pass it to other components or update state.
-  };
-  const Productoptions = ['Finance', 'Expert', 'Marketing'];
-
+  }
+  // const Productoptions = ['Finance', 'Expert', 'Marketing']
+  const pVlaue = [
+    { value: 'finance', label: 'Finance' },
+    { value: 'expert', label: 'Expert' },
+    { value: 'marketing', label: 'Marketing' }
+  ]
 
   /**
    * The function `handleFileUpload` takes an event object as input, retrieves the uploaded file from
@@ -37,13 +41,13 @@ const CreateReportContent = ({ issue }) => {
   return (
     <Box sx={{ display: 'flex', justifyContent: 'space-between', flexDirection: { xs: 'column', sm: 'column', md: 'row' } }}>
       <Box sx={{ width: 600 }}>
-        <diV className="row">
+        <div className="row">
           <div className="col-md-6">Jira ID</div>
           <div className="col-md-6">
             <input value={issue.jira_id} />
           </div>
-        </diV>
-        <diV className="row mt-3">
+        </div>
+        <div className="row mt-3">
           <div className="col-md-6">
             <p className="required">Menu Card</p>
             <p>Couldn't Identify Menu Card ID</p>
@@ -51,44 +55,44 @@ const CreateReportContent = ({ issue }) => {
           <div className="col-md-6">
             <input value={issue.menu_id} />
           </div>
-        </diV>
+        </div>
         <Box className="row mt-3">
           <div className="col-md-6">Customer Name</div>
           <div className="col-md-6">
             <input value={issue.customer_name} />
           </div>
         </Box>
-        <diV className="row mt-3">
+        <div className="row mt-3">
           <div className="col-md-6">Expert</div>
           <div className="col-md-6">
             <input value="SAT PAL" />
           </div>
-        </diV>
-        <diV className="row mt-3">
+        </div>
+        <div className="row mt-3">
           <div className="col-md-6">Creator</div>
           <div className="col-md-6">
             <input value="Kendrion Gmbh" />
           </div>
-        </diV>
-        <diV className="row mt-3">
+        </div>
+        <div className="row mt-3">
           <div className="col-md-6">Product</div>
           <div className="col-md-6">
-            <Dropdown options={Productoptions} onSelect={ProducthandleSelect} defaultLabel="Select Product" />
+            <Dropdown options={pVlaue} onSelect={(e) => console.log(e)} />
           </div>
-        </diV>
-        <diV className="row mt-3">
+        </div>
+        <div className="row mt-3">
           <div className="col-md-6">Capability</div>
           <div className="col-md-6">
             <input value="Purchasing" />
           </div>
-        </diV>
-        <diV className="row mt-3">
+        </div>
+        <div className="row mt-3">
           <div className="col-md-6">Sub Capability</div>
           <div className="col-md-6">
             <input value="Purchase Order" />
           </div>
-        </diV>
-        <diV className="row mt-3">
+        </div>
+        <div className="row mt-3">
           <div className="col-md-6">Customer Logo</div>
           <div className="col-md-6">
             <Box
@@ -129,9 +133,9 @@ const CreateReportContent = ({ issue }) => {
               )}
             </Box>
           </div>
-        </diV>
+        </div>
       </Box>
-      <Divider orientation="vertical" flexItem sx={{ padding: 2 }} />
+      <divider orientation="vertical" flexItem sx={{ padding: 2 }} />
       <Box sx={{ display: 'flex', justifyContent: 'center', marginRight: 3 }}>
         <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: 400 }}>
           <IconButton>

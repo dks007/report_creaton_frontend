@@ -1,27 +1,23 @@
-// Dropdown.js
-
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 
 const Dropdown = ({ options, onSelect, defaultLabel }) => {
-  const [selectedOption, setSelectedOption] = useState(defaultLabel);
+  const [selectedOption, setSelectedOption] = useState(defaultLabel)
 
   const handleSelect = (option) => {
-    setSelectedOption(option);
-    onSelect(option);
-  };
+    setSelectedOption(option)
+    onSelect(option)
+  }
 
   return (
     <select value={selectedOption} onChange={(e) => handleSelect(e.target.value)}>
-      <option value="" disabled>
-        {defaultLabel || 'Select an option'}
-      </option>
+      <option value="">{defaultLabel || 'Select an option'}</option>
       {options.map((option) => (
-        <option key={option} value={option}>
-          {option}
+        <option key={option.value} value={option.value}>
+          {option.label}
         </option>
       ))}
     </select>
-  );
-};
+  )
+}
 
-export default Dropdown;
+export default Dropdown
