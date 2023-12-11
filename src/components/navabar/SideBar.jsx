@@ -1,8 +1,13 @@
 import React from 'react'
-import { Input, IconButton, InputAdornment, Box, Typography, Button } from '@mui/material'
+import { Input, Box, Typography, Button } from '@mui/material'
 import HexagonOutlinedIcon from '@mui/icons-material/HexagonOutlined'
+import { useNavigate } from 'react-router-dom'
+import { routePath } from '../../constants/routes'
+
 
 const SideBar = () => {
+  const navigate = useNavigate()
+
   const sidebarContainerStyle = {
     display: 'flex',
     flexDirection: 'column'
@@ -52,7 +57,7 @@ const SideBar = () => {
           <HexagonOutlinedIcon />
           <Typography>Report</Typography>
         </Box>
-        <Button variant="outlined" sx={buttonStyle}>
+        <Button variant="outlined" sx={buttonStyle} onClick={() => navigate(routePath.ISSUE_LISTING)}>
           <HexagonOutlinedIcon sx={{ marginRight: 2, color: 'black' }} />
           Create Report
         </Button>

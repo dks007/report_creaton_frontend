@@ -3,9 +3,18 @@ import React, { useState } from 'react'
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline'
 import FileUploadRoundedIcon from '@mui/icons-material/FileUploadRounded'
 import CloseIcon from '@mui/icons-material/Close'
+import Dropdown from '../../shared/common/Dropdown'
 
 const CreateReportContent = ({ issue }) => {
   const [selectedImage, setSelectedImage] = useState(null)
+
+  //const [ProductselectedValue, ProductsetSelectedValue] = useState("Select Product");
+  const ProducthandleSelect = (value) => {
+    // ProductsetSelectedValue(value);
+    // Do something with the selected value, e.g., pass it to other components or update state.
+  };
+  const Productoptions = ['Finance', 'Expert', 'Marketing'];
+
 
   /**
    * The function `handleFileUpload` takes an event object as input, retrieves the uploaded file from
@@ -52,31 +61,31 @@ const CreateReportContent = ({ issue }) => {
         <diV className="row mt-3">
           <div className="col-md-6">Expert</div>
           <div className="col-md-6">
-            <input value="JI56565" />
+            <input value="SAT PAL" />
           </div>
         </diV>
         <diV className="row mt-3">
           <div className="col-md-6">Creator</div>
           <div className="col-md-6">
-            <input value="JI56565" />
+            <input value="Kendrion Gmbh" />
           </div>
         </diV>
         <diV className="row mt-3">
           <div className="col-md-6">Product</div>
           <div className="col-md-6">
-            <input value="JI56565" />
+            <Dropdown options={Productoptions} onSelect={ProducthandleSelect} defaultLabel="Select Product" />
           </div>
         </diV>
         <diV className="row mt-3">
           <div className="col-md-6">Capability</div>
           <div className="col-md-6">
-            <input value="JI56565" />
+            <input value="Purchasing" />
           </div>
         </diV>
         <diV className="row mt-3">
           <div className="col-md-6">Sub Capability</div>
           <div className="col-md-6">
-            <input value="JI56565" />
+            <input value="Purchase Order" />
           </div>
         </diV>
         <diV className="row mt-3">

@@ -5,8 +5,8 @@ import { STRING, detailsPageTab } from '../../constants/static'
 import OngoingReport from './OngoingReport'
 import HistoricReport from './HistoricReport'
 import { Box, Typography } from '@mui/material'
-import ImageElement from '../shared/common/ImageElement'
-import { profile } from '../../assets/Images/images'
+//import ImageElement from '../shared/common/ImageElement'
+//import { profile } from '../../assets/Images/images'
 
 const IssueDetailsPage = () => {
   const [searchParams] = useSearchParams()

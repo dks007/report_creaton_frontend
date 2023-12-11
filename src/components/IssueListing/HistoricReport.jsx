@@ -10,9 +10,10 @@ const HistoricReport = () => {
   }
   return (
     <div className="p-3">
-      <div className="fs-5 bold fw-bold">Customer Report History</div>
-      <div className="customer-report d-flex flex-row justify-content-between">
-        <div>hello</div>
+      <div className="fs-5">Older Report Created</div>
+      <div className="d-flex flex-row  justify-content-between">
+        <div>5 Reports recorded</div>
+        
         <div>
           <IconButton onClick={toggleDrawer} color="inherit">
             <VisibilityIcon />
@@ -20,7 +21,7 @@ const HistoricReport = () => {
         </div>
       </div>
 
-      <DrawerComponent anchor="right" isOpen={drawerOpen} onClose={() => setDrawerOpen(false)} content={<div>Hello</div>} />
+      <DrawerComponent anchor="right" isOpen={drawerOpen} onClose={() => setDrawerOpen(false)} content={<div>Historical Report</div>} />
     </div>
   )
 }
