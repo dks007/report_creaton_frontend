@@ -5,8 +5,8 @@ import { STRING, detailsPageTab } from '../../constants/static'
 import OngoingReport from './OngoingReport'
 import HistoricReport from './HistoricReport'
 import { Box, Typography } from '@mui/material'
-//import ImageElement from '../shared/common/ImageElement'
-//import { profile } from '../../assets/Images/images'
+import ImageElement from '../shared/common/ImageElement'
+import { profile } from '../../assets/Images/images'
 
 const IssueDetailsPage = () => {
   const [searchParams] = useSearchParams()
@@ -20,10 +20,10 @@ const IssueDetailsPage = () => {
           <div className="custom-box p-3">
             <Box sx={{ display: 'flex', marginTop: 5, justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }}>
               <Box sx={{ background: '#f2f2f2', borderRadius: '50%', overflow: 'hidden' }}>
-                {/* <ImageElement src={profile} placeholderSrc={profile} width={140} height={140} /> */}
-                <Typography variant="h6" sx={{ padding: 7 }}>
+                <ImageElement src={profile} placeholderSrc={profile} width={140} height={140} />
+                {/* <Typography variant="h6" sx={{ padding: 7 }}>
                   Logo
-                </Typography>
+                </Typography> */}
               </Box>
               <Typography variant="h6" sx={{ fontWeight: 'bold', fontSize: 20, marginTop: 4 }}>
                 Kendrion (Villingen) Gmbh

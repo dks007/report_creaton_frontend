@@ -1,4 +1,4 @@
-import { Box, Button, divider, IconButton, Typography } from '@mui/material'
+import { Box, Button, Divider, IconButton, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline'
 import FileUploadRoundedIcon from '@mui/icons-material/FileUploadRounded'
@@ -135,7 +135,7 @@ const CreateReportContent = ({ issue }) => {
           </div>
         </div>
       </Box>
-      <divider orientation="vertical" flexItem sx={{ padding: 2 }} />
+      <Divider orientation="vertical" flexItem sx={{ padding: 2 }} />
       <Box sx={{ display: 'flex', justifyContent: 'center', marginRight: 3 }}>
         <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: 400 }}>
           <IconButton>

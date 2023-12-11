@@ -5,7 +5,7 @@ import Avatar from '@mui/material/Avatar'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import ListItemIcon from '@mui/material/ListItemIcon'
-import Divider from '@mui/material/Divider'
+// import Divider from '@mui/material/Divider'
 import SettingsIcon from '@mui/icons-material/Settings'
 import LogoutIcon from '@mui/icons-material/Logout'
 import { Typography } from '@mui/material'
@@ -84,7 +84,7 @@ const UserProfile = () => {
       >
         <MenuItem onClick={handleClose}>Sat Pal</MenuItem>
         <MenuItem onClick={handleClose}>View profile</MenuItem>
-        <Divider />
+        {/* <Divider /> */}
         <MenuItem onClick={handleClose}>
           <ListItemIcon>
             <SettingsIcon fontSize="small" />

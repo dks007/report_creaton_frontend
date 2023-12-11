@@ -4,7 +4,6 @@ import HexagonOutlinedIcon from '@mui/icons-material/HexagonOutlined'
 import { useNavigate } from 'react-router-dom'
 import { routePath } from '../../constants/routes'
 
-
 const SideBar = () => {
   const navigate = useNavigate()
 
@@ -51,7 +50,7 @@ const SideBar = () => {
 
   return (
     <Box sx={sidebarContainerStyle}>
-      <Input placeholder="Search....." disableUnderline fullWidth sx={searchInputStyle} />
+      {/* <Input placeholder="Search....." disableUnderline fullWidth sx={searchInputStyle} /> */}
       <Box sx={listItemStyle}>
         <Box sx={hexagonTextStyle}>
           <HexagonOutlinedIcon />

@@ -1,9 +1,9 @@
 export const msalConfig = {
   auth: {
-    clientId: process.env.REACT_APP_MICROSOFT_CLIENT_ID, // This is the ONLY mandatory field that you need to supply.
-    authority: 'https://login.microsoftonline.com/dilipku007gmail.onmicrosoft.com', // Replace the placeholder with your tenant subdomain
-    redirectUri: '/', // Points to window.location.origin. You must register this URI on Azure Portal/App Registration.
-    postLogoutRedirectUri: '/', // Indicates the page to navigate after logout.
+    clientId: import.meta.env.VITE_CLIENT_ID, // This is the ONLY mandatory field that you need to supply.
+    authority: import.meta.env.VITE_AUTHORITY, // Replace the placeholder with your tenant subdomain
+    redirectUri: import.meta.env.VITE_REDIRECT_URI, // Points to window.location.origin. You must register this URI on Azure Portal/App Registration.
+    postLogoutRedirectUri: import.meta.env.VITE_POST_LOGOUT_REDIRECT_URI, // Indicates the page to navigate after logout.
     navigateToLoginRequestUrl: false // If "true", will navigate back to the original request location before processing the auth code response.
   },
   cache: {

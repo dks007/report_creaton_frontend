@@ -1,21 +1,20 @@
-//import { MsalProvider, AuthenticatedTemplate, useMsal, UnauthenticatedTemplate } from '@azure/msal-react'
-import { MsalProvider, AuthenticatedTemplate, UnauthenticatedTemplate } from '@azure/msal-react'
+import { MsalProvider, AuthenticatedTemplate, useMsal, UnauthenticatedTemplate } from '@azure/msal-react'
 import { useNavigate } from 'react-router-dom'
-//import Auth from './pages/auth/Auth'
+import Auth from './pages/auth/Auth'
 import { CustomNavigationClient } from './utils/NavigationClient'
 import AppRoutes from './routes/AppRoutes'
 import React from 'react'
 import './assets/scss/styles.scss'
 
 const MainContent = () => {
-  //const { instance } = useMsal()
-  //const activeAccount = instance.getActiveAccount()
+  const { instance } = useMsal()
+  const activeAccount = instance.getActiveAccount()
 
   return (
     <div className="App">
-      <AuthenticatedTemplate></AuthenticatedTemplate>
+      <AuthenticatedTemplate>{activeAccount ? <AppRoutes /> : null}</AuthenticatedTemplate>
       <UnauthenticatedTemplate>
-        <AppRoutes />
+        <Auth />
       </UnauthenticatedTemplate>
     </div>
   )
