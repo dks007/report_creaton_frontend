@@ -7,12 +7,14 @@ import React from 'react'
 import './assets/scss/styles.scss'
 
 const MainContent = () => {
-  const { instance } = useMsal()
+  const { instance } = useMsal()   
+  //const activeAccount = instance.getActiveAccount()
+
   return (
     <div className="App">
-      <AuthenticatedTemplate>{ null}</AuthenticatedTemplate>
+      <AuthenticatedTemplate>{null}</AuthenticatedTemplate>
       <UnauthenticatedTemplate>
-      <AppRoutes />
+        <AppRoutes />
       </UnauthenticatedTemplate>
     </div>
   )

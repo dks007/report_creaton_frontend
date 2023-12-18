@@ -1,3 +1,4 @@
+
 # React with ViteJS Starter
 
 This is a simple starter template for building React applications with ViteJS. Vite is a fast development build tool that aims to provide a lightning-fast development experience for modern web projects.
