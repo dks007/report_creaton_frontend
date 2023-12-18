@@ -1,3 +1,6 @@
 import logo from './Logo.svg'
 import profile from './profile.jpg'
-export { logo, profile }
+import adicon from './ad_icon.svg'
+import loginBackground from './login_bg.jpg'
+import loginIcon from './login_icon.svg'
+export { logo, profile, adicon, loginBackground, loginIcon }

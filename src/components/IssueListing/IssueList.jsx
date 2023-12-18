@@ -10,16 +10,19 @@ const IssueList = () => {
   const [issueData, setIssueData] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage, setItemsPerPage] = useState(10)
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true)
-        const response = await axiosInstance.get('/issuelisting/jira_id')
+        const response = await axiosInstance.get('/issuelisting/issue_list')
         setIssueData(response.data)
         setLoading(false)
       } catch (error) {
-        console.error('Error fetching data:', error)
+        console.error('Error fetching data:', error);
+        setError('An error occurred while fetching data. Please try again later.');
+        setLoading(false);
       }
     }
 

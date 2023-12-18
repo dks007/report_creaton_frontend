@@ -3,35 +3,38 @@ import React from 'react'
 import Seo from '../../components/shared/common/Seo'
 import { useNavigate } from 'react-router-dom'
 import { routePath } from '../../constants/routes'
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
 
 const Auth = () => {
   const navigate = useNavigate()
   const containerStyles = {
     display: 'flex',
     justifyContent: 'flex-end',
-    backgroundImage:
-      'url("https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=1000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8fA%3D%3D")',
+    backgroundImage: 'url("../src/assets/images/login_bg.jpg")',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     height: '100vh',
-    position: 'relative'
+    position: 'relative',
+    padding: '0',
   }
-  const cardStyles = {
-    width: '300px',
-    backgroundColor: 'white',
-    padding: '20px'
-  }
+  const cardStyles = {}
 
   return (
     <div className="container-fluid" style={containerStyles}>
       <Seo title="Login" />
-      <div style={cardStyles}>
-        <div>IFS Cloud</div>
-        <button className="login-azure-btn" onClick={() => navigate(routePath.ISSUE_LISTING)}>
-          Login with Azure AD
-        </button>
+    {/* Login container start */}
+      <div style={cardStyles} className="login_container">
+        <div className="inner_container">
+          <img src="../src/assets/images/login_icon.svg"></img>
+          <h1>IFS Digital Assyst</h1>
+          <p>Click below button to login using Azure AD</p>
+          <button className="login-azure-btn" onClick={() => { navigate(routePath.ISSUE_LISTING); }}> <AccountBoxIcon/> Login with Azure AD </button>
+          <p><small>Clicking this button will log you into Success Delivery IFS Digital Assyst using Azure AD authentication.</small></p>
+          <p>Facing any difficulties?  -  <a href='#'>Contact support</a></p>
+        </div>
       </div>
     </div>
+    // login container end here
   )
 }
 

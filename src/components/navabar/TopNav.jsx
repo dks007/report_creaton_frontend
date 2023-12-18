@@ -31,7 +31,7 @@ const TopNav = () => {
                 <ImageElement src={logo} placeholderSrc={logo} height={35} />
               </IconButton>
               <Typography variant="h6" sx={{ marginLeft: 5, fontWeight: '800', fontSize: 18 }}>
-                IFS Digital Assyst
+              {import.meta.env.VITE_APPLICATION_NAME}
               </Typography>
             </Box>
             <UserProfile />
