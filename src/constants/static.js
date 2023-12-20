@@ -1,3 +1,5 @@
+import HomeIcon from '@mui/icons-material/Home'
+
 export const STRING = {
   ACTIVE: 'active',
   INACTIVE: 'inactive',
@@ -41,4 +43,14 @@ export const issueListTableHeaders = [
   { label: import.meta.env.VITE_CREATED_DATE, className: '', scope: 'col' },
   { label: import.meta.env.VITE_REPORT_STATUS, className: '', scope: 'col' },
   { label: import.meta.env.VITE_ACTION, className: '', scope: 'col' }
+]
+
+export const assignedJiraIssues = [
+  { icon: HomeIcon, label: 'Home', path: '/' },
+  { icon: null, label: 'Assigned Jira Issues', path: '' }
+]
+export const assignedJiraIssuesDetails = [
+  { icon: HomeIcon, label: 'Home', path: '/' },
+  { icon: null, label: 'Assigned Jira Issues', path: '/issue-listing?active=create-report' },
+  { icon: null, label: 'Issue Details Page', path: '' }
 ]
