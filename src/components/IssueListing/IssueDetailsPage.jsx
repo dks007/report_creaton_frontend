@@ -1,12 +1,13 @@
 import React from 'react'
 import { useSearchParams } from 'react-router-dom'
 import CustomTabs from '../shared/common/CustomTabs'
-import { STRING, detailsPageTab } from '../../constants/static'
+import { STRING, assignedJiraIssuesDetails, detailsPageTab } from '../../constants/static'
 import OngoingReport from './OngoingReport'
 import HistoricReport from './HistoricReport'
 import { Box, Typography } from '@mui/material'
 import ImageElement from '../shared/common/ImageElement'
 import { profile } from '../../assets/Images/images'
+import IconBreadcrumbs from '../shared/common/IconBreadcrumbs'
 
 const IssueDetailsPage = () => {
   const [searchParams] = useSearchParams()
@@ -15,7 +16,8 @@ const IssueDetailsPage = () => {
   return (
     <div className="container-fluid">
       <h3>Issues Details Page</h3>
-      <div className="row">
+      <IconBreadcrumbs breadcrumbs={assignedJiraIssuesDetails} />
+      <div className="row" style={{ marginTop: '10px' }}>
         <div className="col-md-4">
           <div className="custom-box p-3">
             <Box sx={{ display: 'flex', marginTop: 5, justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }}>

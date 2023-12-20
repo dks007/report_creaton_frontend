@@ -1,16 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,400&display=swap');
-body{
+body {
   font-family: 'Roboto', sans-serif !important;
 }
 
-.login_container{
+.login_container {
   width: 600px;
   text-align: center;
   padding: 80px;
   background: #fff;
   display: flex;
   align-items: center;
-  
 }
 
 .login-azure-btn {
@@ -28,4 +27,12 @@ body{
   background-color: #544879;
   border-radius: 0px;
   font-weight: 700;
+}
+
+/* The code `.MuiBreadcrumbs-separator { margin: 2px !important; }` is targeting an element with the
+class `.MuiBreadcrumbs-separator` and setting its margin to 2 pixels. The `!important` declaration
+is used to override any other styles that may be applied to the element. */
+
+.MuiBreadcrumbs-separator {
+  margin: 2px !important;
 }
