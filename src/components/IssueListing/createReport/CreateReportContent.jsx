@@ -100,10 +100,9 @@ const CreateReportContent = ({ issue }) => {
                 position: 'relative',
                 borderRadius: 2,
                 border: '1px dashed gray',
-
-                width: '200px', // Set the maximum width of the box
-                maxheight: '200px', // Set the maximum height of the box
-                overflow: 'hidden' // Hide overflow
+                width: '200px',
+                maxheight: '200px',
+                overflow: 'hidden'
               }}
             >
               {selectedImage && (
@@ -146,7 +145,9 @@ const CreateReportContent = ({ issue }) => {
           </Typography>
           <Box sx={{ marginTop: 4, gap: 2, display: 'flex' }}>
             <Button variant="outlined">Not Sure</Button>
-            <Button variant="contained">I am sure</Button>
+            <Button variant="contained" sx={{}}>
+              I am sure
+            </Button>
           </Box>
         </Box>
       </Box>

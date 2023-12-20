@@ -21,7 +21,7 @@ const TopNav = () => {
   return (
     <>
       <Box sx={{ display: 'flex', alignItems: 'flex-end', textAlign: 'center' }}>
-        <AppBar position="static" sx={{ background: '#503998', zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+        <AppBar position="static" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
           <Toolbar sx={{ justifyContent: 'space-between' }}>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <IconButton size="large" edge="start" color="inherit" aria-label="open drawer" sx={{ mr: 2 }} onClick={toggleDrawer}>
@@ -31,7 +31,7 @@ const TopNav = () => {
                 <ImageElement src={logo} placeholderSrc={logo} height={35} />
               </IconButton>
               <Typography variant="h6" sx={{ marginLeft: 5, fontWeight: '800', fontSize: 18 }}>
-              {import.meta.env.VITE_APPLICATION_NAME}
+                {import.meta.env.VITE_APPLICATION_NAME}
               </Typography>
             </Box>
             <UserProfile />

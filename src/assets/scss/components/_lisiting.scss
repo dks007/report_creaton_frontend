@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,400&display=swap');
-body{
+body {
   font-family: 'Roboto', sans-serif !important;
   font-size: 14px;
   font-weight: 400;
@@ -11,93 +11,92 @@ body{
   padding: 30px;
   background-color: #f6f6f6;
 }
-.bredcrumbs{
-  ul{
+.bredcrumbs {
+  ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
     display: flex;
     align-items: center;
-    li{
+    li {
       padding-right: 10px;
-      &.first-child{
-        background-color: #5C2D91;        
+      &.first-child {
+        background-color: #5c2d91;
         padding: 3px 5px !important;
         margin-right: 10px;
         border-radius: 5px;
-        a{
+        a {
           color: #fff;
         }
       }
     }
   }
-  
 }
 
-.setting-navigation-btn{
+.setting-navigation-btn {
   display: flex;
-  border-bottom: 3px solid #5C2D91;
-  .navigation-btn{
+  border-bottom: 3px solid #5c2d91;
+  .navigation-btn {
     padding: 12px 30px;
     font-size: 14px;
     font-weight: 700;
     border: none;
-    padding:12px 30px;
+    padding: 12px 30px;
     color: #000;
     margin-right: 10px;
     border-radius: 5px 5px 0 0;
     text-transform: uppercase;
     background-color: #fff;
     &.active-btn {
-      background: #5C2D91;
+      background: #5c2d91;
       color: #ffff;
     }
   }
 }
 
-.table-wrapper{
+.table-wrapper {
   padding: 30px;
   background-color: #fff;
-  table{
+  table {
     border-collapse: separate;
     border-spacing: 0 5px;
-    tr{
+    tr {
       border-radius: 3px;
-      background: transparent;  
+      background: transparent;
       box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.15);
       display: table-row;
       vertical-align: middle;
-    
-      td,th{
+
+      td,
+      th {
         background-color: #f4f0f9;
         padding: 14px;
         font-size: 14px;
         font-weight: 400;
         display: table-cell;
-        .btn.not-created{
-          background-color: #5C2D91;
+        .btn.not-created {
+          background-color: #5c2d91;
           color: #fff !important;
           padding: 3px 10px;
           font-size: 13px;
         }
       }
-      th{
+      th {
         font-size: 12px;
         font-weight: 600;
       }
     }
-    thead{
-      tr{
+    thead {
+      tr {
         box-shadow: none;
-        th{
+        th {
           background-color: transparent;
         }
       }
     }
   }
-  
 }
-.report-status{
+.report-status {
   display: inline-flex;
   padding: 2px 10px;
   justify-content: center;
@@ -105,37 +104,37 @@ body{
   border-radius: 3px;
   font-size: 12px;
   font-weight: 600;
-  &.not-created{
-    background: #F5EFFC;
-    color: #5C2D91;
+  &.not-created {
+    background: #f5effc;
+    color: #5c2d91;
   }
 }
 
-.main-color-fill{
-  fill:#5C2D91 !important;
+.main-color-fill {
+  fill: #5c2d91 !important;
 }
 
 // tooltip with custom HTML
 
-.custom-tooltip-html{
+.custom-tooltip-html {
   width: 100%;
   margin-bottom: 10px;
   font-size: 14px;
-  p{
+  p {
     margin: 0;
     font-weight: 600;
   }
-  .value{
+  .value {
     width: 100%;
     padding: 2px 6px;
-    background: rgba(255,255,255,0.2);
+    background: rgba(255, 255, 255, 0.2);
     border-radius: 3px;
     font-weight: 400;
   }
 }
 
-.custom-tooltip-html.contentonly{
-  .value{
+.custom-tooltip-html.contentonly {
+  .value {
     width: 100%;
     padding: 0;
     background: transparent;
@@ -144,13 +143,13 @@ body{
   }
 }
 
-.jira-col{
-  .subtask-icon{
+.jira-col {
+  .subtask-icon {
     margin-left: 6px;
   }
 }
 
-.ml-10{
+.ml-10 {
   margin-left: 10px;
 }
 // issue detail page
@@ -165,13 +164,11 @@ body{
   padding: 5px;
   align-items: center;
   border-radius: 5px;
-  background-color: #5C2D91;
+  background-color: #5c2d91;
   color: #fff;
 }
 
 .report-status {
-
-
   &.green {
     background-color: green;
   }
@@ -183,7 +180,6 @@ body{
   &.red {
     background-color: red;
   }
- 
 }
 
 // loader css
@@ -239,24 +235,24 @@ body{
 
 /* Styles for 'Not Created' */
 .report-status.status-0 {
-  background-color: #FFA500; /* Orange */
-  color: #FFF; /* White */
+  background-color: #ffa500; /* Orange */
+  color: #fff; /* White */
 }
 
 /* Styles for 'Creating Report' */
 .report-status.status-1 {
-  background-color: #87CEEB; /* Sky Blue */
+  background-color: #87ceeb; /* Sky Blue */
   color: #000; /* Black */
 }
 
 /* Styles for 'Created' */
 .report-status.status-2 {
   background-color: #4bd62f; /* Red */
-  color: #FFF; /* White */
+  color: #fff; /* White */
 }
 
 /* Styles for 'Creation Error' */
 .report-status.status-3 {
   background-color: #ff523b; /* Green */
-  color: #FFF; /* White */
+  color: #fff; /* White */
 }

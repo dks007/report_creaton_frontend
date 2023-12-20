@@ -1,23 +1,22 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { routePath } from '../../constants/routes';
-import CustomModal from '../shared/common/CustomModal';
-import { Box, IconButton, Typography } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
-import CreateReportContent from './createReport/CreateReportContent';
-import Button from '@mui/material/Button';
-import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
-import { styled } from '@mui/material/styles';
-import InfoIcon from '@mui/icons-material/Info';
-import DownloadIcon from '@mui/icons-material/CloudDownload';
-import RefreshIcon from '@mui/icons-material/Refresh';
-import ErrorIcon from '@mui/icons-material/Error';
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
+import { routePath } from '../../constants/routes'
+import CustomModal from '../shared/common/CustomModal'
+import { Box, IconButton, Typography } from '@mui/material'
+import CloseIcon from '@mui/icons-material/Close'
+import CreateReportContent from './createReport/CreateReportContent'
+import Tooltip, { tooltipClasses } from '@mui/material/Tooltip'
+import { styled } from '@mui/material/styles'
+import InfoIcon from '@mui/icons-material/Info'
+import DownloadIcon from '@mui/icons-material/CloudDownload'
+import RefreshIcon from '@mui/icons-material/Refresh'
+import ErrorIcon from '@mui/icons-material/Error'
 
 const IssueBody = ({ issue, index }) => {
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(false)
 
-  const handleShowModal = () => setShowModal(true);
-  const handleHideModal = () => setShowModal(false);
+  const handleShowModal = () => setShowModal(true)
+  const handleHideModal = () => setShowModal(false)
 
   // ** Start: Action button/column */
 
@@ -37,7 +36,7 @@ const IssueBody = ({ issue, index }) => {
                   paddingLeft: 2,
                   justifyContent: 'space-between',
                   alignItems: 'center',
-                  background: '#503998',
+                  background: '#503998'
                 }}
               >
                 <Typography variant="h6" sx={{ color: 'white', fontWeight: 'bold', fontSize: 20 }}>
@@ -52,14 +51,14 @@ const IssueBody = ({ issue, index }) => {
               </Box>
             </CustomModal>
           </td>
-        );
+        )
 
       case '1': // Creating Report
         return (
           <td className="action-col">
             <button className="btn report-status in-process">In Process</button>
           </td>
-        );
+        )
 
       case '2': // Created
         return (
@@ -71,7 +70,7 @@ const IssueBody = ({ issue, index }) => {
               <RefreshIcon />
             </IconButton>
           </td>
-        );
+        )
 
       case '3': // Creation Error
         return (
@@ -83,24 +82,24 @@ const IssueBody = ({ issue, index }) => {
               <ErrorIcon />
             </IconButton>
           </td>
-        );
+        )
 
       default:
-        return null;
+        return null
     }
-  };
+  }
 
   const handleDownload = () => {
     // Handle download action
-  };
+  }
 
   const handleRefresh = () => {
     // Handle refresh action
-  };
+  }
 
   const handleError = () => {
     // Handle error action
-  };
+  }
 
   // ** End: Action button/column */
 
@@ -108,33 +107,31 @@ const IssueBody = ({ issue, index }) => {
   const getReportStatusText = (proectStatus) => {
     switch (proectStatus) {
       case '0':
-        return 'Not Created';
+        return 'Not Created'
       case '1':
-        return 'Creating Report';
+        return 'Creating Report'
       case '2':
-        return 'Created ';
+        return 'Created '
       case '3':
-        return 'Creation Error';
+        return 'Creation Error'
       default:
-        return 'Unknown Status';
+        return 'Unknown Status'
     }
-  };
+  }
 
-  const reportStatusText = getReportStatusText(issue.proect_status);
+  const reportStatusText = getReportStatusText(issue.proect_status)
 
-  const HtmlTooltip = styled(({ className, ...props }) => <Tooltip {...props} classes={{ popper: className }} />)(
-    ({ theme }) => ({
-      [`& .${tooltipClasses.tooltip}`]: {
-        backgroundColor: '#3D1B63',
-        color: '#fff',
-        maxWidth: 270,
-        minWidth: 270,
-      },
-      [`& .${tooltipClasses.arrow}`]: {
-        color: theme.palette.common.black,
-      },
-    })
-  );
+  const HtmlTooltip = styled(({ className, ...props }) => <Tooltip {...props} classes={{ popper: className }} />)(({ theme }) => ({
+    [`& .${tooltipClasses.tooltip}`]: {
+      backgroundColor: '#3D1B63',
+      color: '#fff',
+      maxWidth: 270,
+      minWidth: 270
+    },
+    [`& .${tooltipClasses.arrow}`]: {
+      color: theme.palette.common.black
+    }
+  }))
 
   return (
     <>
@@ -222,7 +219,7 @@ const IssueBody = ({ issue, index }) => {
         <td className="action-col">{renderActionColumn()}</td>
       </tr>
     </>
-  );
-};
+  )
+}
 
-export default IssueBody;
+export default IssueBody

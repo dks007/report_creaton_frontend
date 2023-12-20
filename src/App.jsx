@@ -5,9 +5,11 @@ import { CustomNavigationClient } from './utils/NavigationClient'
 import AppRoutes from './routes/AppRoutes'
 import React from 'react'
 import './assets/scss/styles.scss'
+import { CssBaseline, ThemeProvider } from '@mui/material'
+import theme from './theme/theme'
 
 const MainContent = () => {
-  const { instance } = useMsal()   
+  const { instance } = useMsal()
   //const activeAccount = instance.getActiveAccount()
 
   return (
@@ -26,7 +28,10 @@ const App = ({ instance }) => {
   instance.setNavigationClient(navigationClient)
   return (
     <MsalProvider instance={instance}>
-      <MainContent />
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <MainContent />
+      </ThemeProvider>
     </MsalProvider>
   )
 }

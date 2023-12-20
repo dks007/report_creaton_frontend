@@ -4,16 +4,20 @@ import { useSearchParams } from 'react-router-dom'
 import AssignedIssueListing from '../../components/IssueListing/AssignedIssueListing'
 import { STRING, homeTab } from '../../constants/static'
 import Statistics from '../../components/statistics/Statistics'
-import HomeIcon from '@mui/icons-material/Home';
-
+import HomeIcon from '@mui/icons-material/Home'
+import IconBreadcrumbs from '../../components/shared/common/IconBreadcrumbs'
 
 const Home = () => {
   const [searchParams] = useSearchParams()
   const activeTab = searchParams.get('active')
+  const breadcrumbs = [
+    { icon: HomeIcon, label: 'Home', path: '/' },
+    { icon: null, label: 'Listing', path: null }
+  ]
   return (
     <div className="container-fluid">
       <h3>Assigned Jira Issues</h3>
-      <div className='bredcrumbs'>
+      {/* <div className='bredcrumbs'>
         <ul>
           <li className='first-child'><a href='#'><HomeIcon fontSize='small'/> </a></li>
           <li>
@@ -23,10 +27,11 @@ const Home = () => {
           </li>
           <li>Assigned Jira Issues</li>
         </ul>
-      </div>
+      </div> */}
+      <IconBreadcrumbs breadcrumbs={breadcrumbs} />
       <div className="mt-4">
         <CustomTabs tabs={homeTab} defaultTab={STRING.CREATE_REPORT} tabName={STRING.ACTIVE} />
-        <div className='table-wrapper'>
+        <div className="table-wrapper">
           {activeTab === STRING.CREATE_REPORT && <AssignedIssueListing />}
           {activeTab === STRING.STATISTICS && <Statistics />}
         </div>
