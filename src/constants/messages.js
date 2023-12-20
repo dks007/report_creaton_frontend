@@ -1,0 +1,1 @@
+export const CUSTOMER_NAME = "Customer name is required";
