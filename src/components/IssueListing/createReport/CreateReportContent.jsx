@@ -44,13 +44,15 @@ const CreateReportContent = ({ issue }) => {
         <div className="row">
           <div className="col-md-6">Jira ID</div>
           <div className="col-md-6">
-            <input value={issue.jira_id} />
+            <input value={issue.jira_id} readOnly />
           </div>
         </div>
         <div className="row mt-3">
           <div className="col-md-6">
-            <p className="required">Menu Card</p>
-            <p>Couldn't Identify Menu Card ID</p>
+            <div>
+              <div className="required">Menu Card</div>
+              <span>Couldn't Identify Menu Card ID</span>
+            </div>
           </div>
           <div className="col-md-6">
             <input value={issue.menu_id} />
