@@ -2,4 +2,4 @@
 it is importing two files: 'components/listing' and 'components/login'. This means that the styles
 defined in those files will be available in the current file, allowing you to use any variables,
 mixins, or styles defined in those files. */
-@import 'components/lisiting', 'components/login', 'components/issueDetails', 'components/loader';
+@import 'components/lisiting', 'components/login', 'components/issueDetails', 'components/loader', 'components/report';

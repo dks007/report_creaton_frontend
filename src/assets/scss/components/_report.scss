@@ -1,0 +1,15 @@
+.red-bg {
+  background-color: rgb(245, 217, 217);
+}
+.green-bg {
+  background-color: hsla(177, 21%, 68%, 0.192);
+}
+.create-report-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 8px;
+  border-radius: 5px;
+  align-items: center;
+  margin-top: 2px;
+}
