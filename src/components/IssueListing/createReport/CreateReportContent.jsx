@@ -6,6 +6,7 @@ import CloseIcon from '@mui/icons-material/Close'
 import { useFormik } from 'formik'
 import CustomSelect from '../../shared/common/CustomSelect'
 import * as Yup from 'yup'
+import { createReportValidationSchema } from '../../../constants/validationSchema'
 
 const CreateReportContent = ({ issue }) => {
   const [selectedImage, setSelectedImage] = useState(null)
@@ -43,28 +44,6 @@ const CreateReportContent = ({ issue }) => {
   const handleChange = (selectedOption) => {
     setSelectedOption(selectedOption)
   }
-  const validationSchema = Yup.object().shape({
-    jira_id: Yup.string().required('Jira ID is required'),
-    customer_name: Yup.string().required('Customer Name is required'),
-    expert_name: Yup.string().required('Expert Name is required'),
-    creator_name: Yup.string().required('Creator Name is required'),
-    menuCard: Yup.object().shape({
-      value: Yup.number().required('Product is required'),
-      label: Yup.string()
-    }),
-    product: Yup.object().shape({
-      value: Yup.number().required('Product is required'),
-      label: Yup.string()
-    }),
-    capability: Yup.object().shape({
-      value: Yup.number().required('Capability is required'),
-      label: Yup.string()
-    }),
-    sub_capability: Yup.object().shape({
-      value: Yup.number().required('Sub capability is required'),
-      label: Yup.string()
-    })
-  })
 
   const formik = useFormik({
     initialValues: {
@@ -77,7 +56,7 @@ const CreateReportContent = ({ issue }) => {
       capability: null,
       sub_capability: null
     },
-    validationSchema: validationSchema,
+    validationSchema: createReportValidationSchema,
     onSubmit: (values) => {
       console.log('Form submitted with values:', values)
     }
@@ -106,7 +85,6 @@ const CreateReportContent = ({ issue }) => {
                   style={{
                     border: formik.touched.jira_id && formik.errors.jira_id ? '2px solid red' : ''
                   }}
-                  readOnly
                 />
                 {formik.touched.jira_id && formik.errors.jira_id && <div style={{ color: 'red', fontSize: '14px' }}>{formik.errors.jira_id}</div>}
               </div>
@@ -121,7 +99,10 @@ const CreateReportContent = ({ issue }) => {
                   options={menuCardOptions}
                   placeholder="Unassigned"
                   value={formik.values.menuCard}
-                  onChange={(value) => formik.setFieldValue('menuCard', value)}
+                  onChange={(value) => {
+                    handleChange(value)
+                    formik.setFieldValue('menuCard', value)
+                  }}
                 />
               </div>
             </div>
@@ -185,12 +166,12 @@ const CreateReportContent = ({ issue }) => {
                 <CustomSelect
                   options={productOption}
                   value={formik.values.product}
-                  onChange={(value) => formik.setFieldValue('product', value)}
+                  onChange={(value) => {
+                    handleChange(value)
+                    formik.setFieldValue('product', value)
+                  }}
                   placeholder="Unassigned"
                 />
-                {formik.touched.product && formik.errors.product && (
-                  <div style={{ color: 'red', fontSize: '14px' }}>{formik.errors.product.label}</div>
-                )}
               </div>
             </div>
             <div className={`create-report-wrapper ${formik.touched.capability && formik.errors.capability ? 'red-bg' : 'green-bg'}`}>
@@ -199,26 +180,26 @@ const CreateReportContent = ({ issue }) => {
                 <CustomSelect
                   options={capabilityOption}
                   value={formik.values.capability}
-                  onChange={(value) => formik.setFieldValue('capability', value)}
+                  onChange={(value) => {
+                    handleChange(value)
+                    formik.setFieldValue('capability', value)
+                  }}
                   placeholder="Unassigned"
                 />
-                {formik.touched.capability && formik.errors.capability && (
-                  <div style={{ color: 'red', fontSize: '14px' }}>{formik.errors.capability.label}</div>
-                )}
               </div>
             </div>
-            <div className={`create-report-wrapper ${formik.touched.capability && formik.errors.capability ? 'red-bg' : 'green-bg'}`}>
+            <div className={`create-report-wrapper ${formik.touched.sub_capability && formik.errors.sub_capability ? 'red-bg' : 'green-bg'}`}>
               <div className="required">Sub Capability</div>
               <div>
                 <CustomSelect
                   options={subCapabilityOption}
                   value={formik.values.sub_capability}
-                  onChange={(value) => formik.setFieldValue('sub_capability', value)}
+                  onChange={(value) => {
+                    handleChange(value)
+                    formik.setFieldValue('sub_capability', value)
+                  }}
                   placeholder="Unassigned"
                 />
-                {formik.touched.sub_capability && formik.errors.sub_capability && (
-                  <div style={{ color: 'red', fontSize: '14px' }}>{formik.errors.capability.label}</div>
-                )}
               </div>
             </div>
             <div className="create-report-wrapper">

@@ -10,7 +10,7 @@ const IssueList = () => {
   const [issueData, setIssueData] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage, setItemsPerPage] = useState(10)
-  const [error, setError] = useState(null);
+  const [error, setError] = useState(null)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,9 +20,9 @@ const IssueList = () => {
         setIssueData(response.data)
         setLoading(false)
       } catch (error) {
-        console.error('Error fetching data:', error);
-        setError('An error occurred while fetching data. Please try again later.');
-        setLoading(false);
+        console.error('Error fetching data:', error)
+        setError('An error occurred while fetching data. Please try again later.')
+        setLoading(false)
       }
     }
 
@@ -47,7 +47,7 @@ const IssueList = () => {
             <TableHead headers={issueListTableHeaders} />
             <tbody>
               {currentItems.map((issue, index) => (
-                <IssueBody key={issue.id} issue={issue} index={index + indexOfFirstItem} />
+                <IssueBody key={index.toString()} issue={issue} index={index + indexOfFirstItem} />
               ))}
             </tbody>
           </table>

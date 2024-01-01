@@ -1,10 +1,8 @@
 import React from 'react'
 import Select from 'react-select'
 
-const CustomSelect = ({ options, onChange, value, placeholder }) => {
-  const sanitizedValue = value || {}
-
-  return <Select options={options} onChange={onChange} value={sanitizedValue} placeholder={placeholder} />
+const CustomSelect = ({ options, placeholder, value, onChange }) => {
+  return <Select options={options} placeholder={placeholder} value={value} onChange={onChange} />
 }
 
 export default CustomSelect

@@ -1,23 +1,22 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { routePath } from '../../constants/routes';
-import CustomModal from '../shared/common/CustomModal';
-import { Box, IconButton, Typography } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
-import CreateReportContent from './createReport/CreateReportContent';
-import Button from '@mui/material/Button';
-import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
-import { styled } from '@mui/material/styles';
-import InfoIcon from '@mui/icons-material/Info';
-import DownloadIcon from '@mui/icons-material/Download';
-import RefreshIcon from '@mui/icons-material/Refresh';
-import ReportProblemIcon from '@mui/icons-material/ReportProblem';
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
+import { routePath } from '../../constants/routes'
+import CustomModal from '../shared/common/CustomModal'
+import { Box, IconButton, Typography } from '@mui/material'
+import CloseIcon from '@mui/icons-material/Close'
+import CreateReportContent from './createReport/CreateReportContent'
+import Tooltip, { tooltipClasses } from '@mui/material/Tooltip'
+import { styled } from '@mui/material/styles'
+import InfoIcon from '@mui/icons-material/Info'
+import DownloadIcon from '@mui/icons-material/Download'
+import RefreshIcon from '@mui/icons-material/Refresh'
+import ReportProblemIcon from '@mui/icons-material/ReportProblem'
 
 const IssueBody = ({ issue, index }) => {
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(false)
 
-  const handleShowModal = () => setShowModal(true);
-  const handleHideModal = () => setShowModal(false);
+  const handleShowModal = () => setShowModal(true)
+  const handleHideModal = () => setShowModal(false)
 
   // ** Start: Action button/column */
 
@@ -37,7 +36,7 @@ const IssueBody = ({ issue, index }) => {
                   paddingLeft: 2,
                   justifyContent: 'space-between',
                   alignItems: 'center',
-                  background: '#503998',
+                  background: '#503998'
                 }}
               >
                 <Typography variant="h6" sx={{ color: 'white', fontWeight: 'bold', fontSize: 20 }}>
@@ -52,56 +51,57 @@ const IssueBody = ({ issue, index }) => {
               </Box>
             </CustomModal>
           </div>
-        );
+        )
 
       case '1': // Creating Report
         return (
           <div className="button-wrapper">
-            <button className="btn report-status in-process"><img src='../src/assets/images/loader-sml.svg'/></button>
+            <button className="btn report-status in-process">
+              <img src="../src/assets/images/loader-sml.svg" />
+            </button>
           </div>
-        );
+        )
 
       case '2': // Created
         return (
           <div className="button-wrapper">
-            <IconButton onClick={handleDownload} className='act-btn download-btn'>
+            <IconButton onClick={handleDownload} className="act-btn download-btn">
               <DownloadIcon />
             </IconButton>
-            <IconButton onClick={handleRefresh} className='act-btn refresh-btn'>
+            <IconButton onClick={handleRefresh} className="act-btn refresh-btn">
               <RefreshIcon />
             </IconButton>
           </div>
-        );
+        )
 
       case '3': // Creation Error
         return (
           <div className="button-wrapper">
-            <IconButton onClick={handleError} className='act-btn error-btn'>
+            <IconButton onClick={handleError} className="act-btn error-btn">
               <ReportProblemIcon />
             </IconButton>
-            <IconButton onClick={handleRefresh} className='act-btn refresh-btn'>
+            <IconButton onClick={handleRefresh} className="act-btn refresh-btn">
               <RefreshIcon />
             </IconButton>
-            
           </div>
-        );
+        )
 
       default:
-        return null;
+        return null
     }
-  };
+  }
 
   const handleDownload = () => {
     // Handle download action
-  };
+  }
 
   const handleRefresh = () => {
     // Handle refresh action
-  };
+  }
 
   const handleError = () => {
     // Handle error action
-  };
+  }
 
   // ** End: Action button/column */
 
@@ -109,33 +109,31 @@ const IssueBody = ({ issue, index }) => {
   const getReportStatusText = (proectStatus) => {
     switch (proectStatus) {
       case '0':
-        return 'Not Created';
+        return 'Not Created'
       case '1':
-        return 'Creating Report';
+        return 'Creating Report'
       case '2':
-        return 'Created ';
+        return 'Created '
       case '3':
-        return 'Creation Error';
+        return 'Creation Error'
       default:
-        return 'Unknown Status';
+        return 'Unknown Status'
     }
-  };
+  }
 
-  const reportStatusText = getReportStatusText(issue.proect_status);
+  const reportStatusText = getReportStatusText(issue.proect_status)
 
-  const HtmlTooltip = styled(({ className, ...props }) => <Tooltip {...props} classes={{ popper: className }} />)(
-    ({ theme }) => ({
-      [`& .${tooltipClasses.tooltip}`]: {
-        backgroundColor: '#3D1B63',
-        color: '#fff',
-        maxWidth: 270,
-        minWidth: 270,
-      },
-      [`& .${tooltipClasses.arrow}`]: {
-        color: theme.palette.common.black,
-      },
-    })
-  );
+  const HtmlTooltip = styled(({ className, ...props }) => <Tooltip {...props} classes={{ popper: className }} />)(({ theme }) => ({
+    [`& .${tooltipClasses.tooltip}`]: {
+      backgroundColor: '#3D1B63',
+      color: '#fff',
+      maxWidth: 270,
+      minWidth: 270
+    },
+    [`& .${tooltipClasses.arrow}`]: {
+      color: theme.palette.common.black
+    }
+  }))
 
   return (
     <>
@@ -150,8 +148,8 @@ const IssueBody = ({ issue, index }) => {
               arrow
               title={
                 <React.Fragment>
-                  {issue.subtasks_list.map((subtask, subtaskIndex) => (
-                    <div key={subtaskIndex} className="custom-tooltip-html contentonly">
+                  {issue.subtasks_list.map((subtask) => (
+                    <div key={subtask.key} className="custom-tooltip-html contentonly">
                       <p>
                         <Typography color="inherit">Task ID</Typography>
                         {subtask.key}
@@ -171,44 +169,44 @@ const IssueBody = ({ issue, index }) => {
           {/* tooltip for showing sub task end*/}
         </td>
         <td className="customer-col fw-medium">
-          <div className='customer-information'>
-          <span>{issue.customer_name}</span>
-          <HtmlTooltip
-            placement="right-start"
-            arrow
-            title={
-              <React.Fragment>
-                <div className="custom-tooltip-html">
-                  <p>Customer ID</p>
-                  <p className="value">{issue.customer_id}</p>
-                </div>
-                <div className="custom-tooltip-html">
-                  <p>Project ID</p>
-                  <p className="value">{issue.project_id}</p>
-                </div>
-              </React.Fragment>
-            }
-          >
-            <InfoIcon fontSize="extra-small" className="ml-10 main-color-fill" />
-          </HtmlTooltip>
-          {/* tooltip for showing sub task */}
-          {issue.partner === '1' && (
+          <div className="customer-information">
+            <span>{issue.customer_name}</span>
             <HtmlTooltip
               placement="right-start"
               arrow
               title={
                 <React.Fragment>
                   <div className="custom-tooltip-html">
-                    <p>Partners</p>
-                    <p className="value">This icon indicates that this report is created for a partner.</p>
+                    <p>Customer ID</p>
+                    <p className="value">{issue.customer_id}</p>
+                  </div>
+                  <div className="custom-tooltip-html">
+                    <p>Project ID</p>
+                    <p className="value">{issue.project_id}</p>
                   </div>
                 </React.Fragment>
               }
             >
-              <img src="../src/assets/Images/patner-icon.png" className="subtask-icon ml-10" alt="partner" />
+              <InfoIcon fontSize="extra-small" className="ml-10 main-color-fill" />
             </HtmlTooltip>
-          )}
-          {/* tooltip for showing sub task end*/}
+            {/* tooltip for showing sub task */}
+            {issue.partner === '1' && (
+              <HtmlTooltip
+                placement="right-start"
+                arrow
+                title={
+                  <React.Fragment>
+                    <div className="custom-tooltip-html">
+                      <p>Partners</p>
+                      <p className="value">This icon indicates that this report is created for a partner.</p>
+                    </div>
+                  </React.Fragment>
+                }
+              >
+                <img src="../src/assets/Images/patner-icon.png" className="subtask-icon ml-10" alt="partner" />
+              </HtmlTooltip>
+            )}
+            {/* tooltip for showing sub task end*/}
           </div>
         </td>
         <td className="menu-id-col">{issue.menu_id}</td>
@@ -222,12 +220,10 @@ const IssueBody = ({ issue, index }) => {
         <td className="report-col">
           <span className={`report-status status-${issue.proect_status}`}>{reportStatusText}</span>
         </td>
-        <td className="action-col">
-          {renderActionColumn()}
-        </td>
+        <td className="action-col">{renderActionColumn()}</td>
       </tr>
     </>
-  );
-};
+  )
+}
 
-export default IssueBody;
+export default IssueBody
