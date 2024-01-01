@@ -18,3 +18,7 @@
   min-width: 170px !important;
   max-width: 171px !important;
 }
+.required::after {
+  content: ' *';
+  color: red;
+}

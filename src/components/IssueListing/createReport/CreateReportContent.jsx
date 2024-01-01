@@ -23,11 +23,19 @@ const CreateReportContent = ({ issue }) => {
     setSelectedImage(null)
   }
 
-  const options = [
-    { value: '1', label: 'Ranjeet' },
-    { value: '2', label: 'Dilip' }
+  const menuCardOptions = [
+    { value: 1, label: 'Ranjeet' },
+    { value: 2, label: 'Dilip' }
   ]
-  const product = [
+  const productOption = [
+    { value: 1, label: 'Finace' },
+    { value: 2, label: 'Product' }
+  ]
+  const capabilityOption = [
+    { value: 1, label: 'Finace' },
+    { value: 2, label: 'Product' }
+  ]
+  const subCapabilityOption = [
     { value: 1, label: 'Finace' },
     { value: 2, label: 'Product' }
   ]
@@ -40,6 +48,10 @@ const CreateReportContent = ({ issue }) => {
     customer_name: Yup.string().required('Customer Name is required'),
     expert_name: Yup.string().required('Expert Name is required'),
     creator_name: Yup.string().required('Creator Name is required'),
+    menuCard: Yup.object().shape({
+      value: Yup.number().required('Product is required'),
+      label: Yup.string()
+    }),
     product: Yup.object().shape({
       value: Yup.number().required('Product is required'),
       label: Yup.string()
@@ -60,6 +72,7 @@ const CreateReportContent = ({ issue }) => {
       customer_name: issue?.customer_name || '',
       expert_name: issue?.expert_name || '',
       creator_name: issue?.creator_name || '',
+      menuCard: null,
       product: null,
       capability: null,
       sub_capability: null
@@ -69,7 +82,7 @@ const CreateReportContent = ({ issue }) => {
       console.log('Form submitted with values:', values)
     }
   })
-  const a = false
+
   return (
     <div>
       <form onSubmit={formik.handleSubmit} noValidate>
@@ -98,13 +111,18 @@ const CreateReportContent = ({ issue }) => {
                 {formik.touched.jira_id && formik.errors.jira_id && <div style={{ color: 'red', fontSize: '14px' }}>{formik.errors.jira_id}</div>}
               </div>
             </div>
-            <div className="create-report-wrapper red-bg">
+            <div className={`create-report-wrapper ${formik.touched.menuCard && formik.errors.menuCard ? 'red-bg' : 'green-bg'}`}>
               <div>
                 <div className="required">Menu Card</div>
                 <div>Couldn't Identify Menu Card ID</div>
               </div>
               <div className="">
-                <CustomSelect options={options} value={selectedOption} onChange={handleChange} placeholder="Unassigned" />
+                <CustomSelect
+                  options={menuCardOptions}
+                  placeholder="Unassigned"
+                  value={formik.values.menuCard}
+                  onChange={(value) => formik.setFieldValue('menuCard', value)}
+                />
               </div>
             </div>
             <div className={`create-report-wrapper ${formik.touched.customer_name && formik.errors.customer_name ? 'red-bg' : 'green-bg'}`}>
@@ -162,10 +180,10 @@ const CreateReportContent = ({ issue }) => {
               </div>
             </div>
             <div className={`create-report-wrapper ${formik.touched.product && formik.errors.product ? 'red-bg' : 'green-bg'}`}>
-              <div>Product</div>
+              <div className="required">Product</div>
               <div>
                 <CustomSelect
-                  options={product}
+                  options={productOption}
                   value={formik.values.product}
                   onChange={(value) => formik.setFieldValue('product', value)}
                   placeholder="Unassigned"
@@ -176,10 +194,10 @@ const CreateReportContent = ({ issue }) => {
               </div>
             </div>
             <div className={`create-report-wrapper ${formik.touched.capability && formik.errors.capability ? 'red-bg' : 'green-bg'}`}>
-              <div>Capability</div>
+              <div className="required">Capability</div>
               <div>
                 <CustomSelect
-                  options={product}
+                  options={capabilityOption}
                   value={formik.values.capability}
                   onChange={(value) => formik.setFieldValue('capability', value)}
                   placeholder="Unassigned"
@@ -190,10 +208,10 @@ const CreateReportContent = ({ issue }) => {
               </div>
             </div>
             <div className={`create-report-wrapper ${formik.touched.capability && formik.errors.capability ? 'red-bg' : 'green-bg'}`}>
-              <div>Sub Capability</div>
+              <div className="required">Sub Capability</div>
               <div>
                 <CustomSelect
-                  options={product}
+                  options={subCapabilityOption}
                   value={formik.values.sub_capability}
                   onChange={(value) => formik.setFieldValue('sub_capability', value)}
                   placeholder="Unassigned"
@@ -203,7 +221,7 @@ const CreateReportContent = ({ issue }) => {
                 )}
               </div>
             </div>
-            <div className="create-report-wrapper red-bg">
+            <div className="create-report-wrapper">
               <div>Customer Logo</div>
               <div>
                 <Box

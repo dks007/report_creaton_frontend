@@ -17,6 +17,9 @@ const TopNav = () => {
   const toggleDrawer = () => {
     setDrawerOpen((prev) => !prev)
   }
+  const closeDrawer = () => {
+    setDrawerOpen(false)
+  }
 
   return (
     <>
@@ -39,7 +42,7 @@ const TopNav = () => {
         </AppBar>
       </Box>
 
-      <DrawerComponent anchor="left" isOpen={drawerOpen} onClose={() => setDrawerOpen(false)} content={<SideBar />} />
+      <DrawerComponent anchor="left" isOpen={drawerOpen} onClose={() => setDrawerOpen(false)} content={<SideBar onCloseDrawer={closeDrawer} />} />
     </>
   )
 }
