@@ -8,7 +8,7 @@ import CustomSelect from '../../shared/common/CustomSelect'
 import * as Yup from 'yup'
 import { createReportValidationSchema } from '../../../constants/validationSchema'
 
-const CreateReportContent = ({ issue }) => {
+const CreateReportContent = ({ issue, onClose }) => {
   const [selectedImage, setSelectedImage] = useState(null)
   const [selectedOption, setSelectedOption] = useState(null)
 
@@ -271,7 +271,9 @@ const CreateReportContent = ({ issue }) => {
                 Please make sure you are creating the document for correct Jira ID
               </Typography>
               <Box sx={{ marginTop: 4, gap: 2, display: 'flex' }}>
-                <Button variant="outlined">Not Sure</Button>
+                <Button variant="outlined" onClick={onClose}>
+                  Not Sure
+                </Button>
                 <Button variant="contained" type="submit" disabled={!formik.isValid}>
                   I am sure
                 </Button>

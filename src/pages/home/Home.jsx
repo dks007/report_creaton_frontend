@@ -12,7 +12,7 @@ const Home = () => {
   const activeTab = searchParams.get('active')
 
   return (
-    <div className="container-fluid">
+    <div>
       <h3>Assigned Jira Issues</h3>
 
       <IconBreadcrumbs breadcrumbs={assignedJiraIssues} />

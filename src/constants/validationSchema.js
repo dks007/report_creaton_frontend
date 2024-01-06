@@ -1,9 +1,9 @@
 import * as Yup from 'yup'
 export const createReportValidationSchema = Yup.object().shape({
   jira_id: Yup.string().required('Jira ID is required'),
-  customer_name: Yup.string().required('Customer Name is required'),
-  expert_name: Yup.string().required('Expert Name is required'),
-  creator_name: Yup.string().required('Creator Name is required'),
+  customer_name: Yup.string(),
+  expert_name: Yup.string(),
+  creator_name: Yup.string(),
   menuCard: Yup.object().shape({
     value: Yup.number().required('Product is required'),
     label: Yup.string()

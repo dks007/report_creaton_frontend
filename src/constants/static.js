@@ -17,6 +17,8 @@ export const homeTab = [
     tabName: 'statistics'
   }
 ]
+export const homeScreen = [{ icon: HomeIcon, label: 'Home', path: '' }]
+
 export const detailsPageTab = [
   {
     buttonText: import.meta.env.VITE_DETAILPAGETAB_BUTTONTEXT_ONGOING_REPORT,

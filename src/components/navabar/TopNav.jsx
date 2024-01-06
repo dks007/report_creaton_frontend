@@ -30,7 +30,7 @@ const TopNav = () => {
               <IconButton size="large" edge="start" color="inherit" aria-label="open drawer" sx={{ mr: 2 }} onClick={toggleDrawer}>
                 <MenuIcon />
               </IconButton>
-              <IconButton onClick={() => navigate('/?active=create-report')}>
+              <IconButton onClick={() => navigate('/')}>
                 <ImageElement src={logo} placeholderSrc={logo} height={35} />
               </IconButton>
               <Typography variant="h6" sx={{ marginLeft: 5, fontWeight: '800', fontSize: 18 }}>

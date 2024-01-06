@@ -47,7 +47,7 @@ const IssueBody = ({ issue, index }) => {
                 </IconButton>
               </Box>
               <Box sx={{ padding: 2 }}>
-                <CreateReportContent issue={issue} />
+                <CreateReportContent issue={issue} onClose={handleHideModal} />
               </Box>
             </CustomModal>
           </div>
