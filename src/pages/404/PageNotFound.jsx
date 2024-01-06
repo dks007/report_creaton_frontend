@@ -1,38 +1,33 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Typography, Button, Container, Paper } from '@mui/material'
+import { Typography, Button, Container, Paper, Box } from '@mui/material'
+import ImageElement from '../../components/shared/common/ImageElement'
+import { error404 } from '../../assets/Images/images'
 
 const PageNotFound = () => {
   return (
-    <Container>
-      <Paper
-        elevation={3}
-        style={{
-          minHeight: '80vh',
-          padding: '50px',
-          margin: '50px auto',
+    <Box sx={{ width: { xs: '100%', md: '90%' }, margin: 'auto' }}>
+      <Box
+        sx={{
           display: 'flex',
-          flexDirection: 'column',
+          flexDirection: { xs: 'column', md: 'row' },
+          justifyContent: 'space-between',
           alignItems: 'center',
-          justifyContent: 'center',
-          textAlign: 'center',
-          borderRadius: '10px'
+          gap: { xs: 5, md: 0 }
         }}
       >
-        <Typography variant="h1" style={{ color: '#503998' }}>
-          404
-        </Typography>
-        <Typography variant="h5" style={{ marginBottom: '20px', color: '#424242' }}>
-          Oops! Page Not Found
-        </Typography>
-        <Typography variant="body1" style={{ marginBottom: '30px', color: '#616161' }}>
-          The page you are looking for might be in another castle.
-        </Typography>
-        <Button variant="contained" color="primary" component={Link} to="/">
-          Go Home
-        </Button>
-      </Paper>
-    </Container>
+        <Box sx={{}}>
+          <h1 className="error-title">Page not found</h1>
+          <h3 className="error-subtitle">Sorry, the page you were looking for at this URL was not found.</h3>
+          <Button variant="contained" sx={{ padding: 1.5, borderRadius: 3, marginTop: 4 }} component={Link} to="/">
+            Go back to homepage
+          </Button>
+        </Box>
+        <Box sx={{}}>
+          <ImageElement src={error404} className="error-page-image" />
+        </Box>
+      </Box>
+    </Box>
   )
 }
 

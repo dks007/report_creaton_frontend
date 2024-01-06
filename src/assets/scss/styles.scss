@@ -7,3 +7,18 @@ mixins, or styles defined in those files. */
 .container-fluid {
   min-height: 100vh;
 }
+
+.error-page-image {
+  height: auto;
+  width: 100%;
+}
+.error-title {
+  font-size: 4rem;
+  line-height: 5rem;
+  color: #503998;
+}
+.error-subtitle {
+  font-size: 2rem;
+  line-height: 2.6rem;
+  color: #503998;
+}
