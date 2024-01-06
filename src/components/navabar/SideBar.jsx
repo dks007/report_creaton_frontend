@@ -55,6 +55,10 @@ const SideBar = ({ onCloseDrawer }) => {
           <HexagonOutlinedIcon />
           <Typography>Report</Typography>
         </Box>
+        <Button variant="outlined" sx={buttonStyle} onClick={() => handleButtonClick(routePath.HOME)}>
+          <HexagonOutlinedIcon sx={{ marginRight: 1, color: 'black' }} />
+          Homepage
+        </Button>
         <Button variant="outlined" sx={buttonStyle} onClick={() => handleButtonClick(routePath.ISSUE_LISTING)}>
           <HexagonOutlinedIcon sx={{ marginRight: 1, color: 'black' }} />
           Create Report
