@@ -25,20 +25,23 @@ const CreateReportContent = ({ issue, onClose }) => {
   }
 
   const menuCardOptions = [
-    { value: 1, label: 'Ranjeet' },
-    { value: 2, label: 'Dilip' }
+    { value: 1, label: 'QSM1' },
+    { value: 2, label: 'EMA1' },
+    { value: 3, label: 'TAA2' }
   ]
   const productOption = [
-    { value: 1, label: 'Finace' },
-    { value: 2, label: 'Product' }
+    { value: 1, label: 'IFS Cloud' },
+    { value: 2, label: 'IFS Applications' },
+    { value: 3, label: 'Planning and Scheduling Optimization - Track' } 
   ]
   const capabilityOption = [
-    { value: 1, label: 'Finace' },
-    { value: 2, label: 'Product' }
+    { value: 1, label: 'Platform' },
+    { value: 2, label: 'Service Management' },
+    { value: 3, label: 'undefined' }
   ]
   const subCapabilityOption = [
-    { value: 1, label: 'Finace' },
-    { value: 2, label: 'Product' }
+    { value: 1, label: 'sub-Platform' },
+    { value: 2, label: 'sub-Service Management' }
   ]
 
   const handleChange = (selectedOption) => {

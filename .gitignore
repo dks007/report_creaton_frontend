@@ -26,7 +26,6 @@ dist-ssr
 # dependencies
 .env
 pnpm-lock.yaml
-package-lock.json
 
 # production
 /build
