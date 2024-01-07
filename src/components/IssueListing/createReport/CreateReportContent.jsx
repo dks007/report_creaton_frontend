@@ -1,28 +1,15 @@
 import { Box, Button, Divider, IconButton, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline'
-import FileUploadRoundedIcon from '@mui/icons-material/FileUploadRounded'
-import CloseIcon from '@mui/icons-material/Close'
+
 import { useFormik } from 'formik'
 import CustomSelect from '../../shared/common/CustomSelect'
 import * as Yup from 'yup'
 import { createReportValidationSchema } from '../../../constants/validationSchema'
+import ImageUpload from './ImageUpload'
 
 const CreateReportContent = ({ issue, onClose }) => {
-  const [selectedImage, setSelectedImage] = useState(null)
   const [selectedOption, setSelectedOption] = useState(null)
-
-  const handleFileUpload = (event) => {
-    const file = event.target.files[0]
-    if (file) {
-      const imageUrl = URL.createObjectURL(file)
-      setSelectedImage(imageUrl)
-    }
-  }
-
-  const handleRemoveImage = () => {
-    setSelectedImage(null)
-  }
 
   const menuCardOptions = [
     { value: 1, label: 'QSM1' },
@@ -32,7 +19,7 @@ const CreateReportContent = ({ issue, onClose }) => {
   const productOption = [
     { value: 1, label: 'IFS Cloud' },
     { value: 2, label: 'IFS Applications' },
-    { value: 3, label: 'Planning and Scheduling Optimization - Track' } 
+    { value: 3, label: 'Planning and Scheduling Optimization - Track' }
   ]
   const capabilityOption = [
     { value: 1, label: 'Platform' },
@@ -205,55 +192,9 @@ const CreateReportContent = ({ issue, onClose }) => {
                 />
               </div>
             </div>
-            <div className="create-report-wrapper">
+            <div className="create-report-wrapper green-bg">
               <div>Customer Logo</div>
-              <div>
-                <Box
-                  sx={{
-                    position: 'relative',
-                    borderRadius: 2,
-                    border: '1px dashed gray',
-                    width: '200px',
-                    maxheight: '200px',
-                    overflow: 'hidden'
-                  }}
-                >
-                  {selectedImage && (
-                    <IconButton
-                      onClick={handleRemoveImage}
-                      sx={{
-                        position: 'absolute',
-                        top: 0,
-                        right: 0,
-                        background: 'rgba(255, 255, 255, 0.8)'
-                      }}
-                    >
-                      <CloseIcon sx={{ color: '#503998' }} />
-                    </IconButton>
-                  )}
-                  {selectedImage ? (
-                    <img
-                      src={selectedImage}
-                      alt="Selected"
-                      style={{
-                        width: '100%',
-                        height: 'auto',
-                        maxWidth: '100%',
-                        maxHeight: '100%'
-                      }}
-                    />
-                  ) : (
-                    <>
-                      <input type="file" accept=".jpg, .jpeg, .png" style={{ display: 'none' }} id="fileInput" onChange={handleFileUpload} />
-                      <label htmlFor="fileInput">
-                        <IconButton component="span" sx={{ margin: 2, marginLeft: 8, background: '#503998' }}>
-                          <FileUploadRoundedIcon sx={{ color: 'white' }} />
-                        </IconButton>
-                      </label>
-                    </>
-                  )}
-                </Box>
-              </div>
+              <ImageUpload />
             </div>
           </Box>
           <Divider orientation="vertical" flexItem sx={{ padding: 2 }} />
