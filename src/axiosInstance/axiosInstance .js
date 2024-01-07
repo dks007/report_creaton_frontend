@@ -4,12 +4,10 @@ const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_URL
 })
 
-/* The `axiosInstance.interceptors.request.use()` function is used to intercept and modify outgoing
-requests made using the `axiosInstance` object. */
-
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('authToken')
+    const token = sessionStorage.getItem('authToken')
+
     if (token) {
       config.headers['Authorization'] = `Bearer ${token}`
     }

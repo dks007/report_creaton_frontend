@@ -10,7 +10,7 @@ import { logo } from '../../assets/Images/images'
 import { useNavigate } from 'react-router-dom'
 import SideBar from './SideBar'
 
-const TopNav = () => {
+const TopNav = ({ displayName }) => {
   const [drawerOpen, setDrawerOpen] = useState(false)
   const navigate = useNavigate()
 
@@ -37,7 +37,7 @@ const TopNav = () => {
                 {import.meta.env.VITE_APPLICATION_NAME}
               </Typography>
             </Box>
-            <UserProfile />
+            <UserProfile displayName={displayName} />
           </Toolbar>
         </AppBar>
       </Box>

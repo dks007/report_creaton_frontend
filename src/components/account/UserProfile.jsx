@@ -11,11 +11,12 @@ import LogoutIcon from '@mui/icons-material/Logout'
 import { Typography } from '@mui/material'
 import StarOutlineIcon from '@mui/icons-material/StarOutline'
 import QueryStatsIcon from '@mui/icons-material/QueryStats'
+import { capitalizeWords } from '../../utils/helperFunction'
 
-const UserProfile = () => {
+const UserProfile = ({ displayName }) => {
   const [anchorEl, setAnchorEl] = useState(null)
   const open = Boolean(anchorEl)
-
+  const name = capitalizeWords(displayName)
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget)
   }
@@ -44,7 +45,7 @@ const UserProfile = () => {
           <Avatar sx={{ width: 32, height: 32 }}>S</Avatar>
         </IconButton>
         <Typography variant="h6" component="h6">
-          Sat Pal
+          {name}
         </Typography>
       </Box>
       <Menu
@@ -82,7 +83,7 @@ const UserProfile = () => {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <MenuItem onClick={handleClose}>Sat Pal</MenuItem>
+        <MenuItem onClick={handleClose}>{name}</MenuItem>
         <MenuItem onClick={handleClose}>View profile</MenuItem>
         {/* <Divider /> */}
         <MenuItem onClick={handleClose}>

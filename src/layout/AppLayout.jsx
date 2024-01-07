@@ -2,10 +2,10 @@ import React from 'react'
 import { Outlet } from 'react-router-dom'
 import TopNav from '../components/navabar/TopNav'
 
-const AppLayout = () => {
+const AppLayout = ({ displayName }) => {
   return (
     <div>
-      <TopNav />
+      <TopNav displayName={displayName} />
       <div className="container-fluid">
         <Outlet />
       </div>

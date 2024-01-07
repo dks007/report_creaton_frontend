@@ -10,13 +10,14 @@ import theme from './theme/theme'
 
 const MainContent = () => {
   const { instance } = useMsal()
-  //const activeAccount = instance.getActiveAccount()
 
   return (
     <div className="App">
-      <AuthenticatedTemplate>{null}</AuthenticatedTemplate>
-      <UnauthenticatedTemplate>
+      <AuthenticatedTemplate>
         <AppRoutes />
+      </AuthenticatedTemplate>
+      <UnauthenticatedTemplate>
+        <Auth />
       </UnauthenticatedTemplate>
     </div>
   )
