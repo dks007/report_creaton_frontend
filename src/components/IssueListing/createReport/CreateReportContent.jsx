@@ -194,7 +194,7 @@ const CreateReportContent = ({ issue, onClose }) => {
             </div>
             <div className="create-report-wrapper green-bg">
               <div>Customer Logo</div>
-              <ImageUpload />
+              <ImageUpload imgSrc="https://1000logos.net/wp-content/uploads/2021/04/Accenture-logo.png" />
             </div>
           </Box>
           <Divider orientation="vertical" flexItem sx={{ padding: 2 }} />

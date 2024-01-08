@@ -3,8 +3,8 @@ import FileUploadRoundedIcon from '@mui/icons-material/FileUploadRounded'
 import CloseIcon from '@mui/icons-material/Close'
 import { Box, IconButton, Dialog, DialogContent, DialogActions, Button } from '@mui/material'
 
-const ImageUpload = () => {
-  const [selectedImage, setSelectedImage] = useState(null)
+const ImageUpload = ({ imgSrc }) => {
+  const [selectedImage, setSelectedImage] = useState(imgSrc)
   const [openModal, setOpenModal] = useState(false)
 
   const handleFileUpload = (event) => {
@@ -82,8 +82,7 @@ const ImageUpload = () => {
         )}
       </Box>
 
-      {/* Modal for displaying the selected image */}
-      <Dialog open={openModal} onClose={handleCloseModal}>
+      <Dialog open={openModal} onClose={null}>
         <DialogContent sx={{ padding: 0, margin: 0, minWidth: '400px', maxWidth: '600px', height: 'auto', minHeight: '300px' }}>
           <IconButton
             onClick={handleCloseModal}
