@@ -5,7 +5,7 @@ import { Box } from '@mui/material'
 const DrawerComponent = ({ isOpen, onClose, content, anchor }) => {
   return (
     <Drawer anchor={anchor} open={isOpen} onClose={onClose}>
-      <Box sx={{ marginTop: 8, padding: 1 }}>{content}</Box>
+      <Box>{content}</Box>
     </Drawer>
   )
 }

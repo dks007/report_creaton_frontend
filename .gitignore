@@ -7,7 +7,6 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 node_modules
-package-lock.json
 dist
 dist-ssr
 *.local
@@ -26,6 +25,7 @@ dist-ssr
 # dependencies
 .env
 pnpm-lock.yaml
+package-lock.json
 
 # production
 /build

@@ -9,8 +9,9 @@ import ListItemIcon from '@mui/material/ListItemIcon'
 import SettingsIcon from '@mui/icons-material/Settings'
 import LogoutIcon from '@mui/icons-material/Logout'
 import { Typography } from '@mui/material'
-import StarOutlineIcon from '@mui/icons-material/StarOutline'
-import QueryStatsIcon from '@mui/icons-material/QueryStats'
+import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
+import ArticleIcon from '@mui/icons-material/Article';
+import ContactSupportIcon from '@mui/icons-material/ContactSupport';
 
 const UserProfile = () => {
   const [anchorEl, setAnchorEl] = useState(null)
@@ -32,7 +33,7 @@ const UserProfile = () => {
 
   return (
     <div>
-      <Box style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+      <Box style={{ display: 'flex', alignItems: 'center', gap: '10px' }} className="user-profile">
         <IconButton
           onClick={handleClick}
           size="small"
@@ -41,11 +42,9 @@ const UserProfile = () => {
           aria-haspopup="true"
           aria-expanded={open ? 'true' : undefined}
         >
-          <Avatar sx={{ width: 32, height: 32 }}>S</Avatar>
+          <Avatar>S</Avatar>
         </IconButton>
-        <Typography variant="h6" component="h6">
-          Sat Pal
-        </Typography>
+        {/* <Typography variant="h6" component="h6">Sat Pal</Typography> */}
       </Box>
       <Menu
         anchorEl={anchorEl}
@@ -82,8 +81,12 @@ const UserProfile = () => {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <MenuItem onClick={handleClose}>Sat Pal</MenuItem>
-        <MenuItem onClick={handleClose}>View profile</MenuItem>
+        {/* user profile name and view profile */}
+        <Box className='user-name'>
+          <Typography>Sat Pal</Typography>
+          <MenuItem onClick={handleClose}>View profile</MenuItem>
+        </Box>
+        
         {/* <Divider /> */}
         <MenuItem onClick={handleClose}>
           <ListItemIcon>
@@ -93,19 +96,19 @@ const UserProfile = () => {
         </MenuItem>
         <MenuItem onClick={handleClose}>
           <ListItemIcon>
-            <QueryStatsIcon fontSize="small" />
+            <ArticleIcon fontSize="small" />
           </ListItemIcon>
           Activity Log
         </MenuItem>
         <MenuItem onClick={handleClose}>
           <ListItemIcon>
-            <StarOutlineIcon fontSize="small" />
+            <ContactSupportIcon fontSize="small" />
           </ListItemIcon>
           Support
         </MenuItem>
         <MenuItem onClick={handleLogoutRedirect}>
           <ListItemIcon>
-            <LogoutIcon fontSize="small" />
+            <PowerSettingsNewIcon fontSize="small" />
           </ListItemIcon>
           Sign out
         </MenuItem>
