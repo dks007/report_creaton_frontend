@@ -3,7 +3,7 @@ import { Container, Typography, Grid, Card, CardContent, IconButton, LinearProgr
 import { Home as HomeIcon, Assignment as AssignmentIcon, BarChart as BarChartIcon, PieChart as PieChartIcon } from '@mui/icons-material'
 import IconBreadcrumbs from '../../components/shared/common/IconBreadcrumbs'
 import { homeScreen } from '../../constants/static'
-import Abc from './Abc'
+
 
 const Dashboard = () => {
   return (
@@ -24,7 +24,6 @@ const Dashboard = () => {
           </Card>
         </Grid>
         <div>
-          <Abc />
         </div>
       </Grid>
     </div>

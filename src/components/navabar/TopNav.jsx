@@ -9,6 +9,8 @@ import ImageElement from '../shared/common/ImageElement'
 import { logo } from '../../assets/Images/images'
 import { useNavigate } from 'react-router-dom'
 import SideBar from './SideBar'
+import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined';
+import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 
 const TopNav = () => {
   const [drawerOpen, setDrawerOpen] = useState(false)
@@ -26,18 +28,22 @@ const TopNav = () => {
       <Box sx={{ display: 'flex', alignItems: 'flex-end', textAlign: 'center' }}>
         <AppBar position="static" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
           <Toolbar sx={{ justifyContent: 'space-between' }}>
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <Box sx={{ display: 'flex', alignItems: 'center' }} className="header-left">
               <IconButton size="large" edge="start" color="inherit" aria-label="open drawer" sx={{ mr: 2 }} onClick={toggleDrawer}>
                 <MenuIcon />
               </IconButton>
-              <IconButton onClick={() => navigate('/')}>
+              <IconButton onClick={() => navigate('/?active=create-report')}>
                 <ImageElement src={logo} placeholderSrc={logo} height={35} />
               </IconButton>
               <Typography variant="h6" sx={{ marginLeft: 5, fontWeight: '800', fontSize: 18 }}>
                 {import.meta.env.VITE_APPLICATION_NAME}
               </Typography>
             </Box>
-            <UserProfile />
+            <div className='header-right'>
+              <IconButton className='act-btn'><NotificationsOutlinedIcon /></IconButton>
+              <IconButton className='act-btn'><SettingsOutlinedIcon /></IconButton>
+              <UserProfile />
+            </div>
           </Toolbar>
         </AppBar>
       </Box>
