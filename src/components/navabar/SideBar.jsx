@@ -1,20 +1,28 @@
-import React, { useState } from 'react'
-import { Box, Typography, Button } from '@mui/material'
-import HexagonOutlinedIcon from '@mui/icons-material/HexagonOutlined'
-import { Link, useNavigate } from 'react-router-dom'
+import React from 'react'
+import { Box, Typography } from '@mui/material'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { routePath } from '../../constants/routes'
-import AssignmentIcon from '@mui/icons-material/Assignment';
-import BarChartIcon from '@mui/icons-material/BarChart';
-import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
-import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
-import RecentActorsIcon from '@mui/icons-material/RecentActors';
-import SpaceDashboardIcon from '@mui/icons-material/SpaceDashboard';
+
+import HexagonOutlinedIcon from '@mui/icons-material/HexagonOutlined'
+import AssignmentIcon from '@mui/icons-material/Assignment'
+import BarChartIcon from '@mui/icons-material/BarChart'
+import ReceiptLongIcon from '@mui/icons-material/ReceiptLong'
+import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle'
+import RecentActorsIcon from '@mui/icons-material/RecentActors'
+import SpaceDashboardIcon from '@mui/icons-material/SpaceDashboard'
+
+const menuItems = [
+  { icon: <SpaceDashboardIcon />, label: 'Dashboard', path: routePath.HOME },
+  { icon: <AssignmentIcon />, label: 'Report', path: routePath.ISSUE_LISTING },
+  { icon: <BarChartIcon />, label: 'Usage Analyzer', path: '/usage-analyzer' },
+  { icon: <ReceiptLongIcon />, label: 'Health Monitoring', path: '/health-monitoring' },
+  { icon: <SupervisedUserCircleIcon />, label: 'Manage Team', path: '/manage-team' },
+  { icon: <RecentActorsIcon />, label: 'Manage Customer', path: '/manage-customer' }
+]
 
 const SideBar = ({ onCloseDrawer }) => {
   const navigate = useNavigate()
-
-
-
+  const location = useLocation()
 
   const handleButtonClick = (path) => {
     navigate(path)
@@ -22,43 +30,20 @@ const SideBar = ({ onCloseDrawer }) => {
   }
 
   return (
-    <Box className='navigation-menu'>
-      <Box component="button" className='menu-item'>
-        <Box>
-          <SpaceDashboardIcon/>
-          <Typography>Dashboard</Typography>
+    <Box className="navigation-menu">
+      {menuItems.map((menuItem, index) => (
+        <Box
+          key={index}
+          component="button"
+          className={`menu-item ${location.pathname === menuItem.path ? 'active' : ''}`}
+          onClick={() => handleButtonClick(menuItem.path)}
+        >
+          <Box>
+            {menuItem.icon}
+            <Typography>{menuItem.label}</Typography>
+          </Box>
         </Box>
-      </Box>
-      <Box component="button" className='menu-item active'>
-        <Box onClick={() => handleButtonClick(routePath.ISSUE_LISTING)}>
-          <AssignmentIcon />
-          <Typography>Report</Typography>
-        </Box>
-      </Box>
-      <Box component="button" className='menu-item'>
-        <Box>
-          <BarChartIcon />
-          <Typography>Usage Analyzer</Typography>
-        </Box>
-      </Box>
-      <Box component="button" className='menu-item'>
-        <Box>
-          <ReceiptLongIcon />
-          <Typography>Health Monitoring</Typography>
-        </Box>
-      </Box>
-      <Box component="button" className='menu-item'>
-        <Box>
-          <SupervisedUserCircleIcon />
-          <Typography>Manage Team</Typography>
-        </Box>
-      </Box>
-      <Box component="button" className='menu-item'>
-        <Box>
-          <RecentActorsIcon />
-          <Typography>Manage Customer</Typography>
-        </Box>
-      </Box>
+      ))}
     </Box>
   )
 }
