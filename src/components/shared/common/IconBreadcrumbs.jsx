@@ -14,7 +14,7 @@ const IconBreadcrumbs = ({ breadcrumbs }) => {
   const navigate = useNavigate()
 
   return (
-    <div role="presentation">
+    <div role="presentation" className='bredcrumbs'>
       <Breadcrumbs aria-label="breadcrumb" separator={<NavigateNextIcon fontSize="small" sx={{ verticalAlign: 'middle', margin: 0 }} />}>
         {breadcrumbs.map(({ icon: Icon, label, path }, index) => (
           <Link
