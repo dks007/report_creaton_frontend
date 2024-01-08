@@ -1,9 +1,8 @@
 import React from 'react'
 import { Container, Typography, Grid, Card, CardContent, IconButton, LinearProgress, Paper } from '@mui/material'
-import { Home as HomeIcon, Assignment as AssignmentIcon, BarChart as BarChartIcon, PieChart as PieChartIcon } from '@mui/icons-material'
+
 import IconBreadcrumbs from '../../components/shared/common/IconBreadcrumbs'
 import { homeScreen } from '../../constants/static'
-
 
 const Dashboard = () => {
   return (
@@ -23,8 +22,7 @@ const Dashboard = () => {
             </CardContent>
           </Card>
         </Grid>
-        <div>
-        </div>
+        <div></div>
       </Grid>
     </div>
   )

@@ -9,9 +9,9 @@ import ListItemIcon from '@mui/material/ListItemIcon'
 import SettingsIcon from '@mui/icons-material/Settings'
 import LogoutIcon from '@mui/icons-material/Logout'
 import { Typography } from '@mui/material'
-import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
-import ArticleIcon from '@mui/icons-material/Article';
-import ContactSupportIcon from '@mui/icons-material/ContactSupport';
+import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew'
+import ArticleIcon from '@mui/icons-material/Article'
+import ContactSupportIcon from '@mui/icons-material/ContactSupport'
 
 const UserProfile = () => {
   const [anchorEl, setAnchorEl] = useState(null)
@@ -82,11 +82,11 @@ const UserProfile = () => {
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         {/* user profile name and view profile */}
-        <Box className='user-name'>
+        <Box className="user-name">
           <Typography>Sat Pal</Typography>
           <MenuItem onClick={handleClose}>View profile</MenuItem>
         </Box>
-        
+
         {/* <Divider /> */}
         <MenuItem onClick={handleClose}>
           <ListItemIcon>

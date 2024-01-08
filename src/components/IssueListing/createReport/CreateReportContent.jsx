@@ -72,6 +72,7 @@ const CreateReportContent = ({ issue, onClose }) => {
                   value={formik.values.jira_id}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
+                  readOnly
                   style={{
                     border: formik.touched.jira_id && formik.errors.jira_id ? '2px solid red' : ''
                   }}
