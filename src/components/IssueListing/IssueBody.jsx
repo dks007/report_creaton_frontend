@@ -106,8 +106,8 @@ const IssueBody = ({ issue, index }) => {
   // ** End: Action button/column */
 
   // Function to get the report status text based on proect_status value
-  const getReportStatusText = (proectStatus) => {
-    switch (proectStatus) {
+  const getReportStatusText = () => {
+    switch (issue.proect_status) {
       case '0':
         return 'Not Created'
       case '1':
@@ -120,8 +120,21 @@ const IssueBody = ({ issue, index }) => {
         return 'Unknown Status'
     }
   }
-
-  const reportStatusText = getReportStatusText(issue.proect_status)
+  const getRowColor = () => {
+    switch (issue.proect_status) {
+      case '0':
+        return ''
+      case '1':
+        return 'orange-row'
+      case '2':
+        return 'green-row'
+      case '3':
+        return 'red-row'
+      default:
+        return ''
+    }
+  }
+  const dynamicClass = getRowColor()
 
   const HtmlTooltip = styled(({ className, ...props }) => <Tooltip {...props} classes={{ popper: className }} />)(({ theme }) => ({
     [`& .${tooltipClasses.tooltip}`]: {
@@ -137,7 +150,7 @@ const IssueBody = ({ issue, index }) => {
 
   return (
     <>
-      <tr className="table">
+      <tr className={`table ${dynamicClass}`}>
         <th scope="row">{index + 1}</th>
         <td className="jira-col">
           <Link to={`${routePath.ISSUEBYID}${issue.jira_id}`}>{issue.jira_id}</Link>
@@ -218,7 +231,7 @@ const IssueBody = ({ issue, index }) => {
         <td className="assigned-col">{issue.assign_date}</td>
         <td className="created-col">{issue.created_date}</td>
         <td className="report-col">
-          <span className={`report-status status-${issue.proect_status}`}>{reportStatusText}</span>
+          <span className={`report-status status-${issue.proect_status}`}>{getReportStatusText()}</span>
         </td>
         <td className="action-col">{renderActionColumn()}</td>
       </tr>
