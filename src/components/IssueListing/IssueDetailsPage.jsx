@@ -8,50 +8,53 @@ import { Box, Typography } from '@mui/material'
 import ImageElement from '../shared/common/ImageElement'
 import { profile } from '../../assets/Images/images'
 import IconBreadcrumbs from '../shared/common/IconBreadcrumbs'
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
 const IssueDetailsPage = () => {
   const [searchParams] = useSearchParams()
   const tab = searchParams.get('active')
 
   return (
-    <div className="container-fluid">
+    <div className="details-page">
       <h3>Issues Details Page</h3>
       <IconBreadcrumbs breadcrumbs={assignedJiraIssuesDetails} />
-      <div className="row" style={{ marginTop: '10px' }}>
-        <div className="col-md-4">
-          <div className="custom-box p-3">
-            <Box sx={{ display: 'flex', marginTop: 5, justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }}>
-              <Box sx={{ background: '#f2f2f2', borderRadius: '50%', overflow: 'hidden' }}>
+      <div className="row" style={{ marginTop: '20px' }}>
+        <div className="col-md-3 customer-info">
+          <div className="custom-box">
+            <Box className='customer-details'>
+              <Box className='customer-logo'>
                 <ImageElement src={profile} placeholderSrc={profile} width={140} height={140} />
                 {/* <Typography variant="h6" sx={{ padding: 7 }}>
                   Logo
                 </Typography> */}
               </Box>
-              <Typography variant="h6" sx={{ fontWeight: 'bold', fontSize: 20, marginTop: 4 }}>
+              <Typography variant="h6" sx={{ fontWeight: 'bold', fontSize: 20, marginTop: 1 }}>
                 Kendrion (Villingen) Gmbh
               </Typography>
             </Box>
-            <Typography variant="h6" sx={{ fontWeight: 'bold', fontSize: 16, marginTop: 4 }}>
-              Contact Email
-            </Typography>
-            <Typography variant="h6" sx={{ fontSize: 14, marginTo: 0.5 }}>
-              kendrion@ifs.com
-            </Typography>
-            <Typography variant="h6" sx={{ fontWeight: 'bold', fontSize: 16, marginTop: 3 }}>
-              Contact number
-            </Typography>
-            <Typography variant="h6" sx={{ fontSize: 14, marginTo: 0.5 }}>
-              kendrion@ifs.com
-            </Typography>
-            <Typography variant="h6" sx={{ fontWeight: 'bold', fontSize: 16, marginTop: 3 }}>
-              Location
-            </Typography>
-            <Typography variant="h6" sx={{ fontSize: 14, marginTo: 0.5 }}>
-              Kolkata, India
-            </Typography>
+            <div className='detail-list'>
+              <h6>Customer ID</h6>
+              <p><span>kendrion@ifs.com</span><ContentCopyIcon /></p>
+            </div>
+            <div className='detail-list'>
+              <h6>Project ID</h6>
+              <p><span>APX100006</span><ContentCopyIcon /></p>
+            </div>
+            <div className='detail-list'>
+              <h6>Contact Email</h6>
+              <p><span>kendrion@ifs.com</span><ContentCopyIcon /></p>
+            </div>
+            <div className='detail-list'>
+              <h6>Contact number</h6>
+              <p><span>+1-562-856-8956</span><ContentCopyIcon /></p>
+            </div>
+            <div className='detail-list'>
+              <h6>Location</h6>
+              <p><span>Kolkata, India</span><ContentCopyIcon /></p>
+            </div>
           </div>
         </div>
-        <div className="col-md-8">
+        <div className="col-md-9">
           <div className="custom-box">
             <CustomTabs tabs={detailsPageTab} defaultTab={STRING.ONGOING_REPORT} tabName={STRING.ACTIVE} />
 

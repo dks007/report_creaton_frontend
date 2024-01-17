@@ -1,5 +1,5 @@
 .red-bg {
-  background-color: rgba(233, 156, 156, 0.808);
+  background-color: $red_light !important;
 }
 .green-bg {
   background-color: hsla(214, 71%, 46%, 0.192);
@@ -14,11 +14,53 @@
   margin-top: 2px;
 }
 
-.css-art2ul-ValueContainer2 {
-  min-width: 170px !important;
-  max-width: 171px !important;
+.create-report-wrapper.red-bg{
+  div{
+    input{
+      border: 1px solid $red_color;
+    }
+  } 
+  .custom-select .css-13cymwt-control{
+    border-color: $red_color;
+  }
 }
+
 .required::after {
   content: ' *';
   color: red;
+}
+.custom-select{
+  font-size: 14px;
+  line-height: 27px;
+  font-weight: 500;
+  .css-13cymwt-control, .css-t3ipsp-control{
+    border-color: $gray_color;
+    height: 30px;    
+    min-height: 30px;
+  }
+
+  .css-art2ul-ValueContainer2 {
+    width: 142px !important;
+    height: 30px;
+    padding: 0px 8px;
+    .css-1jqq78o-placeholder{
+      min-height: 30px;
+    }
+  }
+  .css-w9q2zk-Input2{
+    margin: 0;
+    height: 30px;
+  }
+  .css-1xc3v61-indicatorContainer{
+    padding: 1px 8px;
+  }
+  .css-1dimb5e-singleValue{
+    font-size: 14px;
+    line-height: 22px;
+  }
+  .css-4xgw5l-IndicatorsContainer2{
+    div{
+      padding: 0 8px;
+    }
+  }
 }

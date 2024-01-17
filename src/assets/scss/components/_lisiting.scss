@@ -12,6 +12,7 @@ $blue_color: #2196F3;
 $gray_light: #f5f5f5;
 $main_light: #F5EFFC;
 $gray_color: #555555;
+$red_light: #FFEFEF;
 
 
 // Fonts
@@ -61,13 +62,13 @@ body{
     tr{
       border-radius: 3px;
       background: transparent;  
-      box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.15);
+      // box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.15);
       display: table-row;
       vertical-align: middle;
       margin: 0;
     
       td,th{
-        background-color: #fcfcfc;
+        background-color: #fff;
         padding: 10px 12px;
         font-size: 13px;
         font-weight: 400;
@@ -83,6 +84,12 @@ body{
         font-size: 12px;
         font-weight: 600;
       }
+     
+    }
+    tbody tr:nth-child(odd){
+      td, th{
+        background-color: rgba($gray_light, 0.9);
+      }
     }
     thead{
       tr{
@@ -96,6 +103,7 @@ body{
   }
   
 }
+
 .jira-col{
   text-wrap: nowrap;
   a{
@@ -112,6 +120,12 @@ body{
   span{
     max-width: 120px;
     text-wrap: wrap;
+    background-color: transparent;
+    box-shadow: none; 
+  }
+  svg, img{
+    background: transparent;
+    box-shadow: none; 
   }
 }
 .customer-information{
@@ -133,11 +147,12 @@ body{
 
 }
 
+
 .main-color-fill{
   fill:$main_color !important;
 }
-.table-wrapper table tr:hover td, .table-wrapper table tr:hover th{
-  background-color: $white_color !important;
+.table-wrapper table tbody tr:hover td, .table-wrapper table tbody tr:hover th{
+  background-color: rgba($main_light, 0.5)!important;
 }
 
 .button-wrapper{
@@ -186,12 +201,7 @@ body{
 }
 
 
-// issue detail page
-.custom-box {
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  padding-bottom: 20px;
-  margin-bottom: 20px;
-}
+
 
 .customer-report {
   margin-top: 10px;

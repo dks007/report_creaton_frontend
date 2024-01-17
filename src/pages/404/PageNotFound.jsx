@@ -6,27 +6,19 @@ import { error404 } from '../../assets/Images/images'
 
 const PageNotFound = () => {
   return (
-    <Box sx={{ width: { xs: '100%', md: '90%' }, margin: 'auto' }}>
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: { xs: 'column', md: 'row' },
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          gap: { xs: 5, md: 0 }
-        }}
-      >
-        <Box sx={{}}>
-          <h1 className="error-title">Page not found</h1>
-          <h3 className="error-subtitle">Sorry, the page you were looking for at this URL was not found.</h3>
+    <Box className='notfound-page-container'>
+      <Box className='back-bg'></Box>
+      <Box className='er-inr-wrapper'>
+        <Box className='er-inr-content'>
+          <h1 className="error-title">404</h1>
+          <h6 className="error-title">Oops! the page not found.</h6>
+          <p className="error-subtitle">Sorry, the page you were looking for at this URL was not found.</p>
           <Button variant="contained" sx={{ padding: 1.5, borderRadius: 3, marginTop: 4 }} component={Link} to="/">
             Go back to homepage
           </Button>
         </Box>
-        <Box sx={{}}>
-          <ImageElement src={error404} className="error-page-image" />
-        </Box>
       </Box>
+      <Box className="contact-support">Facing any difficulties?  -  <a href='javascript();'>Contact support</a></Box>
     </Box>
   )
 }
