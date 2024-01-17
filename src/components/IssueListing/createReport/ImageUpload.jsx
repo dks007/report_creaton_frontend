@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react'
 import FileUploadRoundedIcon from '@mui/icons-material/FileUploadRounded'
 import CloseIcon from '@mui/icons-material/Close'
@@ -123,3 +124,4 @@ const ImageUpload = ({ imgSrc }) => {
 }
 
 export default ImageUpload
+

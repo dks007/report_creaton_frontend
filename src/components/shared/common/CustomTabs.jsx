@@ -8,11 +8,10 @@ const CustomTabs = ({ tabs, defaultTab, tabName }) => {
 
   useEffect(() => {
     const isValidTab = tabs.some((tab) => tab.tabName === activeTab)
-
     if (!isValidTab) {
-      navigate(`?active=${defaultTab}`)
+      navigate(`?${tabName}=${defaultTab}`, { replace: true })
     }
-  }, [tabs, activeTab, defaultTab, navigate])
+  }, [tabs, activeTab, defaultTab, navigate, tabName])
 
   return (
     <div className="setting-navigation-btn">
@@ -20,7 +19,7 @@ const CustomTabs = ({ tabs, defaultTab, tabName }) => {
         <button
           key={index}
           className={`navigation-btn  ${tab.tabName === activeTab ? 'active-btn' : ''}`}
-          onClick={() => navigate(`?active=${tab.tabName}`)}
+          onClick={() => navigate(`?${tabName}=${tab.tabName}`)}
         >
           {tab.buttonText}
         </button>

@@ -1,0 +1,139 @@
+.header-left {
+  h6 {
+    margin-left: 15px;
+    padding-left: 15px;
+    border-left: 1px solid rgba($white_color, 0.3);
+    font-size: 18px;
+    font-weight: 700;
+  }
+}
+// Right Heder
+.header-right {
+  display: flex;
+  align-items: center;
+  .act-btn {
+    color: $white_color;
+  }
+  .user-profile {
+    button {
+      background: linear-gradient(180deg, #9837fa 0%, #72c9f8 100%);
+      width: 35px;
+      height: 35px;
+      div {
+        background: transparent;
+        font-size: 18px;
+        font-weight: 900;
+      }
+    }
+  }
+}
+
+// navigation
+.navigation-menu {
+  position: relative;
+  top: 64px;
+  .menu-item {
+    padding: 17px 28px;
+    border: 0;
+    border-left: 3px solid transparent;
+    background-color: transparent;
+    display: block;
+    width: 100%;
+    &:hover {
+      border-left: 3px solid $main_color;
+      background-color: $gray_light;
+    }
+    &.active {
+      border-left: 3px solid $main_color;
+      background-color: $main_light;
+      .MuiBox-root svg {
+        fill: $main_color;
+      }
+    }
+    .MuiBox-root {
+      display: flex;
+      align-items: center;
+      svg {
+        margin-right: 15px;
+        width: 24px;
+        fill: $gray_color;
+      }
+      p {
+        font-size: 14px;
+        font-weight: 500;
+      }
+    }
+  }
+}
+
+// user profile dropdown
+#account-menu {
+  ul {
+    li {
+      font-size: 14px;
+      font-weight: 500;
+      .MuiListItemIcon-root {
+        min-width: auto;
+        margin-right: 12px;
+        svg {
+          width: 20px;
+          fill: $gray_color;
+        }
+      }
+      &:hover {
+        background-color: $gray_light;
+      }
+    }
+    .user-name {
+      padding: 0 10px 10px;
+      border-bottom: 1px solid #ddd;
+      min-width: 170px;
+      p {
+        font-size: 14px;
+        font-weight: 500;
+      }
+      li {
+        padding: 0;
+        font-size: 13px;
+        color: $gray_color;
+        &:hover {
+          background-color: transparent;
+          color: $main_color;
+        }
+      }
+    }
+  }
+}
+
+.MuiBreadcrumbs-ol {
+  li {
+  }
+}
+.bredcrumbs {
+  ol {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    li {
+      padding-right: 10px;
+      &.first-child {
+        background-color: $main_color;
+        padding: 3px 5px !important;
+        margin-right: 10px;
+        border-radius: 5px;
+        a {
+          color: $white_color;
+        }
+      }
+      span {
+        font-size: 14px;
+        font-weight: 500;
+        svg {
+          width: 20px;
+        }
+      }
+    }
+  }
+}
