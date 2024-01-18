@@ -4,6 +4,8 @@ import { issueListTableHeaders } from '../../constants/static'
 import IssueBody from './IssueBody'
 import axiosInstance from '../../axiosInstance/axiosInstance '
 import Loader from '../shared/common/Loader'
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 
 const IssueList = () => {
   const [loading, setLoading] = useState(false)
@@ -51,19 +53,22 @@ const IssueList = () => {
               ))}
             </tbody>
           </table>
-          <nav className="mt-3 d-flex justify-content-end">
+          <nav className="mt-3 d-flex justify-content-start">
             <ul className="pagination">
+              <li className='pagination-text'>
+                Showing Page {currentPage} of {Math.ceil(issueData.length / itemsPerPage)}
+              </li>
               <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
                 <button className="page-link" onClick={() => paginate(currentPage - 1)}>
-                  {'<'}
+                  <KeyboardArrowLeftIcon />
                 </button>
               </li>
-              <div className="ml-2 mt-1">
-                Page {currentPage} of {Math.ceil(issueData.length / itemsPerPage)}
+              <div className="current-page">
+                {currentPage}
               </div>
               <li className={`page-item ${currentPage === Math.ceil(issueData.length / itemsPerPage) ? 'disabled' : ''}`}>
                 <button className="page-link" onClick={() => paginate(currentPage + 1)}>
-                  {'>'}
+                  <KeyboardArrowRightIcon />
                 </button>
               </li>
             </ul>

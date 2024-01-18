@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react'
 import FileUploadRoundedIcon from '@mui/icons-material/FileUploadRounded'
 import CloseIcon from '@mui/icons-material/Close'
@@ -29,13 +30,12 @@ const ImageUpload = ({ imgSrc }) => {
 
   return (
     <div>
-      <Box
+      <Box className='uploader-wrapper'
         sx={{
           position: 'relative',
           borderRadius: 2,
-          border: '1px dashed gray',
-          width: '200px',
-          height: '100px',
+          width: '155px',
+          height: '80px',
           overflow: 'hidden'
         }}
       >
@@ -45,16 +45,18 @@ const ImageUpload = ({ imgSrc }) => {
               onClick={handleRemoveImage}
               sx={{
                 position: 'absolute',
-                top: 0,
-                right: 0,
+                top: 3,
+                right: 3,
                 padding: 0.5,
-                background: 'rgba(255, 255, 255, 0.8)',
-                '&:hover': {
-                  background: 'rgba(255, 255, 255, 1)'
-                }
+                background: 'rgba(92, 45, 145, 0.2)',
+              '&:hover': {
+                background: 'rgba(92, 45, 145, 0.8)'
+              }
               }}
             >
-              <CloseIcon sx={{ color: '#503998' }} />
+              <CloseIcon sx={{ color: '#fff' }} />
+              
+              
             </IconButton>
             <img
               src={selectedImage}
@@ -73,10 +75,16 @@ const ImageUpload = ({ imgSrc }) => {
         {!selectedImage && (
           <>
             <input type="file" accept=".jpg, .jpeg, .png" style={{ display: 'none' }} id="fileInput" onChange={handleFileUpload} />
-            <label htmlFor="fileInput">
-              <IconButton component="span" sx={{ margin: 2, marginLeft: 8, background: '#503998' }}>
-                <FileUploadRoundedIcon sx={{ color: 'white' }} />
-              </IconButton>
+            <label htmlFor="fileInput" className='fileInput'>
+              <div>
+                <IconButton component="span" sx={{ margin: 2, marginLeft: 8, background: 'rgba(92, 45, 145, 1)',
+              '&:hover': {
+                background: 'rgba(92, 45, 145, 1)'
+              } }}>
+                  <FileUploadRoundedIcon sx={{ color: '#ffffff' }} />
+                </IconButton>     
+              </div>         
+              <span className='upload-txt'>Click to Upload</span>
             </label>
           </>
         )}
@@ -88,16 +96,16 @@ const ImageUpload = ({ imgSrc }) => {
             onClick={handleCloseModal}
             sx={{
               position: 'absolute',
-              top: 0,
-              right: 0,
+              top: 10,
+              right: 10,
               padding: 0.5,
-              background: 'rgba(255, 255, 255, 0.8)',
+              background: 'rgba(92, 45, 145, 0.2)',
               '&:hover': {
-                background: 'rgba(255, 255, 255, 1)'
+                background: 'rgba(92, 45, 145, 0.8)'
               }
             }}
           >
-            <CloseIcon sx={{ color: '#503998' }} />
+            <CloseIcon sx={{ color: '#fff' }} />
           </IconButton>
           <img
             src={selectedImage}
@@ -116,3 +124,4 @@ const ImageUpload = ({ imgSrc }) => {
 }
 
 export default ImageUpload
+

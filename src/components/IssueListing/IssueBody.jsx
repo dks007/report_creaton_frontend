@@ -11,6 +11,7 @@ import InfoIcon from '@mui/icons-material/Info'
 import DownloadIcon from '@mui/icons-material/Download'
 import RefreshIcon from '@mui/icons-material/Refresh'
 import ReportProblemIcon from '@mui/icons-material/ReportProblem'
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
 const IssueBody = ({ issue, index }) => {
   const [showModal, setShowModal] = useState(false)
@@ -39,12 +40,8 @@ const IssueBody = ({ issue, index }) => {
                   background: '#503998'
                 }}
               >
-                <Typography variant="h6" sx={{ color: 'white', fontWeight: 'bold', fontSize: 20 }}>
-                  Creating document for
-                </Typography>
-                <IconButton onClick={handleHideModal}>
-                  <CloseIcon sx={{ color: 'white' }} />
-                </IconButton>
+                <Typography variant="h6">Creating document for</Typography>
+                <IconButton onClick={handleHideModal} className='close-btn'><HighlightOffIcon/></IconButton>
               </Box>
               <Box sx={{ padding: 2 }}>
                 <CreateReportContent issue={issue} onClose={handleHideModal} />

@@ -2,15 +2,17 @@ import { Box, Typography } from '@mui/material'
 import React from 'react'
 const OngoingReport = () => {
   return (
-    <div className="p-3">
-      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <div className="report-title">Report Title</div>
-        <div className="report-In-progress">In-progress</div>
+    <div className="tab-container">
+      <Box sx={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }} className='mb-4'>
+        <div className='report-title-container'>
+          <div className="report-title">Report Title</div>
+          <h6>SAA2 - Kendrion (Villingen) Gmbh</h6>
+        </div>
+        
+        <div className="report-status status-0">In-progress</div>
       </Box>
-      <Typography variant="h6" sx={{ fontSize: 22, fontWeight: 'bold' }}>
-        SAA2 - Kendrion (Villingen) Gmbh
-      </Typography>
-      <div className="row">
+      
+      <div className="row value-listing">
         <div className="col-md-3">
           <h6>Jira ID</h6>
           <p>JI145455</p>
@@ -28,7 +30,7 @@ const OngoingReport = () => {
           <p>Srilal Abeykoon</p>
         </div>
       </div>
-      <div className="row">
+      <div className="row value-listing">
         <div className="col-md-3">
           <h6>SDM</h6>
           <p>Morgan Freeman</p>
@@ -46,7 +48,7 @@ const OngoingReport = () => {
           <p>5 Aug 2023</p>
         </div>
       </div>
-      <div className="row">
+      <div className="row value-listing">
         <div className="col-md-3">
           <h6>Capability</h6>
           <p>Finance</p>
@@ -60,13 +62,18 @@ const OngoingReport = () => {
           <p>Irshad Iqbal</p>
         </div>
       </div>
-      <h6 className="mt-5">Ticket Description</h6>
-      <p className="ticket-des">Primary industry : Finance</p>
-      <p className="ticket-des">Product: IFS Cloud</p>
-      <p className="ticket-des">Current Software version : 22.2.8</p>
-      <p className="ticket-des">Frequency: 1</p>
-      <p className="ticket-des">Prerequest Information: Need advice with posting</p>
-      <p className="ticket-des">types: TMP and TP3</p>
+      <div className='row value-listing'>
+        <div className='col-md-12'>
+          <h6>Ticket Description</h6>
+          <p className="ticket-des">Primary industry : Finance</p>
+          <p className="ticket-des">Product: IFS Cloud</p>
+          <p className="ticket-des">Current Software version : 22.2.8</p>
+          <p className="ticket-des">Frequency: 1</p>
+          <p className="ticket-des">Prerequest Information: Need advice with posting</p>
+          <p className="ticket-des">types: TMP and TP3</p>
+        </div>
+      </div>
+      
     </div>
   )
 }

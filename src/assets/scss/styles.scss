@@ -1,5 +1,388 @@
-/* The `@import` rule in SCSS is used to import other SCSS files into the current file. In this case,
-it is importing two files: 'components/listing' and 'components/login'. This means that the styles
-defined in those files will be available in the current file, allowing you to use any variables,
-mixins, or styles defined in those files. */
-@import 'components/lisiting', 'components/login', 'components/issueDetails', 'components/loader', 'components/report', 'components/navbar';
+
+@import 'components/lisiting', 'components/login', 'components/issueDetails', 'components/loader', 'components/report';
+body{
+    background: $body_color !important;
+    min-height: 100vh;
+}
+// left header
+.header-left{
+    h6{
+        margin-left: 15px;
+        padding-left: 15px;
+        border-left: 1px solid rgba($white_color, 0.3);
+        font-size: 18px;
+        font-weight: 700;
+    }
+}
+// Right Heder
+.header-right{
+    display: flex;
+    align-items: center;
+    .act-btn{
+        color: $white_color;
+    }
+    .user-profile{
+        button{
+            background: linear-gradient(180deg, #9837FA 0%, #72C9F8 100%);
+            width: 35px;
+            height: 35px;
+            div{
+                background: transparent;
+                font-size: 18px;
+                font-weight: 900;
+            }
+        }
+    }
+}
+
+// navigation
+.navigation-menu{
+    position: relative;
+    top: 64px;
+    .menu-item{
+        padding: 17px 28px;
+        border: 0;
+        border-left: 3px solid transparent;
+        background-color: transparent;
+        display: block;
+        width: 100%;
+        &:hover{
+            border-left: 3px solid $main_color;
+            background-color: $gray_light;
+        }
+        &.active{
+            border-left: 3px solid $main_color;
+            background-color: $main_light;
+            .MuiBox-root svg{
+                fill: $main_color;
+            }
+        }
+        .MuiBox-root{
+            display: flex;
+            align-items: center;
+            svg{
+                margin-right: 15px;
+                width: 24px;
+                fill: $gray_color;
+            }
+            p{
+                font-size: 14px;
+                font-weight: 500;
+            }
+        }
+    }
+}
+
+// user profile dropdown
+#account-menu{
+    ul{
+        li{
+            font-size: 14px;
+            font-weight: 500;
+            .MuiListItemIcon-root{
+                min-width: auto;
+                margin-right: 12px;
+                svg{
+                    width: 20px;
+                    fill: $gray_color;
+                }
+            }
+            &:hover{
+                background-color: $gray_light;
+            }
+        }
+        .user-name{
+            padding: 0 10px 10px;
+            border-bottom: 1px solid #ddd;
+            min-width: 170px;
+            p{
+                font-size: 14px;
+                font-weight: 500;
+            }
+            li{
+                padding: 0;
+                font-size: 13px;
+                color: $gray_color;
+                &:hover{
+                    background-color: transparent;
+                    color: $main_color;
+                }
+            }
+        }
+    }
+
+}
+
+
+
+.bredcrumbs{
+    ol{
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      li{
+        padding-right: 10px;
+        &.first-child{
+          background-color: $main_color;        
+          padding: 3px 5px !important;
+          margin-right: 10px;
+          border-radius: 5px;
+          a{
+            color: $white_color;
+          }
+        }
+        span{
+            font-size: 14px;
+            font-weight: 500;
+            svg{
+                width: 20px;
+            }
+        }
+      }
+    }
+    
+  }
+
+.pagination{
+display: flex;
+align-items: center;
+font-size: 14px;
+font-weight: 500;
+button.page-link{
+    border: 0;
+    background: transparent ;
+}
+}
+
+// page not found
+.notfound-page-container{
+    .back-bg{
+        background-color: $main_light;
+        height: 200px;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 64px;
+        z-index: 9;
+    }
+    .er-inr-wrapper{
+        position: relative;
+        z-index: 99;
+        max-width: 850px;
+        margin: 0 auto;
+        border-radius: 15px;
+        box-shadow: 0px 13px 24px 0px rgba(0, 0, 0, 0.04);
+        background-color: $white_color;
+        padding: 50px;
+        text-align: center;
+        background-image: url(../../src/assets/Images/404-bg.svg);
+        background-position: bottom center;
+        background-repeat: no-repeat;
+        top: 60px;
+        .er-inr-content{
+            h1{
+                font-size: 68px;
+            }
+            h6{
+                font-size: 26px;
+                margin-bottom: 15px;
+            }
+            p{
+                font-size: 14px;
+            }
+            a{
+                font-size: 14px;
+                font-weight: 600;
+                padding: 10px 30px;
+                border-radius: 5px;
+                margin-top: 20px;
+            }
+        }
+    }
+    .contact-support{
+        margin: 0 auto;
+        position: relative;
+        top: 100px;
+        text-align: center;
+        font-size: 14px;
+        font-weight: 500;
+        a{
+            color: $main_color;
+            text-decoration: none;
+            &:hover{
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
+.home-page{
+    .MuiCardContent-root{
+        padding: 30px;
+        p{
+            display: block;
+            margin-bottom: 15px;
+            font-size: 14px;
+            font-weight: 500;
+            .chip{
+                padding: 3px 7px;
+                border-radius: 3px;
+                &.main-color{
+                    background-color: $main_light;
+                }
+            }
+        }
+        h5{
+            font-size: 26px;
+            font-weight: 600;
+        }
+        ul{
+            li{
+                font-size: 14px;
+                line-height: 26px;
+            }
+        }
+    }
+}
+
+.card-wrapper-outer{
+    background-color: $white_color;
+    margin-top: 20px;
+    .MuiPaper-root{
+        margin-top: 30px;
+    }
+    .card-wrapper{
+        display: flex;
+        align-items: center;
+        column-gap: 20px;
+        .MuiCardContent-root{
+            .MuiTypography-h5{
+                font-size: 22px;
+            }
+        }
+    }
+}
+
+// modal 
+.modal-wrapper{
+    border-radius: 10px !important;
+    h6{
+        font-size: 20px;
+        font-weight: 600;
+        color: $white_color;
+    }
+    .close-btn{
+        color: $white_color;
+    }
+    form{
+        .create-report-wrapper{
+            border: 1px solid #F4F4F4;
+            background-color: $white_color;
+            box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.05);
+            padding: 7px 15px;
+            margin-bottom: 5px;
+            div{
+                &.label{
+                    font-size: 14px;
+                    font-weight: 600;
+                }
+                input{
+                    border: 1px solid $gray_color;
+                    padding: 6px 10px;    
+                    height: 30px;
+                    font-size: 14px;
+                    border-radius: 3px;
+                    width: 181px;
+                }
+            }
+            &.readonly-item{
+                background-color: $main_light;
+            }
+            .help-text{
+                font-size: 12px;
+                color: $black_color;
+            }
+            
+        }
+        .right-text-area{
+            padding-right: 50px;
+            max-width: 350px;
+            .question-icon{
+                background-color: $main_light;
+                padding: 15px;
+                margin-bottom: 20px;
+                svg{
+                    fill: $main_color;
+                }
+            }
+            p{
+                font-size: 14px;
+            }
+            .popup-action-button{
+                margin-top: 20px;
+                display: flex;
+                button{
+                    padding: 10px 30px;
+                    font-size: 14px;
+                    font-weight: 700;
+                    line-height: 16px;
+                    &:first-child{
+                        margin-right: 10px;
+                    }
+                }
+            }
+        }
+        .center-part{
+            background: linear-gradient(180deg, #FFF 9.9%, #F5EFFC 50.52%, #FFF 91.15%);
+            width: 9px;
+            margin: 0 50px;
+        }
+    }
+}
+
+.main-form-wrapper{
+    display: flex;
+    justify-content: stretch;
+}
+
+// image upload
+.upload-image{
+    text-align: center;
+    padding: 6px 12px;
+    border-radius: 5px;
+    background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='black' stroke-width='1' stroke-dasharray='6' stroke-dashoffset='0' stroke-linecap='round'/%3e%3c/svg%3e");
+    .uploader-wrapper{
+        display: flex;
+        align-items: center;
+        
+    }
+}
+.image-upload-text{
+    font-size: 12px;
+    h5{
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 5px;
+    }
+    p{
+        margin-bottom: 5px;
+        font-weight: 400;
+    }
+    span{
+        color: $red_color;
+        font-weight: 400;
+    }
+}
+
+.fileInput{
+    width: 100%;
+    span.MuiButtonBase-root{
+        margin: 0;
+    }
+    .upload-txt{
+        font-size: 14px;
+        font-weight: 600;
+    }
+}
