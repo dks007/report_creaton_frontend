@@ -9,6 +9,7 @@ import { Provider } from 'react-redux'
 import App from './App'
 import { msalConfig } from './config/authConfig'
 import store from './redux/store/store'
+import AppCopy from './AppCopy'
 
 // MSAL should be instantiated outside of the component tree to prevent re-instantiation on re-renders.
 const msalInstance = new PublicClientApplication(msalConfig)

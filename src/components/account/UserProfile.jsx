@@ -12,8 +12,9 @@ import { Typography } from '@mui/material'
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew'
 import ArticleIcon from '@mui/icons-material/Article'
 import ContactSupportIcon from '@mui/icons-material/ContactSupport'
+import { toTitleCase } from '../../utils/helperFunction'
 
-const UserProfile = () => {
+const UserProfile = ({ name }) => {
   const [anchorEl, setAnchorEl] = useState(null)
   const open = Boolean(anchorEl)
 
@@ -42,9 +43,8 @@ const UserProfile = () => {
           aria-haspopup="true"
           aria-expanded={open ? 'true' : undefined}
         >
-          <Avatar>S</Avatar>
+          <Avatar>{name.charAt(0).toUpperCase()}</Avatar>
         </IconButton>
-        {/* <Typography variant="h6" component="h6">Sat Pal</Typography> */}
       </Box>
       <Menu
         anchorEl={anchorEl}
@@ -83,7 +83,7 @@ const UserProfile = () => {
       >
         {/* user profile name and view profile */}
         <Box className="user-name">
-          <Typography>Sat Pal</Typography>
+          <Typography>{toTitleCase(name)}</Typography>
           <MenuItem onClick={handleClose}>View profile</MenuItem>
         </Box>
 

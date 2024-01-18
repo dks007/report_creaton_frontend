@@ -9,10 +9,10 @@ import ImageElement from '../shared/common/ImageElement'
 import { logo } from '../../assets/Images/images'
 import { useNavigate } from 'react-router-dom'
 import SideBar from './SideBar'
-import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined';
-import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
+import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined'
+import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined'
 
-const TopNav = () => {
+const TopNav = ({ name }) => {
   const [drawerOpen, setDrawerOpen] = useState(false)
   const navigate = useNavigate()
 
@@ -39,10 +39,14 @@ const TopNav = () => {
                 {import.meta.env.VITE_APPLICATION_NAME}
               </Typography>
             </Box>
-            <div className='header-right'>
-              <IconButton className='act-btn'><NotificationsOutlinedIcon /></IconButton>
-              <IconButton className='act-btn'><SettingsOutlinedIcon /></IconButton>
-              <UserProfile />
+            <div className="header-right">
+              <IconButton className="act-btn">
+                <NotificationsOutlinedIcon />
+              </IconButton>
+              <IconButton className="act-btn">
+                <SettingsOutlinedIcon />
+              </IconButton>
+              <UserProfile name={name} />
             </div>
           </Toolbar>
         </AppBar>
