@@ -11,12 +11,26 @@ import DownloadIcon from '@mui/icons-material/Download'
 import RefreshIcon from '@mui/icons-material/Refresh'
 import ReportProblemIcon from '@mui/icons-material/ReportProblem'
 import HighlightOffIcon from '@mui/icons-material/HighlightOff'
+import Button from '@mui/material/Button'
+import Menu from '@mui/material/Menu'
+import MenuItem from '@mui/material/MenuItem'
+import MoreVertIcon from '@mui/icons-material/MoreVert'
+import AddIcon from '@mui/icons-material/Add'
 
-const IssueBody = ({ issue, index }) => {
+const IssueBody = ({ issue, index, BasicMenu }) => {
   const [showModal, setShowModal] = useState(false)
 
   const handleShowModal = () => setShowModal(true)
   const handleHideModal = () => setShowModal(false)
+
+  const [anchorEl, setAnchorEl] = React.useState(null)
+  const open = Boolean(anchorEl)
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget)
+  }
+  const handleClose = () => {
+    setAnchorEl(null)
+  }
 
   // ** Start: Action button/column */
 
@@ -149,7 +163,39 @@ const IssueBody = ({ issue, index }) => {
   return (
     <>
       <tr className={`table ${dynamicClass}`}>
-        <th scope="row">{index + 1}</th>
+        <th scope="row">
+          <div className="item-number-action">
+            {index + 1}
+            <Button
+              id="basic-button"
+              aria-controls={open ? 'basic-menu' : undefined}
+              aria-haspopup="true"
+              aria-expanded={open ? 'true' : undefined}
+              onClick={handleClick}
+            >
+              <MoreVertIcon />
+            </Button>
+            <Menu
+              id="basic-menu"
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              MenuListProps={{
+                'aria-labelledby': 'basic-button'
+              }}
+              className="list-item-action"
+            >
+              <MenuItem onClick={handleClose}>
+                {' '}
+                <AddIcon /> Create Report
+              </MenuItem>
+              <MenuItem onClick={handleClose}>
+                {' '}
+                <DownloadIcon /> Another action
+              </MenuItem>
+            </Menu>
+          </div>
+        </th>
         <td className="jira-col">
           <Link to={`${routePath.ISSUEBYID}${issue.jira_id}`}>{issue.jira_id}</Link>
           {/* tooltip for showing sub task */}
@@ -188,6 +234,10 @@ const IssueBody = ({ issue, index }) => {
               title={
                 <React.Fragment>
                   <div className="custom-tooltip-html">
+                    <p>Customer Name</p>
+                    <p className="value">{issue.customer_name}</p>
+                  </div>
+                  <div className="custom-tooltip-html">
                     <p>Customer ID</p>
                     <p className="value">{issue.customer_id}</p>
                   </div>
@@ -220,14 +270,32 @@ const IssueBody = ({ issue, index }) => {
             {/* tooltip for showing sub task end*/}
           </div>
         </td>
-        <td className="menu-id-col">{issue.menu_id}</td>
-        <td className="menu-des-col">{issue.menu_desc}</td>
-        <td className="ticket-des-col">{issue.ticket_desc}</td>
-        <td className="sdo-col">{issue.sdo}</td>
-        <td className="sdm-col">{issue.sdm}</td>
-        <td className="csm-col">{issue.csm}</td>
-        <td className="assigned-col">{issue.assign_date}</td>
-        <td className="created-col">{issue.created_date}</td>
+        <td className="menu-id-col">
+          <div>{issue.menu_id}</div>
+        </td>
+        <td className="menu-des-col">
+          <Tooltip title="{issue.menu_desc}" placement="bottom">
+            <div>{issue.menu_desc}</div>
+          </Tooltip>
+        </td>
+        <td className="ticket-des-col">
+          <div>{issue.ticket_desc}</div>
+        </td>
+        <td className="sdo-col">
+          <div>{issue.sdo}</div>
+        </td>
+        <td className="sdm-col">
+          <div>{issue.sdm}</div>
+        </td>
+        <td className="csm-col">
+          <div>{issue.csm}</div>
+        </td>
+        <td className="assigned-col">
+          <div>{issue.assign_date}</div>
+        </td>
+        <td className="created-col">
+          <div>{issue.created_date}</div>
+        </td>
         <td className="report-col">
           <span className={`report-status status-${issue.proect_status}`}>{getReportStatusText()}</span>
         </td>

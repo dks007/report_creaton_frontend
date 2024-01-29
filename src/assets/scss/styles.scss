@@ -386,3 +386,50 @@ button.page-link{
         font-weight: 600;
     }
 }
+
+// manage table error color
+.table-wrapper table tr.red-row{
+    td, th{
+        background-color: $red_light !important;
+    }
+}
+
+.table-wrapper table{
+    thead{
+        tr{
+            th:last-child{
+                text-align: center;
+            }
+        }
+    }
+}
+
+// action dropdown
+.item-number-action{
+    display: flex;
+    align-items: center;
+    button{
+        padding: 3px 5px;
+        min-width: inherit;
+        margin-left: 10px;
+        background: transparent;
+        box-shadow: none;
+       
+        svg{
+            width: 20px;
+            fill: $main_color;
+        }
+    }
+}
+.list-item-action{
+    ul{
+        li{
+            font-size: 14px;
+            svg{
+                width: 20px;
+                fill: $gray_color;
+                margin-right: 10px;
+            }
+        }
+    }
+}

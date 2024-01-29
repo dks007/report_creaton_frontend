@@ -119,18 +119,23 @@ body{
   text-wrap: nowrap;
   span{
     max-width: 120px;
-    text-wrap: wrap;
     background-color: transparent;
     box-shadow: none; 
+    padding: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   svg, img{
     background: transparent;
     box-shadow: none; 
   }
 }
+
 .customer-information{
   display: flex;
   align-items: center;
+  justify-content: flex-start;
   svg{
     box-sizing: content-box;
   }
@@ -142,11 +147,18 @@ body{
   align-items: center;
   border-radius: 3px;
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 500;
   text-wrap: nowrap;
 
 }
 
+.menu-des-col div, .ticket-des-col div, .sdo-col div, .sdm-col div, .csm-col div, .assigned-col div, .created-col div{
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
 .main-color-fill{
   fill:$main_color !important;
@@ -239,7 +251,7 @@ body{
   }
 }
 .action-col{
-  text-align: right;
+  text-align: center;
   .btn.in-process{
     padding: 0;
     background-color: transparent;
