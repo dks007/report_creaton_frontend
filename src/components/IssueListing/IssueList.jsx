@@ -4,14 +4,15 @@ import { issueListTableHeaders } from '../../constants/static'
 import IssueBody from './IssueBody'
 import axiosInstance from '../../axiosInstance/axiosInstance '
 import Loader from '../shared/common/Loader'
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
-import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
+import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft'
 
 const IssueList = () => {
+  const itemPerPage = import.meta.env.VITE_ISSUE_LIST_PERPAGE
   const [loading, setLoading] = useState(false)
   const [issueData, setIssueData] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
-  const [itemsPerPage, setItemsPerPage] = useState(10)
+  const [itemsPerPage, setItemsPerPage] = useState(itemPerPage)
   const [error, setError] = useState(null)
 
   useEffect(() => {
@@ -55,7 +56,7 @@ const IssueList = () => {
           </table>
           <nav className="mt-3 d-flex justify-content-start">
             <ul className="pagination">
-              <li className='pagination-text'>
+              <li className="pagination-text">
                 Showing Page {currentPage} of {Math.ceil(issueData.length / itemsPerPage)}
               </li>
               <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
@@ -63,9 +64,7 @@ const IssueList = () => {
                   <KeyboardArrowLeftIcon />
                 </button>
               </li>
-              <div className="current-page">
-                {currentPage}
-              </div>
+              <div className="current-page">{currentPage}</div>
               <li className={`page-item ${currentPage === Math.ceil(issueData.length / itemsPerPage) ? 'disabled' : ''}`}>
                 <button className="page-link" onClick={() => paginate(currentPage + 1)}>
                   <KeyboardArrowRightIcon />

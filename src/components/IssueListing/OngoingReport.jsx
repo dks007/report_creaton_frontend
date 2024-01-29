@@ -1,17 +1,19 @@
-import { Box, Typography } from '@mui/material'
+import { Box } from '@mui/material'
 import React from 'react'
 const OngoingReport = () => {
   return (
     <div className="tab-container">
-      <Box sx={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }} className='mb-4'>
-        <div className='report-title-container'>
+      <Box sx={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }} className="mb-4">
+        <div className="report-title-container">
           <div className="report-title">Report Title</div>
           <h6>SAA2 - Kendrion (Villingen) Gmbh</h6>
         </div>
-        
-        <div className="report-status status-0">In-progress</div>
+        <div>
+          <button className="btn report-status not-created">+ Create Report</button>
+          <div className="report-status status-0 ms-2">In-progress</div>
+        </div>
       </Box>
-      
+
       <div className="row value-listing">
         <div className="col-md-3">
           <h6>Jira ID</h6>
@@ -62,8 +64,8 @@ const OngoingReport = () => {
           <p>Irshad Iqbal</p>
         </div>
       </div>
-      <div className='row value-listing'>
-        <div className='col-md-12'>
+      <div className="row value-listing">
+        <div className="col-md-12">
           <h6>Ticket Description</h6>
           <p className="ticket-des">Primary industry : Finance</p>
           <p className="ticket-des">Product: IFS Cloud</p>
@@ -73,7 +75,6 @@ const OngoingReport = () => {
           <p className="ticket-des">types: TMP and TP3</p>
         </div>
       </div>
-      
     </div>
   )
 }

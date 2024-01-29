@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import { routePath } from '../../constants/routes'
 import CustomModal from '../shared/common/CustomModal'
 import { Box, IconButton, Typography } from '@mui/material'
-import CloseIcon from '@mui/icons-material/Close'
 import CreateReportContent from './createReport/CreateReportContent'
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip'
 import { styled } from '@mui/material/styles'
@@ -11,7 +10,7 @@ import InfoIcon from '@mui/icons-material/Info'
 import DownloadIcon from '@mui/icons-material/Download'
 import RefreshIcon from '@mui/icons-material/Refresh'
 import ReportProblemIcon from '@mui/icons-material/ReportProblem'
-import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff'
 
 const IssueBody = ({ issue, index }) => {
   const [showModal, setShowModal] = useState(false)
@@ -41,7 +40,9 @@ const IssueBody = ({ issue, index }) => {
                 }}
               >
                 <Typography variant="h6">Creating document for</Typography>
-                <IconButton onClick={handleHideModal} className='close-btn'><HighlightOffIcon/></IconButton>
+                <IconButton onClick={handleHideModal} className="close-btn">
+                  <HighlightOffIcon />
+                </IconButton>
               </Box>
               <Box sx={{ padding: 2 }}>
                 <CreateReportContent issue={issue} onClose={handleHideModal} />
