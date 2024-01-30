@@ -23,6 +23,7 @@ const AppRoutes = () => {
       const getTOken = async () => {
         const response = await instance.acquireTokenSilent(request)
         sessionStorage.setItem('authToken', response.accessToken)
+        console.log('token', response.accessToken) // to show token in console
       }
       getTOken()
       setName(idTokenClaims?.name || idTokenClaims?.preferred_username)

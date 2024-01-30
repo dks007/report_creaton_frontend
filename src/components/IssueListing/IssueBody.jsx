@@ -10,17 +10,20 @@ import InfoIcon from '@mui/icons-material/Info'
 import DownloadIcon from '@mui/icons-material/Download'
 import RefreshIcon from '@mui/icons-material/Refresh'
 import ReportProblemIcon from '@mui/icons-material/ReportProblem'
-import HighlightOffIcon from '@mui/icons-material/HighlightOff'
 import Button from '@mui/material/Button'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
 import AddIcon from '@mui/icons-material/Add'
+import CreateReportModal from './CreateReportModal'
 
 const IssueBody = ({ issue, index, BasicMenu }) => {
   const [showModal, setShowModal] = useState(false)
 
-  const handleShowModal = () => setShowModal(true)
+  const handleShowModal = () => {
+    setShowModal(true)
+    handleClose()
+  }
   const handleHideModal = () => setShowModal(false)
 
   const [anchorEl, setAnchorEl] = React.useState(null)
@@ -32,6 +35,36 @@ const IssueBody = ({ issue, index, BasicMenu }) => {
     setAnchorEl(null)
   }
 
+  const renderActionButton = () => {
+    switch (issue.proect_status) {
+      case '0': // Not Created
+        return (
+          <MenuItem onClick={handleShowModal}>
+            <AddIcon /> Create Report
+          </MenuItem>
+        )
+
+      case '1': // Creating Report
+        return <div>Hello</div>
+
+      case '2': // Created
+        return (
+          <MenuItem onClick={handleClose}>
+            <DownloadIcon /> Download
+          </MenuItem>
+        )
+
+      case '3': // Creation Error
+        return (
+          <MenuItem onClick={handleShowModal}>
+            <RefreshIcon /> Refresh
+          </MenuItem>
+        )
+
+      default:
+        return null
+    }
+  }
   // ** Start: Action button/column */
 
   const renderActionColumn = () => {
@@ -42,26 +75,7 @@ const IssueBody = ({ issue, index, BasicMenu }) => {
             <button className="btn report-status not-created" onClick={handleShowModal}>
               + Create Report
             </button>
-            <CustomModal open={showModal}>
-              <Box
-                sx={{
-                  display: 'flex',
-                  padding: 0.5,
-                  paddingLeft: 2,
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  background: '#503998'
-                }}
-              >
-                <Typography variant="h6">Creating document for</Typography>
-                <IconButton onClick={handleHideModal} className="close-btn">
-                  <HighlightOffIcon />
-                </IconButton>
-              </Box>
-              <Box sx={{ padding: 2 }}>
-                <CreateReportContent issue={issue} onClose={handleHideModal} />
-              </Box>
-            </CustomModal>
+            <CreateReportModal showModal={showModal} handleHideModal={handleHideModal} issue={issue} />
           </div>
         )
 
@@ -185,14 +199,7 @@ const IssueBody = ({ issue, index, BasicMenu }) => {
               }}
               className="list-item-action"
             >
-              <MenuItem onClick={handleClose}>
-                {' '}
-                <AddIcon /> Create Report
-              </MenuItem>
-              <MenuItem onClick={handleClose}>
-                {' '}
-                <DownloadIcon /> Another action
-              </MenuItem>
+              {renderActionButton()}
             </Menu>
           </div>
         </th>
