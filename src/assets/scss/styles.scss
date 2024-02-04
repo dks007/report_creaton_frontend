@@ -433,3 +433,47 @@ button.page-link{
         }
     }
 }
+// action item on detail page
+.action-items{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+
+// button style global
+.btn{
+    padding: 10px 30px;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 16px;
+    margin-left: 10px;
+    &.primery-btn{
+        background-color: $main_color;
+        color: $white_color;
+    }
+    &.sml-btn{
+        padding: 10px;
+    }
+    &.blue-btn{
+        background-color: $blue_color;
+        color: $white_color;
+    }
+    svg{
+        width: 20px;
+        height: 20px;
+    }
+}
+
+// font size
+.font-13{font-size: 13px;}
+.font-14{font-size: 14px;}
+.font-16{font-size: 16px;}
+.font-18{font-size: 18px;}
+.font-20{font-size: 20px;}
+.font-22{font-size: 22px;}
+
+// font weight
+.reguler-text{
+    font-weight: 400 !important;
+}

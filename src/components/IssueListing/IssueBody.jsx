@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { routePath } from '../../constants/routes'
 import CustomModal from '../shared/common/CustomModal'
 import { Box, IconButton, Typography } from '@mui/material'
+import CloseIcon from '@mui/icons-material/Close'
 import CreateReportContent from './createReport/CreateReportContent'
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip'
 import { styled } from '@mui/material/styles'
@@ -10,12 +11,12 @@ import InfoIcon from '@mui/icons-material/Info'
 import DownloadIcon from '@mui/icons-material/Download'
 import RefreshIcon from '@mui/icons-material/Refresh'
 import ReportProblemIcon from '@mui/icons-material/ReportProblem'
-import Button from '@mui/material/Button'
-import Menu from '@mui/material/Menu'
-import MenuItem from '@mui/material/MenuItem'
-import MoreVertIcon from '@mui/icons-material/MoreVert'
-import AddIcon from '@mui/icons-material/Add'
-import CreateReportModal from './CreateReportModal'
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import Button from '@mui/material/Button';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import AddIcon from '@mui/icons-material/Add';
 
 const IssueBody = ({ issue, index, BasicMenu }) => {
   const [showModal, setShowModal] = useState(false)
@@ -26,56 +27,44 @@ const IssueBody = ({ issue, index, BasicMenu }) => {
   }
   const handleHideModal = () => setShowModal(false)
 
-  const [anchorEl, setAnchorEl] = React.useState(null)
-  const open = Boolean(anchorEl)
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
   const handleClick = (event) => {
-    setAnchorEl(event.currentTarget)
-  }
+    setAnchorEl(event.currentTarget);
+  };
   const handleClose = () => {
-    setAnchorEl(null)
-  }
+    setAnchorEl(null);
+  };
 
-  const renderActionButton = () => {
-    switch (issue.proect_status) {
-      case '0': // Not Created
-        return (
-          <MenuItem onClick={handleShowModal}>
-            <AddIcon /> Create Report
-          </MenuItem>
-        )
-
-      case '1': // Creating Report
-        return <div>Hello</div>
-
-      case '2': // Created
-        return (
-          <MenuItem onClick={handleClose}>
-            <DownloadIcon /> Download
-          </MenuItem>
-        )
-
-      case '3': // Creation Error
-        return (
-          <MenuItem onClick={handleShowModal}>
-            <RefreshIcon /> Refresh
-          </MenuItem>
-        )
-
-      default:
-        return null
-    }
-  }
   // ** Start: Action button/column */
 
   const renderActionColumn = () => {
-    switch (issue.proect_status) {
+    switch (issue.report_status) {
       case '0': // Not Created
         return (
           <div className="button-wrapper">
             <button className="btn report-status not-created" onClick={handleShowModal}>
               + Create Report
             </button>
-            <CreateReportModal showModal={showModal} handleHideModal={handleHideModal} issue={issue} />
+            <CustomModal open={showModal}>
+              <Box
+                sx={{
+                  display: 'flex',
+                  padding: 0.5,
+                  paddingLeft: 2,
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  background: '#503998'
+                }}
+              >
+                <Typography variant="h6">Creating document for</Typography>
+                <IconButton onClick={handleHideModal} className='close-btn'><HighlightOffIcon/></IconButton>
+              </Box>
+              <Box sx={{ padding: 2 }}>
+                <CreateReportContent issue={issue} onClose={handleHideModal} />
+              </Box>
+            </CustomModal>
           </div>
         )
 
@@ -131,9 +120,9 @@ const IssueBody = ({ issue, index, BasicMenu }) => {
 
   // ** End: Action button/column */
 
-  // Function to get the report status text based on proect_status value
+  // Function to get the report status text based on report_status value
   const getReportStatusText = () => {
-    switch (issue.proect_status) {
+    switch (issue.report_status) {
       case '0':
         return 'Not Created'
       case '1':
@@ -147,7 +136,7 @@ const IssueBody = ({ issue, index, BasicMenu }) => {
     }
   }
   const getRowColor = () => {
-    switch (issue.proect_status) {
+    switch (issue.report_status) {
       case '0':
         return ''
       case '1':
@@ -177,16 +166,15 @@ const IssueBody = ({ issue, index, BasicMenu }) => {
   return (
     <>
       <tr className={`table ${dynamicClass}`}>
-        <th scope="row">
-          <div className="item-number-action">
-            {index + 1}
+        <th scope="row">          
+          <div className='item-number-action'>
+          {index + 1}
             <Button
               id="basic-button"
               aria-controls={open ? 'basic-menu' : undefined}
               aria-haspopup="true"
               aria-expanded={open ? 'true' : undefined}
-              onClick={handleClick}
-            >
+              onClick={handleClick} >
               <MoreVertIcon />
             </Button>
             <Menu
@@ -195,16 +183,15 @@ const IssueBody = ({ issue, index, BasicMenu }) => {
               open={open}
               onClose={handleClose}
               MenuListProps={{
-                'aria-labelledby': 'basic-button'
-              }}
-              className="list-item-action"
-            >
-              {renderActionButton()}
+                'aria-labelledby': 'basic-button',
+              }} className='list-item-action'>
+              <MenuItem onClick={handleClose}> <AddIcon/> Create Report</MenuItem>
+              <MenuItem onClick={handleClose}> <DownloadIcon/> Another action</MenuItem>
             </Menu>
           </div>
         </th>
         <td className="jira-col">
-          <Link to={`${routePath.ISSUEBYID}${issue.jira_id}`}>{issue.jira_id}</Link>
+          <Link to={`${routePath.ISSUEBYID}${issue.issue_key}`}>{issue.issue_key}</Link>
           {/* tooltip for showing sub task */}
           {issue.subtasks_list && issue.subtasks_list.length > 0 && (
             <HtmlTooltip
@@ -234,7 +221,7 @@ const IssueBody = ({ issue, index, BasicMenu }) => {
         </td>
         <td className="customer-col fw-medium">
           <div className="customer-information">
-            <span>{issue.customer_name}</span>
+            <span>{issue.project_name}</span>
             <HtmlTooltip
               placement="right-start"
               arrow
@@ -242,7 +229,7 @@ const IssueBody = ({ issue, index, BasicMenu }) => {
                 <React.Fragment>
                   <div className="custom-tooltip-html">
                     <p>Customer Name</p>
-                    <p className="value">{issue.customer_name}</p>
+                    <p className="value">{issue.project_name}</p>
                   </div>
                   <div className="custom-tooltip-html">
                     <p>Customer ID</p>
@@ -278,35 +265,53 @@ const IssueBody = ({ issue, index, BasicMenu }) => {
           </div>
         </td>
         <td className="menu-id-col">
-          <div>{issue.menu_id}</div>
+          <div>
+            <span>{issue.menu_card}</span>
+            <HtmlTooltip
+                placement="right-start"
+                arrow
+                title={
+                  <React.Fragment>
+                    <div className="custom-tooltip-html">
+                      <p className='reguler-text font-14'>Solution design for IFS software Application</p>
+                    </div>
+                  </React.Fragment>
+                }>
+                <InfoIcon fontSize="extra-small" className="ml-10 main-color-fill" />
+            </HtmlTooltip>
+          </div>
         </td>
-        <td className="menu-des-col">
-          <Tooltip title="{issue.menu_desc}" placement="bottom">
-            <div>{issue.menu_desc}</div>
-          </Tooltip>
-        </td>
-        <td className="ticket-des-col">
-          <div>{issue.ticket_desc}</div>
-        </td>
-        <td className="sdo-col">
-          <div>{issue.sdo}</div>
-        </td>
-        <td className="sdm-col">
-          <div>{issue.sdm}</div>
-        </td>
-        <td className="csm-col">
-          <div>{issue.csm}</div>
-        </td>
-        <td className="assigned-col">
-          <div>{issue.assign_date}</div>
-        </td>
-        <td className="created-col">
-          <div>{issue.created_date}</div>
-        </td>
+        {/* <td className="menu-des-col"><Tooltip title="{issue.menu_desc}" placement="bottom"><div>{issue.menu_desc}</div></Tooltip></td> */}
+        <td className="ticket-des-col" width="250"><div>{issue.issue_summary}</div></td>
+        <td className="csm-col"><div>{issue.csm_name}</div></td>
+        <td className="sdm-col"><div>{issue.sdm_name}</div></td>
+        <td className="sdo-col"><div>{issue.sdo_name}</div></td>
+        <td className="created-col"><div>{issue.created_date}</div></td>
+        <td className="assigned-col"><div>{issue.assign_date}</div></td>
         <td className="report-col">
-          <span className={`report-status status-${issue.proect_status}`}>{getReportStatusText()}</span>
+          <div>
+            <span className={`report-status status-${issue.report_status}`}>
+            { issue.report_status === '3' &&(
+              <HtmlTooltip
+                  placement="right-start"
+                  arrow
+                  title={
+                    <React.Fragment>
+                      <div className="custom-tooltip-html">
+                        <p className='reguler-text font-14'>We came across an error when creating this report. <br/>Error: "Customer email is not a valid email address"</p>
+                      </div>
+                    </React.Fragment>
+                  } className='error-tooltip'>
+                  <InfoIcon fontSize="extra-small" className="ml-10 main-color-fill" />
+              </HtmlTooltip>
+              )}
+              {getReportStatusText()}
+              
+            </span>
+            
+            </div>
         </td>
-        <td className="action-col">{renderActionColumn()}</td>
+        {/* <td className="action-col">{renderActionColumn()}</td> */}
       </tr>
     </>
   )

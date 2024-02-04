@@ -24,7 +24,7 @@ const Dashboard = () => {
                 Report creation purpose and guidance
               </Typography>
               <Typography>
-                This component introduces an interface to create preliminary reports for Expert Advisory Menu Card Services. This tool will take a Jira Issue ID as input and automatically gather essential information from various sources such as Jira, Service Now, SharePoint, Power BI and the <span className='chip main-color'>IFS Digital Assyst database</span> to generate a draft of the final report. 
+                This component introduces an interface to create preliminary reports for Expert Advisory Menu Card Services. This tool will take a Jira Issue ID as input and automatically gather essential information from various sources such as Jira, Service Now, SharePoint, Power BI and the <span className='chip main-color'>Success Pilot database</span> to generate a draft of the final report. 
               </Typography>
               <Typography>
                 The draft is based on the final report template. When a new template is created Project Team needs to be notified of the new report template. The project team will take in the new final report template and do the necessary adjustments to make it compatible with Report Creation tool. The report creation tool will pick the latest available <span className='chip main-color'>final report template from its own repository</span> that is managed by the project team.
@@ -46,7 +46,7 @@ const Dashboard = () => {
               <ul>
                 <li>Interface for creating preliminary reports for Expert Advisory Menu Card Services. </li>
                 <li>Input: Jira Issue ID. </li>
-                <li>Automated gathering of essential information from various sources (Jira, Service Now, SharePoint, Power BI, IFS Digital Assyst database). </li>
+                <li>Automated gathering of essential information from various sources (Jira, Service Now, SharePoint, Power BI, Success Pilot database). </li>
                 <li>Draft report generation based on the final report template. </li>
               </ul>
             </CardContent>
