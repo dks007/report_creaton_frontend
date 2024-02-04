@@ -59,6 +59,13 @@ body{
   table{
     border-collapse: separate;
     border-spacing: 0 5px;
+    tbody{
+      tr{
+        th{
+          padding-right: 0;
+        }
+      }
+    }
     tr{
       border-radius: 3px;
       background: transparent;  
@@ -69,7 +76,7 @@ body{
     
       td,th{
         background-color: #fff;
-        padding: 10px 12px;
+        padding: 10px 8px;
         font-size: 13px;
         font-weight: 400;
         display: table-cell;
@@ -112,13 +119,15 @@ body{
     font-weight: 600;
     &:hover{
       text-decoration: underline;
+      color: $main_color;
     }
   }
 }
 .customer-col{
   text-wrap: nowrap;
   span{
-    max-width: 120px;
+    max-width: 150px;
+    min-width: 150px;
     background-color: transparent;
     box-shadow: none; 
     padding: 0;
@@ -138,17 +147,53 @@ body{
   justify-content: flex-start;
   svg{
     box-sizing: content-box;
+    box-shadow: none;
+    background: none;
+  }
+ 
+}
+
+.menu-id-col, .report-col{
+  div{
+    display: flex;
+    align-items: center;
+  }
+  svg{
+    box-sizing: content-box;
+    box-shadow: none;
+    background: none;
+  }
+  span{
+    background: none;
+    max-width: 40px;
+    min-width: 40px;
+    box-shadow: none;
+    display: inline-block;
   }
 }
+
+.report-col{
+  span{
+    min-width: 80px;
+    max-width: 80px;
+    svg{
+      margin-right: 5px;
+      margin-left: 0;
+      fill: $white_color !important;
+    }
+  }
+  
+}
 .report-status{
-  display: inline-flex;
-  padding: 1px 5px;
+  display: inline-flex !important;
+  padding: 1px 5px !important;
   justify-content: center;
   align-items: center;
   border-radius: 3px;
   font-size: 12px;
   font-weight: 500;
   text-wrap: nowrap;
+  width: 75px;
 
 }
 
@@ -189,6 +234,17 @@ body{
     background: rgba(255,255,255,0.2);
     border-radius: 3px;
     font-weight: 400;
+  }
+}
+
+.css-s6wrib-MuiPopper-root-MuiTooltip-popper.error-tooltip .MuiTooltip-tooltip{
+  background-color: #b21c1c;
+  .MuiTooltip-arrow{
+    color: #b21c1c;
+  }
+  p{
+    line-height: 16px;
+    font-size: 13px;
   }
 }
 

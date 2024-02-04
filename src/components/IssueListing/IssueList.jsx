@@ -19,8 +19,10 @@ const IssueList = () => {
     const fetchData = async () => {
       try {
         setLoading(true)
-        const response = await axiosInstance.get('/issuelisting/issue_list')
-        setIssueData(response.data)
+        //const response = await axiosInstance.get('/issuelisting/issue_list')
+        //setIssueData(response.data)
+        const response = await axiosInstance.get('/api/issue-listing/')
+        setIssueData(response.data.resdata)
         setLoading(false)
       } catch (error) {
         console.error('Error fetching data:', error)

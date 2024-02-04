@@ -10,46 +10,46 @@
   padding: 0px;
   margin: 0px;
 }
-.details-page {
-  .customer-info {
-    padding-right: 10px;
-    .custom-box {
+.details-page{
+  .customer-info{
+   padding-right: 10px;
+    .custom-box{
       padding: 30px;
       background-color: #fff;
       box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.07);
       border-radius: 5px;
       height: 100%;
-      .customer-details {
+      .customer-details{
         display: flex;
         justify-content: center;
         flex-direction: column;
         align-items: center;
-        border-bottom: 2px solid rgba($main_color, 0.2);
+        border-bottom: 2px solid rgba($main_color, .2);
         padding-bottom: 20px;
         background-image: url(../../src/assets/Images/404-bg.svg);
         background-position: bottom center;
         background-repeat: no-repeat;
         background-size: cover;
         margin-bottom: 30px;
-        .customer-logo {
+        .customer-logo{
           background: #f2f2f2;
           border-radius: 50%;
           overflow: hidden;
         }
-        h6 {
+        h6{
           font-size: 22px;
           font-weight: 700;
           text-align: center;
         }
       }
-      .detail-list {
+      .detail-list{
         margin-bottom: 15px;
-        h6 {
+        h6{
           font-size: 14px;
           font-weight: 600;
           margin-bottom: 5px;
         }
-        p {
+        p{
           font-size: 14px;
           font-weight: 500;
           margin: 0;
@@ -59,61 +59,57 @@
           align-items: center;
           justify-content: space-between;
           border-radius: 3px;
-          svg {
+          svg{
             width: 16px;
             cursor: pointer;
             height: 16px;
             fill: $main_color;
           }
         }
-        &:last-child {
+        &:last-child{
           margin-bottom: 0;
         }
       }
     }
   }
-  .tab-container {
+  .tab-container{
     padding: 30px;
     background: #fff;
     box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.07);
     border-radius: 0 0 5px 5px;
-    .report-title-container {
-      .report-title {
+    .report-title-container{
+      .report-title{
         font-size: 14px;
         font-weight: 500;
       }
-      h6 {
+      h6{
         font-size: 22px;
         font-weight: bold;
+        
       }
     }
-    .value-listing {
+    .value-listing{
+      
       margin-bottom: 25px;
-      h6 {
+      h6{
         font-weight: 500;
         margin-bottom: 5px;
         font-size: 14px;
       }
-      p {
+      p{
         font-weight: 400;
         margin-bottom: 0;
         font-size: 14px;
       }
     }
   }
-  .btn.not-created {
-    background-color: $main_color;
-    color: $white_color !important;
-    padding: 3px 10px;
-    font-size: 13px;
-  }
 }
 
-.subtask-icon {
-  margin-left: 5px;
+.subtask-icon{
+  margin-left: 5px  ;
 }
-.custom-tooltip-html {
-  p {
+.custom-tooltip-html{
+  p{
     font-size: 14px;
   }
 }
