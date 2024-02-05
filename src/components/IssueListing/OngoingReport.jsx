@@ -24,12 +24,7 @@ const OngoingReport = () => {
   const [loading, setLoading] = useState(false)
   const [issueData, setIssueData] = useState([])
   const { id } = useParams()
-  const [showModal, setShowModal] = useState(false)
 
-  const handleShowModal = () => {
-    setShowModal(true)
-  }
-  const handleHideModal = () => setShowModal(false)
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -44,41 +39,9 @@ const OngoingReport = () => {
       }
     }
 
-    fetchData()
+    // fetchData()
   }, [])
 
-  const status = '0'
-  const issue = []
-  const renderActionButton = () => {
-    switch (status) {
-      case '0': // Not Created
-        return (
-          <Button onClick={handleShowModal}>
-            <AddIcon /> Create Report
-          </Button>
-        )
-
-      case '1': // Creating Report
-        return <div className="report-status status-0 ms-2">In-progress</div>
-
-      case '2': // Created
-        return (
-          <Button onClick={() => {}}>
-            <DownloadIcon /> Download
-          </Button>
-        )
-
-      case '3': // Creation Error
-        return (
-          <Button onClick={() => {}}>
-            <RefreshIcon /> Refresh
-          </Button>
-        )
-
-      default:
-        return null
-    }
-  }
   return (
     <div className="tab-container">
       <Box sx={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }} className="mb-4">
@@ -86,9 +49,8 @@ const OngoingReport = () => {
           <div className="report-title">Report Title</div>
           <h6>SAA2 - Kendrion (Villingen) Gmbh</h6>
         </div>
-        <div>{renderActionButton()}</div>
       </Box>
-      <CreateReportModal showModal={showModal} handleHideModal={handleHideModal} issue={issue} />
+
       <div className="row value-listing">
         <div className="col-md-3">
           <h6>Jira ID</h6>

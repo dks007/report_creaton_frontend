@@ -1,8 +1,6 @@
-
 import { Box, Button, Divider, IconButton, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline'
-
 import { useFormik } from 'formik'
 import CustomSelect from '../../shared/common/CustomSelect'
 import * as Yup from 'yup'
@@ -56,7 +54,8 @@ const CreateReportContent = ({ issue, onClose }) => {
   return (
     <div>
       <form onSubmit={formik.handleSubmit} noValidate>
-        <Box className='main-form-wrapper'
+        <Box
+          className="main-form-wrapper"
           sx={{
             display: 'flex',
             justifyContent: 'space-between',
@@ -83,7 +82,7 @@ const CreateReportContent = ({ issue, onClose }) => {
             <div className={`create-report-wrapper ${formik.touched.menuCard && formik.errors.menuCard ? 'red-bg' : 'green-bg'}`}>
               <div>
                 <div className="required label">Menu Card</div>
-                <div className='help-text'>Couldn't Identify Menu Card ID</div>
+                <div className="help-text">Couldn't Identify Menu Card ID</div>
               </div>
               <div className="custom-select">
                 <CustomSelect
@@ -98,7 +97,7 @@ const CreateReportContent = ({ issue, onClose }) => {
               </div>
             </div>
             <div className={`create-report-wrapper ${formik.touched.customer_name && formik.errors.customer_name ? 'red-bg' : 'green-bg'}`}>
-              <div className='label'>Customer Name</div>
+              <div className="label">Customer Name</div>
               <div>
                 <input
                   type="text"
@@ -134,7 +133,7 @@ const CreateReportContent = ({ issue, onClose }) => {
               </div>
             </div>
             <div className={`create-report-wrapper ${formik.touched.creator_name && formik.errors.creator_name ? 'red-bg' : 'green-bg'}`}>
-              <div className='label'>Creator</div>
+              <div className="label">Creator</div>
               <div>
                 <input
                   type="text"
@@ -194,19 +193,18 @@ const CreateReportContent = ({ issue, onClose }) => {
               </div>
             </div>
             <div className="create-report-wrapper green-bg">
-              <div className='image-upload-text'>
+              <div className="image-upload-text">
                 <h5>Customer Logo</h5>
                 <p>No logo found, please upload a Customer logo, file format should be “JPG, JPEG, PNG. </p>
                 <span>File size should be grater then 500KB</span>
               </div>
-              <div className='upload-image'>
+              <div className="upload-image">
                 <ImageUpload imgSrc="https://1000logos.net/wp-content/uploads/2021/04/Accenture-logo.png" />
               </div>
-              
             </div>
           </Box>
-          <Box orientation="vertical" className='center-part'></Box>
-          <Box sx={{ display: 'flex', justifyContent: 'center'}} className='right-text-area'>
+          <Box orientation="vertical" className="center-part"></Box>
+          <Box sx={{ display: 'flex', justifyContent: 'center' }} className="right-text-area">
             <Box
               sx={{
                 display: 'flex',
@@ -216,13 +214,11 @@ const CreateReportContent = ({ issue, onClose }) => {
                 width: 400
               }}
             >
-              <IconButton className='question-icon'>
-                <HelpOutlineIcon style={{ fontSize: 50 }}/>
+              <IconButton className="question-icon">
+                <HelpOutlineIcon style={{ fontSize: 50 }} />
               </IconButton>
-              <p className='text-center'>
-                Please make sure you are creating the document for correct Jira ID
-              </p>
-              <Box className='popup-action-button'>
+              <p className="text-center">Please make sure you are creating the document for correct Jira ID</p>
+              <Box className="popup-action-button">
                 <Button variant="outlined" onClick={onClose}>
                   Not Sure
                 </Button>

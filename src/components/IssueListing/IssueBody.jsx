@@ -1,22 +1,18 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { routePath } from '../../constants/routes'
-import CustomModal from '../shared/common/CustomModal'
-import { Box, IconButton, Typography } from '@mui/material'
-import CloseIcon from '@mui/icons-material/Close'
-import CreateReportContent from './createReport/CreateReportContent'
+import { Typography } from '@mui/material'
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip'
 import { styled } from '@mui/material/styles'
 import InfoIcon from '@mui/icons-material/Info'
 import DownloadIcon from '@mui/icons-material/Download'
-import RefreshIcon from '@mui/icons-material/Refresh'
-import ReportProblemIcon from '@mui/icons-material/ReportProblem'
-import HighlightOffIcon from '@mui/icons-material/HighlightOff';
-import Button from '@mui/material/Button';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import AddIcon from '@mui/icons-material/Add';
+import Button from '@mui/material/Button'
+import Menu from '@mui/material/Menu'
+import MenuItem from '@mui/material/MenuItem'
+import MoreVertIcon from '@mui/icons-material/MoreVert'
+import AddIcon from '@mui/icons-material/Add'
+import CreateReportModal from './CreateReportModal'
+import SyncTwoToneIcon from '@mui/icons-material/SyncTwoTone'
 
 const IssueBody = ({ issue, index, BasicMenu }) => {
   const [showModal, setShowModal] = useState(false)
@@ -27,84 +23,16 @@ const IssueBody = ({ issue, index, BasicMenu }) => {
   }
   const handleHideModal = () => setShowModal(false)
 
-
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
+  const [anchorEl, setAnchorEl] = React.useState(null)
+  const open = Boolean(anchorEl)
   const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+    setAnchorEl(event.currentTarget)
+  }
   const handleClose = () => {
-    setAnchorEl(null);
-  };
+    setAnchorEl(null)
+  }
 
   // ** Start: Action button/column */
-
-  const renderActionColumn = () => {
-    switch (issue.report_status) {
-      case '0': // Not Created
-        return (
-          <div className="button-wrapper">
-            <button className="btn report-status not-created" onClick={handleShowModal}>
-              + Create Report
-            </button>
-            <CustomModal open={showModal}>
-              <Box
-                sx={{
-                  display: 'flex',
-                  padding: 0.5,
-                  paddingLeft: 2,
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  background: '#503998'
-                }}
-              >
-                <Typography variant="h6">Creating document for</Typography>
-                <IconButton onClick={handleHideModal} className='close-btn'><HighlightOffIcon/></IconButton>
-              </Box>
-              <Box sx={{ padding: 2 }}>
-                <CreateReportContent issue={issue} onClose={handleHideModal} />
-              </Box>
-            </CustomModal>
-          </div>
-        )
-
-      case '1': // Creating Report
-        return (
-          <div className="button-wrapper">
-            <button className="btn report-status in-process">
-              <img src="../src/assets/images/loader-sml.svg" />
-            </button>
-          </div>
-        )
-
-      case '2': // Created
-        return (
-          <div className="button-wrapper">
-            <IconButton onClick={handleDownload} className="act-btn download-btn">
-              <DownloadIcon />
-            </IconButton>
-            <IconButton onClick={handleRefresh} className="act-btn refresh-btn">
-              <RefreshIcon />
-            </IconButton>
-          </div>
-        )
-
-      case '3': // Creation Error
-        return (
-          <div className="button-wrapper">
-            <IconButton onClick={handleError} className="act-btn error-btn">
-              <ReportProblemIcon />
-            </IconButton>
-            <IconButton onClick={handleRefresh} className="act-btn refresh-btn">
-              <RefreshIcon />
-            </IconButton>
-          </div>
-        )
-
-      default:
-        return null
-    }
-  }
 
   const handleDownload = () => {
     // Handle download action
@@ -113,13 +41,48 @@ const IssueBody = ({ issue, index, BasicMenu }) => {
   const handleRefresh = () => {
     // Handle refresh action
   }
-
-  const handleError = () => {
-    // Handle error action
-  }
-
   // ** End: Action button/column */
+  const renderActionButton = () => {
+    switch (issue.report_status) {
+      case '0': // Not Created
+        return (
+          <MenuItem onClick={handleShowModal}>
+            <AddIcon /> Create Report
+          </MenuItem>
+        )
 
+      case '1': // Creating Report
+        return (
+          <MenuItem onClick={handleDownload}>
+            <DownloadIcon /> Another action
+          </MenuItem>
+        )
+
+      case '2': // Created
+        return (
+          <MenuItem onClick={handleDownload}>
+            <DownloadIcon /> Another action
+          </MenuItem>
+        )
+
+      case '3': // Creation Error
+        return (
+          <MenuItem onClick={handleRefresh}>
+            <SyncTwoToneIcon /> Refresh
+          </MenuItem>
+        )
+      case '4': // Creation Error
+        return (
+          <MenuItem onClick={handleRefresh}>
+            <SyncTwoToneIcon />
+            Unknown
+          </MenuItem>
+        )
+
+      default:
+        return null
+    }
+  }
   // Function to get the report status text based on report_status value
   const getReportStatusText = () => {
     switch (issue.report_status) {
@@ -166,15 +129,16 @@ const IssueBody = ({ issue, index, BasicMenu }) => {
   return (
     <>
       <tr className={`table ${dynamicClass}`}>
-        <th scope="row">          
-          <div className='item-number-action'>
-          {index + 1}
+        <th scope="row">
+          <div className="item-number-action">
+            {index + 1}
             <Button
               id="basic-button"
               aria-controls={open ? 'basic-menu' : undefined}
               aria-haspopup="true"
               aria-expanded={open ? 'true' : undefined}
-              onClick={handleClick} >
+              onClick={handleClick}
+            >
               <MoreVertIcon />
             </Button>
             <Menu
@@ -183,11 +147,13 @@ const IssueBody = ({ issue, index, BasicMenu }) => {
               open={open}
               onClose={handleClose}
               MenuListProps={{
-                'aria-labelledby': 'basic-button',
-              }} className='list-item-action'>
-              <MenuItem onClick={handleClose}> <AddIcon/> Create Report</MenuItem>
-              <MenuItem onClick={handleClose}> <DownloadIcon/> Another action</MenuItem>
+                'aria-labelledby': 'basic-button'
+              }}
+              className="list-item-action"
+            >
+              {renderActionButton()}
             </Menu>
+            <CreateReportModal showModal={showModal} handleHideModal={handleHideModal} issue={issue} />
           </div>
         </th>
         <td className="jira-col">
@@ -268,50 +234,65 @@ const IssueBody = ({ issue, index, BasicMenu }) => {
           <div>
             <span>{issue.menu_card}</span>
             <HtmlTooltip
-                placement="right-start"
-                arrow
-                title={
-                  <React.Fragment>
-                    <div className="custom-tooltip-html">
-                      <p className='reguler-text font-14'>Solution design for IFS software Application</p>
-                    </div>
-                  </React.Fragment>
-                }>
-                <InfoIcon fontSize="extra-small" className="ml-10 main-color-fill" />
+              placement="right-start"
+              arrow
+              title={
+                <React.Fragment>
+                  <div className="custom-tooltip-html">
+                    <p className="reguler-text font-14">Solution design for IFS software Application</p>
+                  </div>
+                </React.Fragment>
+              }
+            >
+              <InfoIcon fontSize="extra-small" className="ml-10 main-color-fill" />
             </HtmlTooltip>
           </div>
         </td>
         {/* <td className="menu-des-col"><Tooltip title="{issue.menu_desc}" placement="bottom"><div>{issue.menu_desc}</div></Tooltip></td> */}
-        <td className="ticket-des-col" width="250"><div>{issue.issue_summary}</div></td>
-        <td className="csm-col"><div>{issue.csm_name}</div></td>
-        <td className="sdm-col"><div>{issue.sdm_name}</div></td>
-        <td className="sdo-col"><div>{issue.sdo_name}</div></td>
-        <td className="created-col"><div>{issue.created_date}</div></td>
-        <td className="assigned-col"><div>{issue.assign_date}</div></td>
+        <td className="ticket-des-col" width="250">
+          <div>{issue.issue_summary}</div>
+        </td>
+        <td className="csm-col">
+          <div>{issue.csm_name}</div>
+        </td>
+        <td className="sdm-col">
+          <div>{issue.sdm_name}</div>
+        </td>
+        <td className="sdo-col">
+          <div>{issue.sdo_name}</div>
+        </td>
+        <td className="created-col">
+          <div>{issue.created_date}</div>
+        </td>
+        <td className="assigned-col">
+          <div>{issue.assign_date}</div>
+        </td>
         <td className="report-col">
           <div>
             <span className={`report-status status-${issue.report_status}`}>
-            { issue.report_status === '3' &&(
-              <HtmlTooltip
+              {issue.report_status === '3' && (
+                <HtmlTooltip
                   placement="right-start"
                   arrow
                   title={
                     <React.Fragment>
                       <div className="custom-tooltip-html">
-                        <p className='reguler-text font-14'>We came across an error when creating this report. <br/>Error: "Customer email is not a valid email address"</p>
+                        <p className="reguler-text font-14">
+                          We came across an error when creating this report. <br />
+                          Error: "Customer email is not a valid email address"
+                        </p>
                       </div>
                     </React.Fragment>
-                  } className='error-tooltip'>
+                  }
+                  className="error-tooltip"
+                >
                   <InfoIcon fontSize="extra-small" className="ml-10 main-color-fill" />
-              </HtmlTooltip>
+                </HtmlTooltip>
               )}
               {getReportStatusText()}
-              
             </span>
-            
-            </div>
+          </div>
         </td>
-        {/* <td className="action-col">{renderActionColumn()}</td> */}
       </tr>
     </>
   )
