@@ -211,7 +211,7 @@ const IssueBody = ({ issue, index, BasicMenu }) => {
               <InfoIcon fontSize="extra-small" className="ml-10 main-color-fill" />
             </HtmlTooltip>
             {/* tooltip for showing sub task */}
-            {issue.partner === '1' && (
+            {issue.partner === true && (
               <HtmlTooltip
                 placement="right-start"
                 arrow
