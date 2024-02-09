@@ -14,21 +14,31 @@ const AppRoutes = () => {
 
   useEffect(() => {
     if (accounts.length > 0) {
-      const activeAccount = accounts[0]
-      const { idTokenClaims } = activeAccount
+      const activeAccount = accounts[0];
+      const { idTokenClaims } = activeAccount;
       const request = {
         scopes: ['user.read'],
         account: activeAccount
-      }
+      };
+
       const getTOken = async () => {
-        const response = await instance.acquireTokenSilent(request)
-        sessionStorage.setItem('authToken', response.accessToken)
-        console.log('token', response.accessToken) // to show token in console
-      }
-      getTOken()
-      setName(idTokenClaims?.name || idTokenClaims?.preferred_username)
+        try {
+          const response = await instance.acquireTokenSilent(request);
+          sessionStorage.setItem('authToken', response.accessToken);
+          console.log('token', response.accessToken); // to show token in console
+
+          // Send the token to your backend
+          sendTokenToBackend(response.accessToken);
+        } catch (error) {
+          console.error('Error while acquiring token:', error);
+        }
+      };
+
+      getTOken();
+      setName(idTokenClaims?.name || idTokenClaims?.preferred_username);
     }
-  }, [accounts, instance])
+  }, [accounts, instance]);
+
   return (
     <div>
       <Routes>
