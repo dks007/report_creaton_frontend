@@ -1,5 +1,16 @@
+// error msg
+.error-msg{
+  display: none;
+  font-size: 12px;
+  font-weight: 400;
+  color: $red_color;
+}
+
 .red-bg {
-  background-color: $red_light !important;
+  background-color: none !important;
+  .error-msg{
+    display: block;
+  }
 }
 .green-bg {
   background-color: hsla(214, 71%, 46%, 0.192);
@@ -41,7 +52,7 @@
 
   .css-art2ul-ValueContainer2 {
     width: 142px !important;
-    height: 30px;
+    height: 28px;
     padding: 0px 8px;
     .css-1jqq78o-placeholder{
       min-height: 30px;
@@ -62,5 +73,16 @@
     div{
       padding: 0 8px;
     }
+  }
+}
+
+.readonly-info{
+  display: flex;
+  *{
+    width: inherit;
+    min-width: inherit;
+  }
+  .label{
+    padding-left: 0;
   }
 }

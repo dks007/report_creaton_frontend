@@ -15,6 +15,7 @@ import CreateReportModal from './CreateReportModal'
 import SyncTwoToneIcon from '@mui/icons-material/SyncTwoTone'
 
 const IssueBody = ({ issue, index, BasicMenu }) => {
+  console.log("testing")
   const [showModal, setShowModal] = useState(false)
 
   const handleShowModal = () => {
@@ -141,6 +142,7 @@ const IssueBody = ({ issue, index, BasicMenu }) => {
             >
               <MoreVertIcon />
             </Button>
+            <CreateReportModal showModal={showModal} handleHideModal={handleHideModal} issue={issue}/>
             <Menu
               id="basic-menu"
               anchorEl={anchorEl}
@@ -153,7 +155,6 @@ const IssueBody = ({ issue, index, BasicMenu }) => {
             >
               {renderActionButton()}
             </Menu>
-            <CreateReportModal showModal={showModal} handleHideModal={handleHideModal} issue={issue} />
           </div>
         </th>
         <td className="jira-col">
@@ -239,7 +240,7 @@ const IssueBody = ({ issue, index, BasicMenu }) => {
               title={
                 <React.Fragment>
                   <div className="custom-tooltip-html">
-                    <p className="reguler-text font-14">Solution design for IFS software Application</p>
+                    <p className="reguler-text font-14">{issue.menu_description}</p>
                   </div>
                 </React.Fragment>
               }
