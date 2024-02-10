@@ -22,7 +22,7 @@ const AppRoutes = () => {
       }
       const getTOken = async () => {
         const response = await instance.acquireTokenSilent(request)
-        sessionStorage.setItem('authToken', response.accessToken)  
+        sessionStorage.setItem('authToken', response.accessToken)
         console.log('token->', response.accessToken)
       }
       getTOken()
@@ -33,7 +33,7 @@ const AppRoutes = () => {
     <div>
       <Routes>
         <Route element={<AppLayout displayName={name || 'User Name'} />}>
-          <Route path="/" element={<Dashboard />} />
+          <Route path="/" element={<Dashboard displayName={name || 'User Name'} />} />
           <Route path={routePath.ISSUE_LISTING} element={<Report />} />
           <Route path="/issue-details/:id" element={<IssueDetailsPage />} />
           <Route path="*" element={<PageNotFound />} />
