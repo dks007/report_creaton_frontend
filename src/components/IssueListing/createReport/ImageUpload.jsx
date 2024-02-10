@@ -34,49 +34,22 @@ const ImageUpload = ({ imgSrc }) => {
         sx={{
           position: 'relative',
           borderRadius: 2,
-          width: '155px',
-          height: '80px',
           overflow: 'hidden'
         }}
       >
         {selectedImage && (
-          <>
-            <IconButton
-              onClick={handleRemoveImage}
-              sx={{
-                position: 'absolute',
-                top: 3,
-                right: 3,
-                padding: 0.5,
-                background: 'rgba(92, 45, 145, 0.2)',
-              '&:hover': {
-                background: 'rgba(92, 45, 145, 0.8)'
-              }
-              }}
-            >
-              <CloseIcon sx={{ color: '#fff' }} />
-              
-              
+          <div className='uploaded-img-wrapper'>
+            <IconButton onClick={handleRemoveImage}>
+              <CloseIcon/>
             </IconButton>
-            <img
-              src={selectedImage}
-              alt="Selected"
-              style={{
-                width: '100%',
-                height: 'auto',
-                maxWidth: '100%',
-                maxHeight: '100%',
-                cursor: 'pointer'
-              }}
-              onClick={handleOpenModal}
-            />
-          </>
+            <img src={selectedImage} alt="Selected Image" onClick={handleOpenModal} className='uploaded-image'/>
+          </div>
         )}
         {!selectedImage && (
           <>
             <input type="file" accept=".jpg, .jpeg, .png" style={{ display: 'none' }} id="fileInput" onChange={handleFileUpload} />
             <label htmlFor="fileInput" className='fileInput'>
-              <div>
+              <div className='upload-img-btn'>
                 <IconButton component="span" sx={{ margin: 2, marginLeft: 8, background: 'rgba(92, 45, 145, 1)',
               '&:hover': {
                 background: 'rgba(92, 45, 145, 1)'

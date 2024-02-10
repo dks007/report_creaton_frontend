@@ -33,7 +33,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'))
 const AppWithRouter = (
   <Router>
     <Provider store={store}>
-      <AppCopy instance={msalInstance} />
+      <App instance={msalInstance} />
     </Provider>
   </Router>
 )

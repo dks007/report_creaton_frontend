@@ -78,8 +78,8 @@ const IssueDetailsPage = () => {
 
       default:
         return (
-          <button onClick={() => {}} className="btn primery-btn sml-btn">
-            <DownloadIcon />
+          <button onClick={handleShowModal} className="btn primery-btn">
+            <AddIcon /> Create Report
           </button>
         )
     }
