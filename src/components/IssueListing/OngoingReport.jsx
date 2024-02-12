@@ -6,7 +6,7 @@ import DownloadIcon from '@mui/icons-material/Download'
 import RefreshIcon from '@mui/icons-material/Refresh'
 import AddIcon from '@mui/icons-material/Add'
 import { useParams } from 'react-router-dom'
-import axiosInstance from '../../axiosInstance/axiosInstance '
+import axiosInstance from '../../axiosInstance/axiosInstance'
 import CreateReportModal from './CreateReportModal'
 
 const HtmlTooltip = styled(({ className, ...props }) => <Tooltip {...props} classes={{ popper: className }} />)(({ theme }) => ({

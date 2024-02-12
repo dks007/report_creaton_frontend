@@ -1,45 +1,56 @@
-import React, { useState, useEffect } from 'react'
-import TableHead from '../shared/common/TableHead'
-import { issueListTableHeaders } from '../../constants/static'
-import IssueBody from './IssueBody'
-import axiosInstance from '../../axiosInstance/axiosInstance '
-import Loader from '../shared/common/Loader'
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
-import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft'
+import React, { useState, useEffect } from 'react';
+import TableHead from '../shared/common/TableHead';
+import { issueListTableHeaders } from '../../constants/static';
+import IssueBody from './IssueBody';
+import axiosInstance from '../../axiosInstance/axiosInstance';
+import Loader from '../shared/common/Loader';
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 
 const IssueList = () => {
-  const itemPerPage = import.meta.env.VITE_ISSUE_LIST_PERPAGE
-  const [loading, setLoading] = useState(false)
-  const [issueData, setIssueData] = useState([])
-  const [currentPage, setCurrentPage] = useState(1)
-  const [itemsPerPage, setItemsPerPage] = useState(itemPerPage)
-  const [error, setError] = useState(null)
+  const itemPerPage = import.meta.env.VITE_ISSUE_LIST_PERPAGE;
+  const [loading, setLoading] = useState(false);
+  const [issueData, setIssueData] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(itemPerPage);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setLoading(true)
-        //const response = await axiosInstance.get('/9955c6e8-e2ec-4605-928c-83185901a75b')
-        const response = await axiosInstance.get('issue-listing/')
-        setIssueData(response.data.resdata)
-        setLoading(false)
+        setLoading(true);
+        const response = await axiosInstance.get('issue-listing/');
+        setIssueData(response.data.resdata);
+        setLoading(false);
       } catch (error) {
-        console.error('Error fetching data:', error)
-        setError('An error occurred while fetching data. Please try again later.')
-        setLoading(false)
+        console.error('Error fetching data:', error);
+        setError('An error occurred while fetching data. Please try again later.');
+        setLoading(false);
       }
-    }
+    };
 
-    fetchData()
-  }, [])
+    fetchData();
+  }, []);
 
   // Calculate the indexes of the items to be displayed on the current page
-  const indexOfLastItem = currentPage * itemsPerPage
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage
-  const currentItems = issueData.slice(indexOfFirstItem, indexOfLastItem)
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = issueData.slice(indexOfFirstItem, indexOfLastItem);
 
   // Change page
-  const paginate = (pageNumber) => setCurrentPage(pageNumber)
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  const handleBack = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const handleForward = () => {
+    if (currentPage < Math.ceil(issueData.length / itemsPerPage)) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
 
   return (
     <div className="table-responsive">
@@ -61,13 +72,13 @@ const IssueList = () => {
                 Showing Page {currentPage} of {Math.ceil(issueData.length / itemsPerPage)}
               </li>
               <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
-                <button className="page-link" onClick={() => paginate(currentPage - 1)}>
+                <button className="page-link" onClick={handleBack}>
                   <KeyboardArrowLeftIcon />
                 </button>
               </li>
               <div className="current-page">{currentPage}</div>
               <li className={`page-item ${currentPage === Math.ceil(issueData.length / itemsPerPage) ? 'disabled' : ''}`}>
-                <button className="page-link" onClick={() => paginate(currentPage + 1)}>
+                <button className="page-link" onClick={handleForward}>
                   <KeyboardArrowRightIcon />
                 </button>
               </li>
@@ -76,7 +87,7 @@ const IssueList = () => {
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default IssueList
+export default IssueList;

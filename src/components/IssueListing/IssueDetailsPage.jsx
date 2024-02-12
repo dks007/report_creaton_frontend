@@ -14,41 +14,38 @@ import DownloadIcon from '@mui/icons-material/Download'
 import SyncTwoToneIcon from '@mui/icons-material/SyncTwoTone'
 import CreateReportModal from './CreateReportModal'
 import Loader from '../shared/common/Loader'
-import axiosInstance from '../../axiosInstance/axiosInstance '
+import axiosInstance from '../../axiosInstance/axiosInstance'
 
 const IssueDetailsPage = () => {
-  const [searchParams] = useSearchParams()
-  const { id } = useParams()
-  const tab = searchParams.get('active')
-  const [showModal, setShowModal] = useState(false)
-  const [loading, setLoading] = useState(false)
-  const [issueData, setIssueData] = useState([])
-  const [error, setError] = useState(null)
+  const [searchParams] = useSearchParams();
+  const { id } = useParams();
+  const tab = searchParams.get('active');
+  const [showModal, setShowModal] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [issueData, setIssueData] = useState([]);
+  const [error, setError] = useState(null);
 
   const handleShowModal = () => {
-    setShowModal(true)
+    setShowModal(true);
   }
-  const handleHideModal = () => setShowModal(false)
+  const handleHideModal = () => setShowModal(false);
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setLoading(true)
-        const response = await axiosInstance.get('/c424524f-c112-4024-b04e-c9dfed98c275')
-        setIssueData(response.data.resdata)
-        // const response = await axiosInstance.get('/api/issue-listing/')
-        // setIssueData(response.data.resdata)
-        setLoading(false)
+        setLoading(true);
+        const response = await axiosInstance.get(`/api/issue-listing/${id}`); // Fetch data from the correct endpoint
+        setIssueData(response.data.resdata);
+        setLoading(false);
       } catch (error) {
-        console.error('Error fetching data:', error)
-        setError('An error occurred while fetching data. Please try again later.')
-        setLoading(false)
+        console.error('Error fetching data:', error);
+        setError('An error occurred while fetching data. Please try again later.');
+        setLoading(false);
       }
     }
 
-    fetchData()
-  }, [])
-
-  const issue = []
+    fetchData();
+  }, [id]); // Make sure to include id in the dependency array
 
   const renderActionButton = () => {
     switch (issueData.report_status) {
@@ -84,6 +81,7 @@ const IssueDetailsPage = () => {
         )
     }
   }
+  
   return (
     <div className="details-page">
       {loading && <Loader />}
@@ -93,7 +91,7 @@ const IssueDetailsPage = () => {
           <IconBreadcrumbs breadcrumbs={assignedJiraIssuesDetails} />
         </Box>
         <Box className="col-md-4 action-items">{renderActionButton()}</Box>
-        <CreateReportModal showModal={showModal} handleHideModal={handleHideModal} issue={issue} />
+        <CreateReportModal showModal={showModal} handleHideModal={handleHideModal}  />
       </Box>
       <div className="row" style={{ marginTop: '20px' }}>
         <div className="col-md-3 customer-info">
@@ -101,9 +99,6 @@ const IssueDetailsPage = () => {
             <Box className="customer-details">
               <Box className="customer-logo">
                 <ImageElement src={profile} placeholderSrc={profile} width={140} height={140} />
-                {/* <Typography variant="h6" sx={{ padding: 7 }}>
-                  Logo
-                </Typography> */}
               </Box>
               <Typography variant="h6" sx={{ fontWeight: 'bold', fontSize: 20, marginTop: 1 }}>
                 Kendrion (Villingen) Gmbh
@@ -116,34 +111,7 @@ const IssueDetailsPage = () => {
                 <ContentCopyIcon />
               </p>
             </div>
-            <div className="detail-list">
-              <h6>Project ID</h6>
-              <p>
-                <span>APX100006</span>
-                <ContentCopyIcon />
-              </p>
-            </div>
-            <div className="detail-list">
-              <h6>Contact Email</h6>
-              <p>
-                <span>kendrion@ifs.com</span>
-                <ContentCopyIcon />
-              </p>
-            </div>
-            <div className="detail-list">
-              <h6>Contact number</h6>
-              <p>
-                <span>+1-562-856-8956</span>
-                <ContentCopyIcon />
-              </p>
-            </div>
-            <div className="detail-list">
-              <h6>Location</h6>
-              <p>
-                <span>Kolkata, India</span>
-                <ContentCopyIcon />
-              </p>
-            </div>
+            {/* Other details */}
           </div>
         </div>
         <div className="col-md-9">
@@ -156,7 +124,7 @@ const IssueDetailsPage = () => {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default IssueDetailsPage
+export default IssueDetailsPage;
