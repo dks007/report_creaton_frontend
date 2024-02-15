@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import TableHead from '../shared/common/TableHead';
 import { issueListTableHeaders } from '../../constants/static';
 import IssueBody from './IssueBody';
-import axiosInstance from '../../axiosInstance/axiosInstance ';
+import axiosInstance from '../../axiosInstance/axiosInstance';
 import Loader from '../shared/common/Loader';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
@@ -13,7 +13,7 @@ const IssueList = () => {
   const [issueData, setIssueData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(itemPerPage);
-  const [totalRecords, setTotalRecords] = useState(0); // Added totalRecords state
+  const[totalRecords, setTotalRecords] = useState(0)
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -22,12 +22,12 @@ const IssueList = () => {
         setLoading(true);
         const response = await axiosInstance.get('issue-listing/', {
           params: {
-            start: (currentPage - 1) * itemsPerPage, // Calculate start index
-            max_result: itemsPerPage // Set max_result to fetch
+            start: (currentPage - 1) * itemsPerPage,
+            max_result: itemsPerPage
           }
         });
-        setIssueData(response.data.resdata);
-        setTotalRecords(response.data.total_record); // Set total records
+        setIssueData(prevData=>[...prevData, ...response.data.resdata]);
+        setTotalRecords(response.data.total_record)
         setLoading(false);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -37,7 +37,12 @@ const IssueList = () => {
     };
 
     fetchData();
-  }, [currentPage]); // Trigger fetchData on currentPage change
+  }, [currentPage]);
+
+  // Calculate the indexes of the items to be displayed on the current page
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = issueData.slice(indexOfFirstItem, indexOfLastItem);
 
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -49,8 +54,8 @@ const IssueList = () => {
   };
 
   const handleForward = () => {
-    const totalPages = Math.ceil(totalRecords / itemsPerPage); // Calculate total pages
-    if (currentPage < totalPages) {
+    const totalPages = Math.ceil(totalRecords / itemsPerPage);
+    if (currentPage < totalPages) { 
       setCurrentPage(currentPage + 1);
     }
   };
@@ -64,8 +69,8 @@ const IssueList = () => {
           <table className="table table-hover table-borderless">
             <TableHead headers={issueListTableHeaders} />
             <tbody>
-              {issueData.map((issue, index) => (
-                <IssueBody key={index.toString()} issue={issue} />
+              {currentItems.map((issue, index) => (
+                <IssueBody key={index.toString()} issue={issue} index={index + indexOfFirstItem} />
               ))}
             </tbody>
           </table>

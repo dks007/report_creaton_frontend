@@ -173,6 +173,24 @@ const CreateReportContent = ({ issue, onClose }) => {
                 </div>
                 <div className="error-msg">Please choose a valid Sub Capability</div>
               </div>
+              <div className={`col-md-6 create-report-wrapper ${formik.touched.customer_name && formik.errors.customer_name ? 'red-bg' : 'green-bg'}`}>
+                <div className="label">Snow Case ID</div>
+                <div>
+                  <input
+                    type="text"
+                    name="customer_name"
+                    value={formik.values.customer_name}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    style={{
+                      border: formik.touched.customer_name && formik.errors.customer_name ? '2px solid red' : ''
+                    }}
+                  />
+                  {formik.touched.customer_name && formik.errors.customer_name && (
+                    <div style={{ color: 'red', fontSize: '14px' }}>{formik.errors.customer_name}</div>
+                  )}
+                </div>
+              </div>
             </div>
             <div className='row'>
               <div className="create-report-wrapper green-bg">
@@ -204,10 +222,10 @@ const CreateReportContent = ({ issue, onClose }) => {
               <p className="text-center">Please make sure you are creating the document for correct Jira ID</p>
               <Box className="popup-action-button">
                 <Button variant="outlined" onClick={onClose}>
-                  Not Sure
+                  Save
                 </Button>
                 <Button variant="contained" type="submit" disabled={!formik.isValid}>
-                  I am sure
+                  Create Report
                 </Button>
               </Box>
             </Box>
