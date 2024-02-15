@@ -1,31 +1,35 @@
-import axios from 'axios';
+import axios from 'axios'
 
-// Create an instance of Axios with a base URL
 const axiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_API_URL // Base URL for API requests
-});
+  baseURL: import.meta.env.VITE_API_URL
+})
 
-// Add an interceptor to modify outgoing requests
+/* The `axiosInstance.interceptors.request.use()` function is used to intercept and modify outgoing
+requests made using the `axiosInstance` object. */
+
 axiosInstance.interceptors.request.use(
-  // Function to modify the request config
   (config) => {
-    // Retrieve the authentication token from sessionStorage
-    const token = sessionStorage.getItem('authToken');
-
-    // If a token is found, add it to the request headers
+    const token = sessionStorage.getItem('authToken')
     if (token) {
-      config.headers['Authorization'] = `Bearer ${token}`; // Add token to Authorization header
+      config.headers['Authorization'] = `Bearer ${token}`
     }
 
-    // Return the modified config
-    return config;
+    return config
   },
-  // Function to handle errors
   (error) => {
-    // Reject the Promise with the error object
-    return Promise.reject(error);
+    return Promise.reject(error)
   }
-);
+)
 
-// Export the configured Axios instance
-export default axiosInstance;
+/* The `axiosInstance.interceptors.response.use()` function is used to intercept and handle responses
+from outgoing requests made using the `axiosInstance` object. */
+axiosInstance.interceptors.response.use(
+  (response) => {
+    return response
+  },
+  (error) => {
+    return Promise.reject(error)
+  }
+)
+
+export default axiosInstance
