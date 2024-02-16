@@ -232,23 +232,25 @@ const IssueBody = ({ issue, index, BasicMenu }) => {
           </div>
         </td>
         <td className="menu-id-col">
-          <div>
-            <span>{issue.menu_card}</span>
-            <HtmlTooltip
-              placement="right-start"
-              arrow
-              title={
-                <React.Fragment>
-                  <div className="custom-tooltip-html">
-                    <p className="reguler-text font-14">{issue.menu_description}</p>
-                  </div>
-                </React.Fragment>
-              }
-            >
-              <InfoIcon fontSize="extra-small" className="ml-10 main-color-fill" />
-            </HtmlTooltip>
-          </div>
-        </td>
+      <div>
+        <span>{issue.menu_card}</span>
+        {issue.menu_card && ( // Only render the tooltip if menu card exists
+          <HtmlTooltip
+            placement="right-start"
+            arrow
+            title={
+              <React.Fragment>
+                <div className="custom-tooltip-html">
+                  <p className="reguler-text font-14">{issue.menu_description}</p>
+                </div>
+              </React.Fragment>
+            }
+          >
+            <InfoIcon fontSize="extra-small" className="ml-10 main-color-fill" />
+          </HtmlTooltip>
+        )}
+      </div>
+</td>
         {/* <td className="menu-des-col"><Tooltip title="{issue.menu_desc}" placement="bottom"><div>{issue.menu_desc}</div></Tooltip></td> */}
         <td className="ticket-des-col" width="250">
           <div>{issue.issue_summary}</div>
