@@ -34,8 +34,8 @@ const IssueDetailsPage = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const response = await axiosInstance.get(`/api/issue-listing/${id}`); // Fetch data from the correct endpoint
-        setIssueData(response.data.resdata);
+        const response = await axiosInstance.get(`/issue-details/${id}`); // Fetch data from the correct endpoint
+        setIssueData(response.data.resdata[0]);
         setLoading(false);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -101,13 +101,13 @@ const IssueDetailsPage = () => {
                 <ImageElement src={profile} placeholderSrc={profile} width={140} height={140} />
               </Box>
               <Typography variant="h6" sx={{ fontWeight: 'bold', fontSize: 20, marginTop: 1 }}>
-                Kendrion (Villingen) Gmbh
+               {issueData.project_name}
               </Typography>
             </Box>
             <div className="detail-list">
               <h6>Customer ID</h6>
               <p>
-                <span>kendrion@ifs.com</span>
+                <span>{issueData.customer_email}</span>
                 <ContentCopyIcon />
               </p>
             </div>
