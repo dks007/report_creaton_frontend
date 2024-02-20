@@ -14,7 +14,7 @@ import AddIcon from '@mui/icons-material/Add'
 import CreateReportModal from './CreateReportModal'
 import SyncTwoToneIcon from '@mui/icons-material/SyncTwoTone'
 
-const IssueBody = ({ issue, index, BasicMenu }) => {
+const IssueBody = ({ issue, index }) => {
   console.log("testing")
   const [showModal, setShowModal] = useState(false)
 

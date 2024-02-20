@@ -26,8 +26,8 @@ const IssueList = () => {
             max_result: itemsPerPage
           }
         });
-        console.log('API Response:', response.data); // Debug
-        setIssueData(prevData => [...prevData, ...response.data.resdata]);
+        console.log('API Response:', response.data);
+        setIssueData(prevIssueData => [...prevIssueData, ...response.data.resdata]);
         setTotalRecords(response.data.total_record);
         setLoading(false);
       } catch (error) {
@@ -37,14 +37,17 @@ const IssueList = () => {
       }
     };
 
+    console.log('Current Page:', currentPage);
     fetchData();
-  }, [currentPage, itemsPerPage]); // Include itemsPerPage as dependency
+  }, [currentPage, itemsPerPage]);
 
+  // Calculate indices for slicing
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = issueData.slice(indexOfFirstItem, indexOfLastItem);
 
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  // Extract currentItems using array slicing
+  const currentItems = issueData.slice(indexOfFirstItem, Math.min(indexOfLastItem, issueData.length));
+  console.log('Current Items:', currentItems);
 
   const handleBack = () => {
     if (currentPage > 1) {
@@ -57,56 +60,6 @@ const IssueList = () => {
     if (currentPage < totalPages) {
       setCurrentPage(currentPage + 1);
     }
-  };
-
-  const renderPaginationControls = () => {
-    const totalPages = Math.ceil(totalRecords / itemsPerPage);
-    const pageNumbers = [];
-
-    // Display first three pages
-    for (let i = 1; i <= Math.min(totalPages, 3); i++) {
-      pageNumbers.push(i);
-    }
-
-    // Display last three pages
-    if (totalPages > 3) {
-      pageNumbers.push('...');
-      for (let i = totalPages - 2; i <= totalPages; i++) {
-        pageNumbers.push(i);
-      }
-    }
-
-    return (
-      <ul className="pagination">
-        <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
-          <button className="page-link" onClick={handleBack}>
-            <KeyboardArrowLeftIcon />
-          </button>
-        </li>
-
-        {pageNumbers.map((pageNumber, index) => (
-          <React.Fragment key={index}>
-            {pageNumber === "..." ? (
-              <li className="page-item disabled">
-                <span className="page-link">...</span>
-              </li>
-            ) : (
-              <li className={`page-item ${pageNumber === currentPage ? 'active' : ''}`}>
-                <button className="page-link" onClick={() => paginate(pageNumber)}>
-                  {pageNumber}
-                </button>
-              </li>
-            )}
-          </React.Fragment>
-        ))}
-
-        <li className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}>
-          <button className="page-link" onClick={handleForward}>
-            <KeyboardArrowRightIcon />
-          </button>
-        </li>
-      </ul>
-    );
   };
 
   return (
@@ -124,7 +77,18 @@ const IssueList = () => {
             </tbody>
           </table>
           <nav className="mt-3 d-flex justify-content-start">
-            {renderPaginationControls()}
+            <ul className="pagination">
+              <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
+                <button className="page-link" onClick={handleBack}>
+                  <KeyboardArrowLeftIcon />
+                </button>
+              </li>
+              <li className={`page-item ${currentPage === totalRecords ? 'disabled' : ''}`}>
+                <button className="page-link" onClick={handleForward}>
+                  <KeyboardArrowRightIcon />
+                </button>
+              </li>
+            </ul>
           </nav>
         </div>
       )}
