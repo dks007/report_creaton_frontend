@@ -26,6 +26,7 @@ const IssueList = () => {
             max_result: itemsPerPage
           }
         });
+        console.log('API Response:', response.data); // Debug
         setIssueData(prevData => [...prevData, ...response.data.resdata]);
         setTotalRecords(response.data.total_record);
         setLoading(false);
@@ -37,7 +38,7 @@ const IssueList = () => {
     };
 
     fetchData();
-  }, [currentPage]);
+  }, [currentPage, itemsPerPage]); // Include itemsPerPage as dependency
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
