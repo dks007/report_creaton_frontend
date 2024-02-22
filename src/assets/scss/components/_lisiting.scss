@@ -27,7 +27,7 @@ body{
 
 // global CSS
 .container-fluid {
-  padding: 30px;
+  padding: 20px;
   background-color: $body_color;
 }
 
@@ -54,7 +54,7 @@ body{
 }
 
 .table-wrapper{
-  padding: 30px;
+  padding: 10px 20px;
   background-color: $white_color;
   table{
     border-collapse: separate;
@@ -125,6 +125,7 @@ body{
 }
 .customer-col{
   text-wrap: nowrap;
+  width: 249px;
   span{
     max-width: 150px;
     min-width: 150px;
@@ -282,21 +283,31 @@ body{
 
 
 .report-col .report-status {
-  &.status-0{
-    background: #F5EFFC;
+  // &.status-0{
+  //   background: #F5EFFC;
+  //   color: $main_color;
+  // }
+  
+  &.status-1 {
+    background-color: $main_light;
     color: $main_color;
   }
+
   &.status-2 {
     background-color: $green_color;
   }
 
-  &.status-1 {
-    background-color: $yellow_color;
-    color: $white_color;
-  }
-
   &.status-3 {
     background-color: $red_color;
+  }
+
+  &.status-4 {
+    background-color: $red_color;
+  }
+
+  &.status-5 {
+    background-color: $red_color;
+    color: $white_color;
   }
  
 }
@@ -411,4 +422,14 @@ body{
 .report-status.status-3 {
   background-color: #ff523b; /* Green */
   color: #FFF; /* White */
+}
+
+
+.item-number-action{
+  span{
+    width: 25px;
+    padding: 0;
+    background: transparent;
+    box-shadow: none;
+  }
 }

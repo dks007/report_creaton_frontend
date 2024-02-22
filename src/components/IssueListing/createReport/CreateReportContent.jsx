@@ -217,7 +217,7 @@ const CreateReportContent = ({ issue, onClose }) => {
               }}
             >
               <IconButton className="question-icon">
-                <HelpOutlineIcon style={{ fontSize: 50 }} />
+                <img src='src/assets/Images/create-report-icon.svg' alt="Create report image"/>
               </IconButton>
               <p className="text-center">Please make sure you are creating the document for correct Jira ID</p>
               <Box className="popup-action-button">
