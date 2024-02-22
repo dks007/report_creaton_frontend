@@ -14,7 +14,7 @@ import AddIcon from '@mui/icons-material/Add'
 import CreateReportModal from './CreateReportModal'
 import SyncTwoToneIcon from '@mui/icons-material/SyncTwoTone'
 
-const IssueBody = ({ issue, index }) => {
+const IssueBody = ({ issue, index, BasicMenu }) => {
   console.log("testing")
   const [showModal, setShowModal] = useState(false)
 
@@ -45,34 +45,41 @@ const IssueBody = ({ issue, index }) => {
   // ** End: Action button/column */
   const renderActionButton = () => {
     switch (issue.report_status) {
-      case '0': // Not Created
+      case '1': // Not Created
         return (
           <MenuItem onClick={handleShowModal}>
             <AddIcon /> Create Report
           </MenuItem>
         )
 
-      case '1': // Creating Report
+      case '2': // Creating Report
         return (
           <MenuItem onClick={handleDownload}>
             <DownloadIcon /> Another action
           </MenuItem>
         )
 
-      case '2': // Created
+      case '3': // Created
         return (
           <MenuItem onClick={handleDownload}>
             <DownloadIcon /> Another action
           </MenuItem>
         )
 
-      case '3': // Creation Error
+      case '4': // saved
         return (
           <MenuItem onClick={handleRefresh}>
             <SyncTwoToneIcon /> Refresh
           </MenuItem>
         )
-      case '4': // Creation Error
+      case '5': //  Error
+        return (
+          <MenuItem onClick={handleRefresh}>
+            <SyncTwoToneIcon />
+            Unknown
+          </MenuItem>
+        )
+        case '6': // Unknown
         return (
           <MenuItem onClick={handleRefresh}>
             <SyncTwoToneIcon />
@@ -87,28 +94,32 @@ const IssueBody = ({ issue, index }) => {
   // Function to get the report status text based on report_status value
   const getReportStatusText = () => {
     switch (issue.report_status) {
-      case '0':
-        return 'Not Created'
       case '1':
-        return 'Creating Report'
+        return 'Not Created'
       case '2':
-        return 'Created '
+        return 'Creating Report'
       case '3':
-        return 'Creation Error'
+        return 'Created '
+      case '4':
+        return 'Saved'
+      case '5':
+        return 'Error'
       default:
         return 'Unknown Status'
     }
   }
   const getRowColor = () => {
     switch (issue.report_status) {
-      case '0':
-        return ''
       case '1':
-        return 'orange-row'
+        return ''
       case '2':
-        return 'green-row'
+        return 'orange-row'
       case '3':
-        return 'red-row'
+        return 'green-row'
+      case '4':
+        return 'green-row'
+      case '5':
+      return 'red-row'
       default:
         return ''
     }
@@ -132,7 +143,7 @@ const IssueBody = ({ issue, index }) => {
       <tr className={`table ${dynamicClass}`}>
         <th scope="row">
           <div className="item-number-action">
-            {index + 1}
+            <span>{index + 1}</span>
             <Button
               id="basic-button"
               aria-controls={open ? 'basic-menu' : undefined}
@@ -166,6 +177,7 @@ const IssueBody = ({ issue, index }) => {
               arrow
               title={
                 <React.Fragment>
+                  <div className='tooltip-content-wrapper'>
                   {issue.subtasks_list.map((subtask) => (
                     <div key={subtask.key} className="custom-tooltip-html contentonly">
                       <p>
@@ -178,6 +190,7 @@ const IssueBody = ({ issue, index }) => {
                       </p>
                     </div>
                   ))}
+                  </div>
                 </React.Fragment>
               }
             >
@@ -232,7 +245,7 @@ const IssueBody = ({ issue, index }) => {
           </div>
         </td>
         <td className="menu-id-col">
-      <div>
+        <div>
         <span>{issue.menu_card}</span>
         {issue.menu_card && ( // Only render the tooltip if menu card exists
           <HtmlTooltip
@@ -250,7 +263,7 @@ const IssueBody = ({ issue, index }) => {
           </HtmlTooltip>
         )}
       </div>
-</td>
+        </td>
         {/* <td className="menu-des-col"><Tooltip title="{issue.menu_desc}" placement="bottom"><div>{issue.menu_desc}</div></Tooltip></td> */}
         <td className="ticket-des-col" width="250">
           <div>{issue.issue_summary}</div>
@@ -273,7 +286,7 @@ const IssueBody = ({ issue, index }) => {
         <td className="report-col">
           <div>
             <span className={`report-status status-${issue.report_status}`}>
-              {issue.report_status === '3' && (
+              {issue.report_status === '5' && (
                 <HtmlTooltip
                   placement="right-start"
                   arrow
@@ -281,8 +294,7 @@ const IssueBody = ({ issue, index }) => {
                     <React.Fragment>
                       <div className="custom-tooltip-html">
                         <p className="reguler-text font-14">
-                          We came across an error when creating this report. <br />
-                          Error: "Customer email is not a valid email address"
+                          {issue.report_error}
                         </p>
                       </div>
                     </React.Fragment>

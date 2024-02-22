@@ -13,7 +13,7 @@ const IssueList = () => {
   const [issueData, setIssueData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(itemPerPage);
-  const [totalRecords, setTotalRecords] = useState(0);
+  const[totalRecords, setTotalRecords] = useState(0)
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -26,9 +26,8 @@ const IssueList = () => {
             max_result: itemsPerPage
           }
         });
-        console.log('API Response:', response.data);
-        setIssueData(prevIssueData => [...prevIssueData, ...response.data.resdata]);
-        setTotalRecords(response.data.total_record);
+        setIssueData(prevData=>[...prevData, ...response.data.resdata]);
+        setTotalRecords(response.data.total_record)
         setLoading(false);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -37,17 +36,16 @@ const IssueList = () => {
       }
     };
 
-    console.log('Current Page:', currentPage);
     fetchData();
-  }, [currentPage, itemsPerPage]);
+  }, [currentPage]);
 
-  // Calculate indices for slicing
+  // Calculate the indexes of the items to be displayed on the current page
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = issueData.slice(indexOfFirstItem, indexOfLastItem);
 
-  // Extract currentItems using array slicing
-  const currentItems = issueData.slice(indexOfFirstItem, Math.min(indexOfLastItem, issueData.length));
-  console.log('Current Items:', currentItems);
+  // Change page
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const handleBack = () => {
     if (currentPage > 1) {
@@ -57,40 +55,43 @@ const IssueList = () => {
 
   const handleForward = () => {
     const totalPages = Math.ceil(totalRecords / itemsPerPage);
-    if (currentPage < totalPages) {
+    if (currentPage < totalPages) { 
       setCurrentPage(currentPage + 1);
     }
   };
 
   return (
-    <div className="table-responsive">
+    <div>
       {loading ? (
         <Loader />
       ) : (
-        <div>
-          <table className="table table-hover table-borderless">
-            <TableHead headers={issueListTableHeaders} />
-            <tbody>
-              {currentItems.map((issue, index) => (
-                <IssueBody key={index.toString()} issue={issue} index={index + indexOfFirstItem} />
-              ))}
-            </tbody>
-          </table>
-          <nav className="mt-3 d-flex justify-content-start">
-            <ul className="pagination">
-              <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
-                <button className="page-link" onClick={handleBack}>
-                  <KeyboardArrowLeftIcon />
-                </button>
-              </li>
-              <li className={`page-item ${currentPage === totalRecords ? 'disabled' : ''}`}>
-                <button className="page-link" onClick={handleForward}>
-                  <KeyboardArrowRightIcon />
-                </button>
-              </li>
-            </ul>
-          </nav>
-        </div>
+          <><div className="table-responsive">
+            <table className="table table-hover table-borderless">
+              <TableHead headers={issueListTableHeaders} />
+              <tbody>
+                {currentItems.map((issue, index) => (
+                  <IssueBody key={index.toString()} issue={issue} index={index + indexOfFirstItem} />
+                ))}
+              </tbody>
+            </table>
+          </div><div className="mt-1 d-flex justify-content-start pagination-wrapper">
+              <ul className="pagination">
+                <li className="pagination-text">
+                  Showing Page {currentPage} of {Math.ceil(totalRecords / itemsPerPage)}
+                </li>
+                <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
+                  <button className="page-link" onClick={handleBack}>
+                    <KeyboardArrowLeftIcon />
+                  </button>
+                </li>
+                <div className="current-page">{currentPage}</div>
+                <li className={`page-item ${currentPage === Math.ceil(totalRecords / itemsPerPage) ? 'disabled' : ''}`}>
+                  <button className="page-link" onClick={handleForward}>
+                    <KeyboardArrowRightIcon />
+                  </button>
+                </li>
+              </ul>
+            </div></>
       )}
     </div>
   );

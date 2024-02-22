@@ -49,24 +49,30 @@ const IssueDetailsPage = () => {
 
   const renderActionButton = () => {
     switch (issueData.report_status) {
-      case '0': // Not Created
+      case '1': // Not Created
         return (
           <button onClick={handleShowModal} className="btn primery-btn">
             <AddIcon /> Create Report
           </button>
         )
 
-      case '1': // Creating Report
+      case '2': // Creating Report
         return <div className="report-status status-0 ms-2">In-progress</div>
 
-      case '2': // Created
+      case '3': // Created
         return (
           <button onClick={() => {}} className="btn primery-btn sml-btn">
             <DownloadIcon />
           </button>
         )
 
-      case '3': // Creation Error
+      case '4': // Saved
+        return (
+          <button className="btn blue-btn sml-btn" onClick={handleShowModal}>
+            <SyncTwoToneIcon />
+          </button>
+        )
+        case '5': // Creation Error
         return (
           <button className="btn blue-btn sml-btn" onClick={handleShowModal}>
             <SyncTwoToneIcon />
@@ -107,11 +113,38 @@ const IssueDetailsPage = () => {
             <div className="detail-list">
               <h6>Customer ID</h6>
               <p>
+                <span>{issueData.customer_id}</span>
+                <ContentCopyIcon />
+              </p>
+            </div>
+            <div className="detail-list">
+              <h6>Project ID</h6>
+              <p>
+                <span>{issueData.project_id}</span>
+                <ContentCopyIcon />
+              </p>
+            </div>
+            <div className="detail-list">
+              <h6>Contact Email</h6>
+              <p>
                 <span>{issueData.customer_email}</span>
                 <ContentCopyIcon />
               </p>
             </div>
-            {/* Other details */}
+            <div className="detail-list">
+              <h6>Contact number</h6>
+              <p>
+                <span>{issueData.customer_contact_no}</span>
+                <ContentCopyIcon />
+              </p>
+            </div>
+            <div className="detail-list">
+              <h6>Location</h6>
+              <p>
+                <span>{issueData.customer_location}</span>
+                <ContentCopyIcon />
+              </p>
+            </div>
           </div>
         </div>
         <div className="col-md-9">

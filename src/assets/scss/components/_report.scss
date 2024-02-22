@@ -47,7 +47,7 @@
   .css-13cymwt-control, .css-t3ipsp-control{
     border-color: $gray_color;
     height: 30px;    
-    min-height: 30px;
+    min-height: 30px; 
   }
 
   .css-art2ul-ValueContainer2 {
@@ -74,6 +74,12 @@
       padding: 0 8px;
     }
   }
+  .css-13cymwt-control div:first-child, .css-t3ipsp-control div:first-child{
+    width: 142px !important;
+    height: 28px;
+    align-items: flex-start;
+  }
+  
 }
 
 .readonly-info{
