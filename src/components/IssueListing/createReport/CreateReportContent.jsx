@@ -6,6 +6,7 @@ import CustomSelect from '../../shared/common/CustomSelect'
 import * as Yup from 'yup'
 import { createReportValidationSchema } from '../../../constants/validationSchema'
 import ImageUpload from './ImageUpload'
+import RefreshIcon from '@mui/icons-material/Refresh';
 
 const CreateReportContent = ({ issue, onClose }) => {
   const [selectedOption, setSelectedOption] = useState(null)
@@ -62,8 +63,11 @@ const CreateReportContent = ({ issue, onClose }) => {
         >
           <Box className='container' sx={{ width: 550 }}>
             <div className="row readonly-info">
-              <div className="label">Jira ID: <span>{formik.values.jira_id}DCG12354</span></div>
-              <div className="label">Expert: <span>{formik.values.expert_name}SAT PAL</span></div>
+              <div className='info-left'>
+                <div className="label">Jira ID: <span>{formik.values.jira_id}DCG12354</span></div>
+                <div className="label">Expert: <span>{formik.values.expert_name}SAT PAL</span></div>
+              </div>
+              <div className='refresh-btn'><RefreshIcon /><span>Reset Default</span></div>
             </div>
             <div className='row'>              
               <div className={`col-md-6 create-report-wrapper ${formik.touched.customer_name && formik.errors.customer_name ? 'red-bg' : 'green-bg'}`}>

@@ -4,6 +4,7 @@ import Seo from '../../components/shared/common/Seo'
 import { useNavigate } from 'react-router-dom'
 import { routePath } from '../../constants/routes'
 import AccountBoxIcon from '@mui/icons-material/AccountBox'
+import LoginIcon from '@mui/icons-material/Login';
 
 const AuthCopy = () => {
   const navigate = useNavigate()
@@ -26,7 +27,7 @@ const AuthCopy = () => {
       <div style={cardStyles} className="login_container">
         <div className="inner_container">
           <img src="../src/assets/images/login_icon.svg"></img>
-          <h1>IFS Digital Assyst</h1>
+          <h1>Success Pilot</h1>
           <p>Click below button to login using Azure AD</p>
           <button
             className="login-azure-btn"
@@ -35,10 +36,10 @@ const AuthCopy = () => {
             }}
           >
             {' '}
-            <AccountBoxIcon /> Login with Azure AD{' '}
+            <LoginIcon /> Login with Azure AD{' '}
           </button>
           <p>
-            <small>Clicking this button will log you into Success Delivery IFS Digital Assyst using Azure AD authentication.</small>
+            <small>Clicking this button will log you into Success Pilot using Azure AD authentication.</small>
           </p>
           <p>
             Facing any difficulties? - <a href="#">Contact support</a>
