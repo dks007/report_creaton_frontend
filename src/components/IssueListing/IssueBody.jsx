@@ -154,7 +154,7 @@ const IssueBody = ({ issue, index, BasicMenu }) => {
             >
               <MoreVertIcon />
             </Button>
-            <CreateReportModal showModal={showModal} handleHideModal={handleHideModal} issue={issue}/>
+            <CreateReportModal showModal={showModal} handleHideModal={handleHideModal} issue={issue.issue_key}/>
             <Menu
               id="basic-menu"
               anchorEl={anchorEl}

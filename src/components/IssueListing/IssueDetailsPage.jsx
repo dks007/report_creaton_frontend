@@ -151,7 +151,7 @@ const IssueDetailsPage = () => {
           <div className="custom-box">
             <CustomTabs tabs={detailsPageTab} defaultTab={STRING.ONGOING_REPORT} tabName={STRING.ACTIVE} />
 
-            {tab === 'ongoing-report' && <OngoingReport />}
+            {tab === 'ongoing-report' && <OngoingReport issueData={issueData} />}
             {tab === 'historical-report' && <HistoricReport />}
           </div>
         </div>
