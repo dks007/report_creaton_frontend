@@ -15,7 +15,7 @@ const Report = () => {
     <div>
       <h3>Assigned Jira Issues</h3>
       <IconBreadcrumbs breadcrumbs={assignedJiraIssues} />
-      <div className="mt-4">
+      <div className="mt-3">
         <CustomTabs tabs={homeTab} defaultTab={STRING.CREATE_REPORT} tabName={STRING.ACTIVE} />
         <div className="table-wrapper">
           {activeTab === STRING.CREATE_REPORT && <AssignedIssueListing />}

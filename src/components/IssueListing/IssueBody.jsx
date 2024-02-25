@@ -13,6 +13,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert'
 import AddIcon from '@mui/icons-material/Add'
 import CreateReportModal from './CreateReportModal'
 import SyncTwoToneIcon from '@mui/icons-material/SyncTwoTone'
+import SaveIcon from '@mui/icons-material/Save';
 
 const IssueBody = ({ issue, index, BasicMenu }) => {
   console.log("testing")
@@ -153,7 +154,7 @@ const IssueBody = ({ issue, index, BasicMenu }) => {
             >
               <MoreVertIcon />
             </Button>
-            <CreateReportModal showModal={showModal} handleHideModal={handleHideModal} issue={issue}/>
+            <CreateReportModal showModal={showModal} handleHideModal={handleHideModal} issue={issue.issue_key}/>
             <Menu
               id="basic-menu"
               anchorEl={anchorEl}
@@ -302,6 +303,27 @@ const IssueBody = ({ issue, index, BasicMenu }) => {
                   className="error-tooltip"
                 >
                   <InfoIcon fontSize="extra-small" className="ml-10 main-color-fill" />
+                </HtmlTooltip>
+              )}
+              {/* save status condition */}
+              {issue.report_status === '4' && (
+                <HtmlTooltip
+                  placement="right-start"
+                  arrow
+                  title={
+                    <React.Fragment>
+                      <div className="custom-tooltip-html">
+                        <p className="bold-text font-14">
+                          The report creation process has commenced but remains ongoing.
+                          {/* {issue.report_error} */}
+                        </p>
+                        <p className="reguler-text font-14">Some information has been gathered and saved.</p>
+                      </div>
+                    </React.Fragment>
+                  }
+                  className="saved-tooltip"
+                >
+                  <SaveIcon className="save-icon" />
                 </HtmlTooltip>
               )}
               {getReportStatusText()}

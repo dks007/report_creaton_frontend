@@ -4,6 +4,7 @@ import AccountBoxIcon from '@mui/icons-material/AccountBox'
 import { useMsal } from '@azure/msal-react'
 import { loginRequest } from '../../config/authConfig'
 import Loader from '../../components/shared/common/Loader'
+import LoginIcon from '@mui/icons-material/Login';
 
 const Auth = () => {
   const { instance } = useMsal()
@@ -42,15 +43,15 @@ const Auth = () => {
       <div style={cardStyles} className="login_container">
         <div className="inner_container">
           <img src="../src/assets/images/login_icon.svg" alt="Login Icon"></img>
-          <h1>IFS Digital Assyst</h1>
+          <h1>Success Pilot</h1>
           <p>Click below button to login using Azure AD</p>
           <button className="login-azure-btn" onClick={handleRedirect}>
-            <AccountBoxIcon /> Login with Azure AD{' '}
+            <LoginIcon /> Login with Azure AD{' '}
           </button>
-          <p>
-            <small>Clicking this button will log you into Success Delivery IFS Digital Assyst using Azure AD authentication.</small>
+          <p className='notify-msg'>
+            <small>Clicking this button will log you into Success Pilot using Azure AD authentication.</small>
           </p>
-          <p>
+          <p className='contact-support'>
             Facing any difficulties? - <a href="#">Contact support</a>
           </p>
         </div>

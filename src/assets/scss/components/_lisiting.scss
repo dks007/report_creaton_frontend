@@ -249,6 +249,17 @@ body{
   }
 }
 
+.css-s6wrib-MuiPopper-root-MuiTooltip-popper.saved-tooltip .MuiTooltip-tooltip{
+  background-color: $gray_color;
+  .MuiTooltip-arrow{
+    color: $gray_color;
+  }
+  p{
+    line-height: 16px;
+    font-size: 13px;
+  }
+}
+
 .custom-tooltip-html.contentonly{
   .value{
     width: 100%;
@@ -302,7 +313,13 @@ body{
   }
 
   &.status-4 {
-    background-color: $red_color;
+    background-color: $gray_light;
+    color: $gray_color;
+    .save-icon{
+      width: 14px;
+      height: 16px;
+      fill: $gray_color !important;
+    }
   }
 
   &.status-5 {

@@ -20,34 +20,15 @@ const HtmlTooltip = styled(({ className, ...props }) => <Tooltip {...props} clas
     color: theme.palette.common.black
   }
 }))
-const OngoingReport = () => {
-  const [loading, setLoading] = useState(false)
-  const [issueData, setIssueData] = useState([])
-  const { id } = useParams()
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true)
-        const response = await axiosInstance.get(`/issue-details/${id}`)
-        setIssueData(response.data)
-        console.log(response.data)
-        setLoading(false)
-      } catch (error) {
-        console.error('Error fetching data:', error)
-        setLoading(false)
-      }
-    }
-
-    // fetchData()
-  }, [])
+const OngoingReport = ({issueData}) => {
+  
 
   return (
     <div className="tab-container">
       <Box sx={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }} className="mb-4">
         <div className="report-title-container">
           <div className="report-title">Report Title</div>
-          <h6>SAA2 - Kendrion (Villingen) Gmbh</h6>
+          <h6>{issueData.project_name}</h6>
         </div>
       </Box>
 
@@ -55,7 +36,7 @@ const OngoingReport = () => {
         <div className="col-md-3">
           <h6>Jira ID</h6>
           <p>
-            JI145455
+          {issueData.issue_key}
             {/* tooltip for showing sub task */}
             <HtmlTooltip
               placement="right-start"
@@ -82,7 +63,7 @@ const OngoingReport = () => {
         <div className="col-md-3">
           <h6>Customer Name</h6>
           <p>
-            Kendrion (Villingen) Gmbh
+          {issueData.customer_name}
             <HtmlTooltip
               placement="right-start"
               arrow
@@ -101,35 +82,35 @@ const OngoingReport = () => {
         </div>
         <div className="col-md-3">
           <h6>Menu Card Description</h6>
-          <p>Solution design for IFS Software</p>
+          <p>{issueData.sdo_name}</p>
         </div>
         <div className="col-md-3">
           <h6>SDO</h6>
-          <p>Srilal Abeykoon</p>
+          <p>{issueData.sdo_name}</p>
         </div>
       </div>
       <div className="row value-listing">
         <div className="col-md-3">
           <h6>SDM</h6>
-          <p>Morgan Freeman</p>
+          <p>{issueData.sdm_name}</p>
         </div>
         <div className="col-md-3">
           <h6>CSM</h6>
-          <p>Morgan Freeman</p>
+          <p>{issueData.csm_name}</p>
         </div>
         <div className="col-md-3">
           <h6>Assigned Date</h6>
-          <p>5 Aug 2023</p>
+          <p>{issueData.assign_date}</p>
         </div>
         <div className="col-md-3">
           <h6>Created Date</h6>
-          <p>5 Aug 2023</p>
+          <p>{issueData.created_date}</p>
         </div>
       </div>
       <div className="row value-listing">
         <div className="col-md-3">
           <h6>Capability</h6>
-          <p>Finance</p>
+          <p>{issueData.capability}</p>
         </div>
         <div className="col-md-3">
           <h6>Sub Capability</h6>
@@ -137,18 +118,14 @@ const OngoingReport = () => {
         </div>
         <div className="col-md-3">
           <h6>Reporter</h6>
-          <p>Irshad Iqbal</p>
+          <p>{issueData.creator_name}</p>
         </div>
       </div>
       <div className="row value-listing">
         <div className="col-md-12">
           <h6>Ticket Description</h6>
-          <p className="ticket-des">Primary industry : Finance</p>
-          <p className="ticket-des">Product: IFS Cloud</p>
-          <p className="ticket-des">Current Software version : 22.2.8</p>
-          <p className="ticket-des">Frequency: 1</p>
-          <p className="ticket-des">Prerequest Information: Need advice with posting</p>
-          <p className="ticket-des">types: TMP and TP3</p>
+          <p className="ticket-des">{issueData.issue_summary}</p>
+          
         </div>
       </div>
     </div>

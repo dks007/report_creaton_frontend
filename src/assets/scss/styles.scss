@@ -377,14 +377,58 @@ button.page-link{
 }
 .readonly-info{
     margin-bottom: 10px;
-    .label{
-        font-size: 16px;
-        font-weight: 500;
-        span{
-            font-weight: 400;
+    display: flex;
+    justify-content: space-between;
+    *{
+        width: inherit;
+        min-width: inherit;
+      }
+    .info-left{
+        display: flex;
+        padding: 0;
+        align-items: center;
+
+        .label{
+            font-size: 16px;
+            font-weight: 500;
+            padding-right: 10px;
+            margin-right: 10px;
+            &:first-child{
+                border-right: 1px solid $gray_color;
+            }
+            span{
+                font-weight: 400;
+            }
         }
     }
+    .refresh-btn{
+        font-size: 14px;
+        font-weight: 500;
+        color: $main_color;
+        border: 1px solid $main_color;
+        align-items: center;
+        padding: 3px 8px;
+        display: flex;
+        border-radius: 3px;
+        cursor: pointer;
+        svg{
+            width: 20px;
+            height: 20px;
+            fill: $main_color;
+        }
+
+        &:hover{
+            background-color: $main_color;
+            color: $white_color;
+            svg{
+                fill: $white_color;
+            }
+        }
+    }
+   
 }
+
+
 
 // image upload
 .upload-image{
