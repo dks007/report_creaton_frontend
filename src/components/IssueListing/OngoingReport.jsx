@@ -21,14 +21,14 @@ const HtmlTooltip = styled(({ className, ...props }) => <Tooltip {...props} clas
   }
 }))
 const OngoingReport = ({issueData}) => {
-  
+  console.log("issueData--->",issueData)
 
   return (
     <div className="tab-container">
       <Box sx={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }} className="mb-4">
         <div className="report-title-container">
           <div className="report-title">Report Title</div>
-          <h6>{issueData.project_name}</h6>
+          <h6>{issueData.issue_summary}</h6>
         </div>
       </Box>
 
@@ -38,25 +38,32 @@ const OngoingReport = ({issueData}) => {
           <p>
           {issueData.issue_key}
             {/* tooltip for showing sub task */}
+            {issueData.subtasks_list && issueData.subtasks_list.length > 0 && (
             <HtmlTooltip
               placement="right-start"
               arrow
               title={
                 <React.Fragment>
-                  <div className="custom-tooltip-html contentonly">
-                    <p>
-                      <Typography color="inherit">Task ID: CH21354</Typography>
-                    </p>
-                    <p className="value">
-                      <Typography color="inherit">Title</Typography>
-                      This is the syb task
-                    </p>
+                  <div className='tooltip-content-wrapper'>
+                  {issueData.subtasks_list.map((subtask) => (
+                    <div key={subtask.key} className="custom-tooltip-html contentonly">
+                      <p>
+                        <Typography color="inherit">Task ID</Typography>
+                        {subtask.key}
+                      </p>
+                      <p className="value">
+                        <Typography color="inherit">Title</Typography>
+                        {subtask.summary}
+                      </p>
+                    </div>
+                  ))}
                   </div>
                 </React.Fragment>
               }
             >
               <img src="../src/assets/Images/sub-task.png" className="subtask-icon" alt="subtask" />
             </HtmlTooltip>
+          )}
             {/* tooltip for showing sub task end*/}
           </p>
         </div>
@@ -64,20 +71,24 @@ const OngoingReport = ({issueData}) => {
           <h6>Customer Name</h6>
           <p>
           {issueData.customer_name}
-            <HtmlTooltip
-              placement="right-start"
-              arrow
-              title={
-                <React.Fragment>
-                  <div className="custom-tooltip-html">
-                    <p>Partners</p>
-                    <p className="value">This icon indicates that this report is created for a partner.</p>
-                  </div>
-                </React.Fragment>
-              }
-            >
-              <img src="../src/assets/Images/patner-icon.png" className="subtask-icon ml-10" alt="partner" />
-            </HtmlTooltip>
+           {/* tooltip for showing partner */}
+           {issueData.partner === true && (
+              <HtmlTooltip
+                placement="right-start"
+                arrow
+                title={
+                  <React.Fragment>
+                    <div className="custom-tooltip-html">
+                      <p>Partners</p>
+                      <p className="value">This icon indicates that this report is created for a partner.</p>
+                    </div>
+                  </React.Fragment>
+                }
+              >
+                <img src="../src/assets/Images/patner-icon.png" className="subtask-icon ml-10" alt="partner" />
+              </HtmlTooltip>
+            )}
+            {/* tooltip for showing partner end*/}
           </p>
         </div>
         <div className="col-md-3">
@@ -124,7 +135,7 @@ const OngoingReport = ({issueData}) => {
       <div className="row value-listing">
         <div className="col-md-12">
           <h6>Ticket Description</h6>
-          <p className="ticket-des">{issueData.issue_summary}</p>
+          <p className="ticket-des">{issueData.description_content}</p>
           
         </div>
       </div>
