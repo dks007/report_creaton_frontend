@@ -225,7 +225,7 @@ const IssueBody = ({ issue, index, BasicMenu }) => {
             >
               <InfoIcon fontSize="extra-small" className="ml-10 main-color-fill" />
             </HtmlTooltip>
-            {/* tooltip for showing sub task */}
+            {/* tooltip for showing partner */}
             {issue.partner === true && (
               <HtmlTooltip
                 placement="right-start"
@@ -242,7 +242,7 @@ const IssueBody = ({ issue, index, BasicMenu }) => {
                 <img src="../src/assets/Images/patner-icon.png" className="subtask-icon ml-10" alt="partner" />
               </HtmlTooltip>
             )}
-            {/* tooltip for showing sub task end*/}
+            {/* tooltip for showing partner end*/}
           </div>
         </td>
         <td className="menu-id-col">
