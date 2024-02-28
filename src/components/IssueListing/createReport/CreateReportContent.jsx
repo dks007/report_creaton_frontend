@@ -24,13 +24,16 @@ const CreateReportContent = ({ issue, onClose }) => {
   })
   const [loading, setLoading] = useState(false)
   const [apiData, setApiData] = useState()
+  const [selectBoxErrors, setSelectBoxErrors] = useState({});
+  const [logoError, setLogoError] = useState('');
 
   const fetchMasterData = async () => {
     try {
       setLoading(true)
-      const response = await axiosInstance.get(`050ab537-4129-446a-8bca-c2a157141bc3`)
+      //const response = await axiosInstance.get(`050ab537-4129-446a-8bca-c2a157141bc3`)
+      const response = await axiosInstance.get('/get-createreport/${id}')
       const masterData = response.data.resdata
-      console.log('cus', masterData)
+      console.log('masterdata', masterData)
       setApiData(masterData)
       setSelectBoxOptions((prevState) => ({
         ...prevState,
@@ -56,13 +59,15 @@ const CreateReportContent = ({ issue, onClose }) => {
           subCapabilities: item.sub_capabilities.map((subCap) => subCap.name)
         }))
       }))
+
       setSelectedValue((prevState) => ({
         ...prevState,
         customerName: { value: masterData?.customer_name, label: masterData?.customer_name },
         customerContact: { value: masterData?.customer_contact, label: masterData?.customer_contact },
         product: { value: masterData?.product, label: masterData?.product },
         menuCard: { value: masterData?.menu_card, label: masterData?.menu_card },
-        capability: { value: masterData?.capability, label: masterData?.capability }
+        capability: { value: masterData?.capability, label: masterData?.capability },
+        subCapabilities : { value: masterData?.sub_capability, label: masterData?.sub_capability }
       }))
 
       setLoading(false)
@@ -88,6 +93,7 @@ const CreateReportContent = ({ issue, onClose }) => {
     }
     return []
   }
+  // Handling reset button
   const handleRestButton = () => {
     setSelectedValue((prevState) => ({
       ...prevState,
@@ -95,7 +101,8 @@ const CreateReportContent = ({ issue, onClose }) => {
       customerContact: { value: apiData?.customer_contact, label: apiData?.customer_contact },
       product: { value: apiData?.product, label: apiData?.product },
       menuCard: { value: apiData?.menu_card, label: apiData?.menu_card },
-      capability: { value: apiData?.capability, label: apiData?.capability }
+      capability: { value: apiData?.capability, label: apiData?.capability },
+      subCapabilities: { value: apiData?.sub_capability, label: apiData?.sub_capability }
     }))
   }
   const validateSelectBox = (selectedOption, selectBoxName) => {
@@ -112,27 +119,61 @@ const CreateReportContent = ({ issue, onClose }) => {
     }))
     return true
   }
-  const payload = {
-    issue_key: issue,
-    customer_name: selectedValue.customerName?.value,
-    customer_contact: selectedValue.customerContact?.value,
-    expert_name: apiData?.expert_name,
-    creator_name: apiData?.creator_name,
-    menu_card: selectedValue.menuCard?.value,
-    product: selectedValue.product?.value,
-    capability: selectedValue.capability?.value,
-    sub_capability: selectedValue.subCapabilities?.value,
-    snow_case_no: apiData?.snow_case_no,
-    action: 'saved',
-    logo: 'sss',
-    sdm_name: apiData?.sdm_name,
-    csm_name: apiData?.csm_name,
-    sdo_name: apiData?.sdo_name
+
+  const validateLogo = (logo) => {
+    if (!logo) {
+      setLogoError('Please upload the logo')
+      return false
+    }
+    setLogoError('')
+    return true
   }
-  const handleSaveButton = () => {
-    console.log('payload', payload)
-  }
+  
+  // handle save button
+  const handleSaveButton = async () => {
+    try {
+      console.log("data need to saved",selectedValue.capability?.value)
+      console.log("data need to saved",selectedValue.subCapabilities?.value)
+      const validCustomerName = validateSelectBox(selectedValue.customerName?.value, 'customerName')
+      const validMenuCard = validateSelectBox(selectedValue.menuCard?.value, 'menuCard')
+      const validCustomerContact = validateSelectBox(selectedValue.customerContact?.value, 'customerContact')
+      const validProduct = validateSelectBox(selectedValue.product?.value, 'product')
+      const validCapability = validateSelectBox(selectedValue.capability?.value, 'capability')
+      const validSubCapability = validateSelectBox(selectedValue.subCapabilities?.value, 'subCapabilities')
+      const validSnoeCaseNo = validateText(selectedValue.subCapabilities?.value, 'subCapabilities')
+      const validLogo = validateLogo(selectedValue.logo?.value)
+      console.log("logo data need to saved",selectedValue.logo?.value)
+      if (validCustomerName && validMenuCard && validCustomerContact && validProduct && validCapability && validSubCapability ) {
+        const payload = {
+          issue_key: issue,
+          customer_name: selectedValue.customerName?.value,
+          customer_contact: selectedValue.customerContact?.value,
+          expert_name: apiData?.expert_name,
+          creator_name: apiData?.creator_name,
+          menu_card: selectedValue.menuCard?.value,
+          product: selectedValue.product?.value,
+          capability: selectedValue.capability?.value,
+          sub_capability: selectedValue.subCapabilities?.value,
+          snow_case_no: apiData?.snow_case_no,
+          action: 'saved',
+          logo: selectedValue.logo,
+          sdm_name: apiData?.sdm_name,
+          csm_name: apiData?.csm_name,
+          sdo_name: apiData?.sdo_name
+        };
+        console.log('payload', payload);
+        // Post form data to the API endpoint
+        await axiosInstance.post("/createreport/", payload);
+        console.log("data saved successfully!");
+      }
+    } catch (error) {
+      // Handle error scenario, e.g., show an error message
+      console.error("Error while saving data:", error);
+    }
+  };
+  // handle create button
   const handleCreateReportButton = () => {}
+
   return (
     <div>
       <form>
