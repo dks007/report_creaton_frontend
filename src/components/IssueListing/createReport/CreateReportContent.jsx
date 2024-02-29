@@ -5,6 +5,7 @@ import axiosInstance from '../../../axiosInstance/axiosInstance'
 import ImageUpload from './ImageUpload'
 import RefreshIcon from '@mui/icons-material/Refresh'
 import Loader from '../../shared/common/Loader'
+import { checkDataInList } from '../../../utils/helperFunction'
 
 const CreateReportContent = ({ issue, onClose }) => {
   const [selectBoxOptions, setSelectBoxOptions] = useState({
@@ -24,17 +25,27 @@ const CreateReportContent = ({ issue, onClose }) => {
   })
   const [loading, setLoading] = useState(false)
   const [apiData, setApiData] = useState()
-  const [selectBoxErrors, setSelectBoxErrors] = useState({});
-  const [logoError, setLogoError] = useState('');
+  const [selectBoxErrors, setSelectBoxErrors] = useState({
+    customerName: '',
+    customerContact: '',
+    product: '',
+    menuCard: '',
+    capability: '',
+    subCapabilities: '',
+    logo: ''
+  })
+  const [logo, setLogo] = useState('')
 
   const fetchMasterData = async () => {
     try {
       setLoading(true)
-      //const response = await axiosInstance.get(`050ab537-4129-446a-8bca-c2a157141bc3`)
-      const response = await axiosInstance.get('/get-createreport/${issue}')
+      const response = await axiosInstance.get(`dbaad251-ecc2-48c2-aa1c-91d17940e723`)
+      // const response = await axiosInstance.get('/get-createreport/${issue}')
       const masterData = response.data.resdata
       console.log('masterdata', masterData)
       setApiData(masterData)
+      setLogo(masterData?.logo)
+      //options for select box
       setSelectBoxOptions((prevState) => ({
         ...prevState,
         customerOptions: masterData.customer_list.map((item) => ({
@@ -59,15 +70,15 @@ const CreateReportContent = ({ issue, onClose }) => {
           subCapabilities: item.sub_capabilities.map((subCap) => subCap.name)
         }))
       }))
-
       setSelectedValue((prevState) => ({
         ...prevState,
-        customerName: { value: masterData?.customer_name, label: masterData?.customer_name },
+        customerName: checkDataInList(masterData?.customer_name, masterData?.customer_list, 'customer_name'),
         customerContact: { value: masterData?.customer_contact, label: masterData?.customer_contact },
-        product: { value: masterData?.product, label: masterData?.product },
-        menuCard: { value: masterData?.menu_card, label: masterData?.menu_card },
+        product: checkDataInList(masterData?.product, masterData?.product_list, 'product_name'),
+        menuCard: checkDataInList(masterData?.menu_card, masterData?.menu_card_list, 'menu_card'),
+        capability: checkDataInList(masterData?.capability, masterData?.capsubcap_list, 'name'),
         capability: { value: masterData?.capability, label: masterData?.capability },
-        subCapabilities : { value: masterData?.sub_capability, label: masterData?.sub_capability }
+        subCapabilities: { value: masterData?.sub_capability, label: masterData?.sub_capability }
       }))
 
       setLoading(false)
@@ -94,86 +105,66 @@ const CreateReportContent = ({ issue, onClose }) => {
     return []
   }
   // Handling reset button
+
   const handleRestButton = () => {
     setSelectedValue((prevState) => ({
       ...prevState,
-      customerName: { value: apiData?.customer_name, label: apiData?.customer_name },
+      customerName: checkDataInList(apiData?.customer_name, apiData?.customer_list, 'customer_name'),
       customerContact: { value: apiData?.customer_contact, label: apiData?.customer_contact },
-      product: { value: apiData?.product, label: apiData?.product },
-      menuCard: { value: apiData?.menu_card, label: apiData?.menu_card },
+      product: checkDataInList(apiData?.product, apiData?.product_list, 'product_name'),
+      menuCard: checkDataInList(apiData?.menu_card, apiData?.menu_card_list, 'menu_card'),
+      capability: checkDataInList(apiData?.capability, apiData?.capsubcap_list, 'name'),
       capability: { value: apiData?.capability, label: apiData?.capability },
       subCapabilities: { value: apiData?.sub_capability, label: apiData?.sub_capability }
     }))
   }
-  const validateSelectBox = (selectedOption, selectBoxName) => {
-    if (!selectedOption.value) {
-      setSelectBoxErrors((prevState) => ({
-        ...prevState,
-        [selectBoxName]: 'Please select an option'
-      }))
-      return false
-    }
-    setSelectBoxErrors((prevState) => ({
-      ...prevState,
-      [selectBoxName]: ''
-    }))
-    return true
-  }
 
-  const validateLogo = (logo) => {
-    if (!logo) {
-      setLogoError('Please upload the logo')
-      return false
-    }
-    setLogoError('')
-    return true
-  }
-  
   // handle save button
   const handleSaveButton = async () => {
-    try {
-      console.log("data need to saved",selectedValue.capability?.value)
-      console.log("data need to saved",selectedValue.subCapabilities?.value)
-      const validCustomerName = validateSelectBox(selectedValue.customerName?.value, 'customerName')
-      const validMenuCard = validateSelectBox(selectedValue.menuCard?.value, 'menuCard')
-      const validCustomerContact = validateSelectBox(selectedValue.customerContact?.value, 'customerContact')
-      const validProduct = validateSelectBox(selectedValue.product?.value, 'product')
-      const validCapability = validateSelectBox(selectedValue.capability?.value, 'capability')
-      const validSubCapability = validateSelectBox(selectedValue.subCapabilities?.value, 'subCapabilities')
-      const validSnoeCaseNo = validateText(selectedValue.subCapabilities?.value, 'subCapabilities')
-      const validLogo = validateLogo(selectedValue.logo?.value)
-      console.log("logo data need to saved",selectedValue.logo?.value)
-      if (validCustomerName && validMenuCard && validCustomerContact && validProduct && validCapability && validSubCapability ) {
-        const payload = {
-          issue_key: issue,
-          customer_name: selectedValue.customerName?.value,
-          customer_contact: selectedValue.customerContact?.value,
-          expert_name: apiData?.expert_name,
-          creator_name: apiData?.creator_name,
-          menu_card: selectedValue.menuCard?.value,
-          product: selectedValue.product?.value,
-          capability: selectedValue.capability?.value,
-          sub_capability: selectedValue.subCapabilities?.value,
-          snow_case_no: apiData?.snow_case_no,
-          action: 'saved',
-          logo: selectedValue.logo,
-          sdm_name: apiData?.sdm_name,
-          csm_name: apiData?.csm_name,
-          sdo_name: apiData?.sdo_name
-        };
-        console.log('payload', payload);
-        // Post form data to the API endpoint
-        await axiosInstance.post("/createreport/", payload);
-        console.log("data saved successfully!");
+    let hasErrors = false
+    const fieldsToValidate = ['customerName', 'menuCard', 'customerContact', 'product', 'capability', 'subCapabilities']
+    // Iterate over fields and set errors if values are missing
+    fieldsToValidate.forEach((field) => {
+      if (!selectedValue[field]?.value) {
+        setSelectBoxErrors((prevState) => ({
+          ...prevState,
+          [field]: `Please select ${field.replace(/([A-Z])/g, ' $1').trim()}.` // Adds space before capital letters and trims
+        }))
+        hasErrors = true
       }
-    } catch (error) {
-      // Handle error scenario, e.g., show an error message
-      console.error("Error while saving data:", error);
+    })
+    if (!logo) {
+      setSelectBoxErrors((prevState) => ({
+        ...prevState,
+        logo: 'Please select image'
+      }))
     }
-  };
+
+    if (!hasErrors) {
+      const payload = {
+        issue_key: issue,
+        customer_name: selectedValue.customerName?.value,
+        customer_contact: selectedValue.customerContact?.value,
+        expert_name: apiData?.expert_name,
+        creator_name: apiData?.creator_name,
+        menu_card: selectedValue.menuCard?.value,
+        product: selectedValue.product?.value,
+        capability: selectedValue.capability?.value,
+        sub_capability: selectedValue.subCapabilities?.value,
+        snow_case_no: apiData?.snow_case_no,
+        action: 'saved',
+        logo: logo,
+        sdm_name: apiData?.sdm_name,
+        csm_name: apiData?.csm_name,
+        sdo_name: apiData?.sdo_name
+      }
+      console.log('payload', payload)
+    }
+  }
   // handle create button
   const handleCreateReportButton = () => {}
 
+  console.log('logogg', logo)
   return (
     <div>
       <form>
@@ -212,9 +203,14 @@ const CreateReportContent = ({ issue, onClose }) => {
                         ...prevState,
                         customerName: selectedOption
                       }))
+                      setSelectBoxErrors((prevState) => ({
+                        ...prevState,
+                        customerName: ''
+                      }))
                     }}
                   />
                 </div>
+                {selectBoxErrors.customerName && <span className="error-msg">{selectBoxErrors.customerName}</span>}
               </div>
               <div className={`col-md-6 create-report-wrapper`}>
                 <div>
@@ -230,9 +226,14 @@ const CreateReportContent = ({ issue, onClose }) => {
                         ...prevState,
                         menuCard: selectedOption
                       }))
+                      setSelectBoxErrors((prevState) => ({
+                        ...prevState,
+                        menuCard: ''
+                      }))
                     }}
                   />
                 </div>
+                {selectBoxErrors.menuCard && <span className="error-msg">{selectBoxErrors.menuCard}</span>}
               </div>
               <div className={`col-md-6 create-report-wrapper`}>
                 <div className="label">Customer Contact</div>
@@ -246,9 +247,14 @@ const CreateReportContent = ({ issue, onClose }) => {
                         ...prevState,
                         customerContact: selectedOption
                       }))
+                      setSelectBoxErrors((prevState) => ({
+                        ...prevState,
+                        customerContact: ''
+                      }))
                     }}
                   />
                 </div>
+                {selectBoxErrors.customerContact && <span className="error-msg">{selectBoxErrors.customerContact}</span>}
               </div>
               <div className={`col-md-6 create-report-wrapper`}>
                 <div className="required label">Product</div>
@@ -261,6 +267,10 @@ const CreateReportContent = ({ issue, onClose }) => {
                       setSelectedValue((prevState) => ({
                         ...prevState,
                         product: selectedOption
+                      }))
+                      setSelectBoxErrors((prevState) => ({
+                        ...prevState,
+                        product: ''
                       }))
                     }}
                   />
@@ -279,9 +289,14 @@ const CreateReportContent = ({ issue, onClose }) => {
                         capability: selectedOption,
                         subCapabilities: null
                       }))
+                      setSelectBoxErrors((prevState) => ({
+                        ...prevState,
+                        capability: ''
+                      }))
                     }}
                   />
                 </div>
+                {selectBoxErrors.capability && <span className="error-msg">{selectBoxErrors.capability}</span>}
               </div>
               <div className={`col-md-6 create-report-wrapper`}>
                 <div className="required label">Sub Capability</div>
@@ -295,9 +310,14 @@ const CreateReportContent = ({ issue, onClose }) => {
                         ...prevState,
                         subCapabilities: selectedOption
                       }))
+                      setSelectBoxErrors((prevState) => ({
+                        ...prevState,
+                        subCapabilities: ''
+                      }))
                     }}
                   />
                 </div>
+                {selectBoxErrors.subCapabilities && <span className="error-msg">{selectBoxErrors.subCapabilities}</span>}
               </div>
               <div className={`col-md-6 create-report-wrapper`}>
                 <div className="required label">Snow Case ID</div>
@@ -312,10 +332,19 @@ const CreateReportContent = ({ issue, onClose }) => {
                   <h5>Customer Logo</h5>
                   <p>Please upload a Customer logo, file format should be “JPG, JPEG, PNG, and file size should be greater than 500KB</p>
                 </div>
-                <div className="upload-image">
-                  <ImageUpload imgSrc="https://1000logos.net/wp-content/uploads/2021/04/Accenture-logo.png" />
+                <div>
+                  <ImageUpload
+                    imgSrc={logo}
+                    onSelectImage={(e) => {
+                      setLogo(e),
+                        setSelectBoxErrors((prevState) => ({
+                          ...prevState,
+                          logo: ''
+                        }))
+                    }}
+                  />
+                  {selectBoxErrors.logo && <span className="error-msg">{selectBoxErrors.logo}</span>}
                 </div>
-                <span className="error-msg">Please upload the customer's logo according to the guidelines provided above.</span>
               </div>
             </div>
           </Box>

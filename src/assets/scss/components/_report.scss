@@ -1,6 +1,5 @@
 // error msg
-.error-msg{
-  display: none;
+.error-msg {
   font-size: 12px;
   font-weight: 400;
   color: $red_color;
@@ -8,7 +7,7 @@
 
 .red-bg {
   background-color: none !important;
-  .error-msg{
+  .error-msg {
     display: block;
   }
 }
@@ -25,13 +24,13 @@
   margin-top: 2px;
 }
 
-.create-report-wrapper.red-bg{
-  div{
-    input{
+.create-report-wrapper.red-bg {
+  div {
+    input {
       border: 1px solid $red_color;
     }
-  } 
-  .custom-select .css-13cymwt-control{
+  }
+  .custom-select .css-13cymwt-control {
     border-color: $red_color;
   }
 }
@@ -40,45 +39,45 @@
   content: ' *';
   color: red;
 }
-.custom-select{
+.custom-select {
   font-size: 14px;
   line-height: 27px;
   font-weight: 500;
-  .css-13cymwt-control, .css-t3ipsp-control{
+  .css-13cymwt-control,
+  .css-t3ipsp-control {
     border-color: $gray_color;
-    height: 30px;    
-    min-height: 30px; 
+    height: 30px;
+    min-height: 30px;
   }
 
   .css-art2ul-ValueContainer2 {
     width: 142px !important;
     height: 28px;
     padding: 0px 8px;
-    .css-1jqq78o-placeholder{
+    .css-1jqq78o-placeholder {
       min-height: 30px;
     }
   }
-  .css-w9q2zk-Input2{
+  .css-w9q2zk-Input2 {
     margin: 0;
     height: 30px;
   }
-  .css-1xc3v61-indicatorContainer{
+  .css-1xc3v61-indicatorContainer {
     padding: 1px 8px;
   }
-  .css-1dimb5e-singleValue{
+  .css-1dimb5e-singleValue {
     font-size: 14px;
     line-height: 22px;
   }
-  .css-4xgw5l-IndicatorsContainer2{
-    div{
+  .css-4xgw5l-IndicatorsContainer2 {
+    div {
       padding: 0 8px;
     }
   }
-  .css-13cymwt-control div:first-child, .css-t3ipsp-control div:first-child{
+  .css-13cymwt-control div:first-child,
+  .css-t3ipsp-control div:first-child {
     width: 142px !important;
     height: 28px;
     align-items: flex-start;
   }
-  
 }
-
