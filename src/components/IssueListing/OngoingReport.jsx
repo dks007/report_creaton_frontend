@@ -93,7 +93,7 @@ const OngoingReport = ({issueData}) => {
         </div>
         <div className="col-md-3">
           <h6>Menu Card Description</h6>
-          <p>{issueData.sdo_name}</p>
+          <p>{issueData.menu_description}</p>
         </div>
         <div className="col-md-3">
           <h6>SDO</h6>
