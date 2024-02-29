@@ -31,7 +31,7 @@ const CreateReportContent = ({ issue, onClose }) => {
     try {
       setLoading(true)
       //const response = await axiosInstance.get(`050ab537-4129-446a-8bca-c2a157141bc3`)
-      const response = await axiosInstance.get('/get-createreport/${id}')
+      const response = await axiosInstance.get('/get-createreport/${issue}')
       const masterData = response.data.resdata
       console.log('masterdata', masterData)
       setApiData(masterData)

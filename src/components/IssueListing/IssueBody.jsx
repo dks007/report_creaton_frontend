@@ -152,7 +152,9 @@ const IssueBody = ({ issue, index, BasicMenu }) => {
               aria-expanded={open ? 'true' : undefined}
               onClick={handleClick}
             >
+              {issue.subtask === false && (
               <MoreVertIcon />
+              )}
             </Button>
             <CreateReportModal showModal={showModal} handleHideModal={handleHideModal} issue={issue.issue_key}/>
             <Menu
