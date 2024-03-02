@@ -39,8 +39,8 @@ const CreateReportContent = ({ issue, onClose }) => {
   const fetchMasterData = async () => {
     try {
       setLoading(true)
-      const response = await axiosInstance.get(`dbaad251-ecc2-48c2-aa1c-91d17940e723`)
-      // const response = await axiosInstance.get('/get-createreport/${issue}')
+      //const response = await axiosInstance.get(`dbaad251-ecc2-48c2-aa1c-91d17940e723`)
+      const response = await axiosInstance.get('/get-createreport/${issue}')
       const masterData = response.data.resdata
       console.log('masterdata', masterData)
       setApiData(masterData)
@@ -76,7 +76,7 @@ const CreateReportContent = ({ issue, onClose }) => {
         customerContact: { value: masterData?.customer_contact, label: masterData?.customer_contact },
         product: checkDataInList(masterData?.product, masterData?.product_list, 'product_name'),
         menuCard: checkDataInList(masterData?.menu_card, masterData?.menu_card_list, 'menu_card'),
-        capability: checkDataInList(masterData?.capability, masterData?.capsubcap_list, 'name'),
+        //capability: checkDataInList(masterData?.capability, masterData?.capsubcap_list, 'capability'),
         capability: { value: masterData?.capability, label: masterData?.capability },
         subCapabilities: { value: masterData?.sub_capability, label: masterData?.sub_capability }
       }))
@@ -91,7 +91,8 @@ const CreateReportContent = ({ issue, onClose }) => {
   useEffect(() => {
     fetchMasterData()
   }, [])
-
+ 
+  // getting sub capability option according to capability
   const getSubCapabilityOptions = () => {
     if (selectedValue.capability) {
       const capability = selectBoxOptions.capabilityOptions.find((opt) => opt.value === selectedValue.capability.value)
@@ -105,7 +106,6 @@ const CreateReportContent = ({ issue, onClose }) => {
     return []
   }
   // Handling reset button
-
   const handleRestButton = () => {
     setSelectedValue((prevState) => ({
       ...prevState,
@@ -113,14 +113,80 @@ const CreateReportContent = ({ issue, onClose }) => {
       customerContact: { value: apiData?.customer_contact, label: apiData?.customer_contact },
       product: checkDataInList(apiData?.product, apiData?.product_list, 'product_name'),
       menuCard: checkDataInList(apiData?.menu_card, apiData?.menu_card_list, 'menu_card'),
-      capability: checkDataInList(apiData?.capability, apiData?.capsubcap_list, 'name'),
-      capability: { value: apiData?.capability, label: apiData?.capability },
+      capability: checkDataInList(apiData?.capability, apiData?.capsubcap_list, 'capability'),
+      //capability: { value: apiData?.capability, label: apiData?.capability },
       subCapabilities: { value: apiData?.sub_capability, label: apiData?.sub_capability }
     }))
   }
 
   // handle save button
   const handleSaveButton = async () => {
+    let hasErrors = false
+    const fieldsToValidate = ['customerName', 'menuCard', 'customerContact', 'product', 'capability', 'subCapabilities']
+    // Iterate over fields and set errors if values are missing
+    fieldsToValidate.forEach((field) => {
+      if (!selectedValue[field]?.value) {
+        setSelectBoxErrors((prevState) => ({
+          ...prevState,
+          [field]: `Please select ${field.replace(/([A-Z])/g, ' $1').trim()}.` // Adds space before capital letters and trims
+        }))
+        hasErrors = true
+      }
+    })
+    if (!logo) {
+      setSelectBoxErrors((prevState) => ({
+        ...prevState,
+        logo: 'Please select image'
+      }))
+    }
+
+     // Initialize formData at the beginning of the block where it's used
+      const formData = new FormData();
+
+    if (!hasErrors) {
+      
+      console.log("log upload should object->", logo, logo instanceof File);
+
+      if (logo && logo instanceof File) {
+        formData.append('logo', logo); // 'logo' is now a File object
+      } else {
+        // Handle case where logo is not selected or not a file, potentially setting an error
+        setSelectBoxErrors(prevState => ({
+          ...prevState,
+          logo: 'Please upload a valid logo file.'
+        }));
+        return; // Prevent the form submission if there's no valid logo file
+      }
+
+    formData.append('issue_key', issue);
+    formData.append('customer_name', selectedValue.customerName?.value);
+    formData.append('customer_contact', selectedValue.customerContact?.value);
+    formData.append('expert_name', apiData?.expert_name);
+    formData.append('creator_name', apiData?.creator_name);
+    formData.append('menu_card', selectedValue.menuCard?.value);
+    formData.append('product', selectedValue.product?.value);
+    formData.append('capability', selectedValue.capability?.value);
+    formData.append('sub_capability', selectedValue.subCapabilities?.value);
+    formData.append('snow_case_no', apiData?.snow_case_no);
+    formData.append('action', 'saved');
+    formData.append('logo', logo); // Here we append the file instead of the blob URL
+    formData.append('sdm_name', apiData?.sdm_name);
+    formData.append('csm_name', apiData?.csm_name);
+    formData.append('sdo_name', apiData?.sdo_name);
+
+      try {
+        const response = await axiosInstance.post('/createreport/', formData);
+        // Handle response here, e.g., show success message, navigate, etc.
+        console.log('Report creation successful', response.data);
+      } catch (error) {
+        console.error('Failed to create report', error);
+        // Handle error here, e.g., show error message
+      }
+      console.log('payload', payload)
+    }
+  }
+  // handle create button
+  const handleCreateReportButton = () => {
     let hasErrors = false
     const fieldsToValidate = ['customerName', 'menuCard', 'customerContact', 'product', 'capability', 'subCapabilities']
     // Iterate over fields and set errors if values are missing
@@ -152,7 +218,7 @@ const CreateReportContent = ({ issue, onClose }) => {
         capability: selectedValue.capability?.value,
         sub_capability: selectedValue.subCapabilities?.value,
         snow_case_no: apiData?.snow_case_no,
-        action: 'saved',
+        action: 'created',
         logo: logo,
         sdm_name: apiData?.sdm_name,
         csm_name: apiData?.csm_name,
@@ -160,9 +226,8 @@ const CreateReportContent = ({ issue, onClose }) => {
       }
       console.log('payload', payload)
     }
+
   }
-  // handle create button
-  const handleCreateReportButton = () => {}
 
   console.log('logogg', logo)
   return (
@@ -333,14 +398,14 @@ const CreateReportContent = ({ issue, onClose }) => {
                   <p>Please upload a Customer logo, file format should be “JPG, JPEG, PNG, and file size should be greater than 500KB</p>
                 </div>
                 <div>
-                  <ImageUpload
+                <ImageUpload
                     imgSrc={logo}
-                    onSelectImage={(e) => {
-                      setLogo(e),
-                        setSelectBoxErrors((prevState) => ({
-                          ...prevState,
-                          logo: ''
-                        }))
+                    onSelectImage={(file) => {
+                      setLogo(file); 
+                      setSelectBoxErrors(prevState => ({
+                        ...prevState,
+                        logo: '' 
+                      }));
                     }}
                   />
                   {selectBoxErrors.logo && <span className="error-msg">{selectBoxErrors.logo}</span>}

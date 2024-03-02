@@ -53,41 +53,39 @@ const IssueBody = ({ issue, index, BasicMenu }) => {
           </MenuItem>
         )
 
-      case '2': // Creating Report
+      case '2': // Initiated
         return (
           <MenuItem onClick={handleDownload}>
-            <DownloadIcon /> Another action
+            <DownloadIcon /> Initiatedn
           </MenuItem>
         )
 
-      case '3': // Created
+      case '3': // In Progress
         return (
           <MenuItem onClick={handleDownload}>
-            <DownloadIcon /> Another action
+            <DownloadIcon /> In Progress
           </MenuItem>
         )
 
-      case '4': // saved
+      case '4': // Created
         return (
           <MenuItem onClick={handleRefresh}>
-            <SyncTwoToneIcon /> Refresh
+            <DownloadIcon /> Created
           </MenuItem>
         )
-      case '5': //  Error
+      case '5': //  Saved
         return (
-          <MenuItem onClick={handleRefresh}>
-            <SyncTwoToneIcon />
-            Unknown
+          <MenuItem onClick={handleShowModal}>
+            <AddIcon /> Saved
           </MenuItem>
         )
         case '6': // Unknown
         return (
-          <MenuItem onClick={handleRefresh}>
-            <SyncTwoToneIcon />
-            Unknown
+          <MenuItem onClick={handleShowModal}>
+            <AddIcon />
+            Error
           </MenuItem>
         )
-
       default:
         return null
     }
@@ -98,13 +96,15 @@ const IssueBody = ({ issue, index, BasicMenu }) => {
       case '1':
         return 'Not Created'
       case '2':
-        return 'Creating Report'
+        return 'Initiated'
       case '3':
-        return 'Created '
+        return 'In Progress '
       case '4':
-        return 'Saved'
+        return 'Created'
       case '5':
-        return 'Error'
+        return 'Saved'
+      case '6':
+      return 'Error'
       default:
         return 'Unknown Status'
     }
@@ -116,10 +116,12 @@ const IssueBody = ({ issue, index, BasicMenu }) => {
       case '2':
         return 'orange-row'
       case '3':
-        return 'green-row'
+        return 'orange-row'
       case '4':
         return 'green-row'
       case '5':
+      return 'green-row'
+      case '6':
       return 'red-row'
       default:
         return ''
@@ -289,7 +291,7 @@ const IssueBody = ({ issue, index, BasicMenu }) => {
         <td className="report-col">
           <div>
             <span className={`report-status status-${issue.report_status}`}>
-              {issue.report_status === '5' && (
+              {issue.report_status === '6' && (
                 <HtmlTooltip
                   placement="right-start"
                   arrow
@@ -308,7 +310,7 @@ const IssueBody = ({ issue, index, BasicMenu }) => {
                 </HtmlTooltip>
               )}
               {/* save status condition */}
-              {issue.report_status === '4' && (
+              {issue.report_status === '5' && (
                 <HtmlTooltip
                   placement="right-start"
                   arrow

@@ -47,47 +47,54 @@ const IssueDetailsPage = () => {
     fetchData();
   }, [id]); // Make sure to include id in the dependency array
 
-  const renderActionButton = () => {
-    switch (issueData.report_status) {
+   // ** End: Action button/column */
+   const renderActionButton = () => {
+    switch (issue.report_status) {
       case '1': // Not Created
         return (
-          <button onClick={handleShowModal} className="btn primery-btn">
+          <MenuItem onClick={handleShowModal}>
             <AddIcon /> Create Report
-          </button>
+          </MenuItem>
         )
 
-      case '2': // Creating Report
-        return <div className="report-status status-0 ms-2">In-progress</div>
-
-      case '3': // Created
+      case '2': // Initiated
         return (
-          <button onClick={() => {}} className="btn primery-btn sml-btn">
-            <DownloadIcon />
-          </button>
+          <MenuItem onClick={handleRefresh}>
+            <DownloadIcon /> Initiatedn
+          </MenuItem>
         )
 
-      case '4': // Saved
+      case '3': // In Progress
         return (
-          <button className="btn blue-btn sml-btn" onClick={handleShowModal}>
-            <SyncTwoToneIcon />
-          </button>
-        )
-        case '5': // Creation Error
-        return (
-          <button className="btn blue-btn sml-btn" onClick={handleShowModal}>
-            <SyncTwoToneIcon />
-          </button>
+          <MenuItem onClick={handleRefresh}>
+            <DownloadIcon /> In Progress
+          </MenuItem>
         )
 
+      case '4': // Created
+        return (
+          <MenuItem onClick={handleDownload}>
+            <DownloadIcon /> Created
+          </MenuItem>
+        )
+      case '5': //  Saved
+        return (
+          <MenuItem onClick={handleShowModal}>
+            <AddIcon /> Saved
+          </MenuItem>
+        )
+        case '6': // Unknown
+        return (
+          <MenuItem onClick={handleShowModal}>
+            <AddIcon />
+            Error
+          </MenuItem>
+        )
       default:
-        return (
-          <button onClick={handleShowModal} className="btn primery-btn">
-            <AddIcon /> Create Report
-          </button>
-        )
+        return null
     }
   }
-  
+
   return (
     <div className="details-page">
       {loading && <Loader />}
