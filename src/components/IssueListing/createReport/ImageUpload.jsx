@@ -9,26 +9,27 @@ const ImageUpload = ({ imgSrc, onSelectImage }) => {
   const [errorMessage, setErrorMessage] = useState('')
 
   const handleFileUpload = (event) => {
-    const file = event.target.files[0]
+    const file = event.target.files[0];
     if (file) {
       // Check if the file type is jpg, jpeg, or png
       if (!/\.(jpg|jpeg|png)$/i.test(file.name)) {
-        setErrorMessage('Please upload jpeg, jpg or png image only.')
-        return // Exit the function if the file type is not allowed
+        setErrorMessage('Please upload jpeg, jpg or png image only.');
+        return; // Exit the function if the file type is not allowed
       }
       // Check if the file size exceeds 500KB
       if (file.size > 500 * 1024) {
-        setErrorMessage('File size must be less than 500KB.')
-        return
+        setErrorMessage('File size must be less than 500KB.');
+        return;
       }
-
-      const imageUrl = URL.createObjectURL(file)
-      setSelectedImage(imageUrl)
-      // Assuming onSelectImage is a function that needs the image URL
-      onSelectImage(imageUrl)
-      setErrorMessage('')
+  
+      const imageUrl = URL.createObjectURL(file);
+      setSelectedImage(imageUrl);
+      // Update onSelectImage to handle the file object
+      console.log("file2222->",file)
+      onSelectImage(file); // Assuming onSelectImage should now handle the file object for upload
+      setErrorMessage('');
     }
-  }
+  };
 
   const handleRemoveImage = () => {
     setSelectedImage(null)
