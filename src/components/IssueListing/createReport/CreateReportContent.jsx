@@ -26,6 +26,7 @@ const CreateReportContent = ({ issue, onClose }) => {
   })
   const [loading, setLoading] = useState(false)
   const [apiData, setApiData] = useState()
+  const [snowCase, setSnowCase] = useState('')
   const [selectBoxErrors, setSelectBoxErrors] = useState({
     customerName: '',
     customerContact: '',
@@ -33,39 +34,41 @@ const CreateReportContent = ({ issue, onClose }) => {
     menuCard: '',
     capability: '',
     subCapabilities: '',
-    logo: ''
+    logo: '',
+    snowCase: ''
   })
   const [logo, setLogo] = useState('')
-
+  const logoUrl = import.meta.env.VITE_IMAGE_SERVER_URL
   const fetchMasterData = async () => {
     try {
       setLoading(true)
-      const response = await axiosInstance.get(`cc6594bc-d43c-44ef-ad2a-78f82b24d84a`)
+      const response = await axiosInstance.get(`52a8ef74-e634-46b1-958a-f0d1f7339784`)
       // const response = await axiosInstance.get('/get-createreport/${issue}')
-      const masterData = response.data.resdata
+      const masterData = response.data?.resdata
       console.log('masterdata', masterData)
       setApiData(masterData)
-      setLogo(masterData?.logo)
+      setSnowCase(masterData?.snow_case_no || '')
+      setLogo(masterData?.logo_url ? masterData.logo_url : `${logoUrl}${masterData?.logo_file_name}`)
       //options for select box
       setSelectBoxOptions((prevState) => ({
         ...prevState,
-        customerOptions: masterData.customer_list.map((item) => ({
+        customerOptions: masterData?.customer_list.map((item) => ({
           value: item.customer_name,
           label: item.customer_name
         })),
-        customerContact: masterData.customer_contact_list.map((item) => ({
+        customerContact: masterData?.customer_contact_list.map((item) => ({
           value: item.customer_contact,
           label: item.customer_contact
         })),
-        menuCardOptions: masterData.menu_card_list.map((item) => ({
+        menuCardOptions: masterData?.menu_card_list.map((item) => ({
           value: item.menu_card,
           label: item.menu_card
         })),
-        productOptions: masterData.product_list.map((item) => ({
+        productOptions: masterData?.product_list.map((item) => ({
           value: item.product_name,
           label: item.product_name
         })),
-        capabilityOptions: masterData.capability_list?.map((item) => ({
+        capabilityOptions: masterData?.capsubcap_list?.map((item) => ({
           value: item.name,
           label: item.name,
           subCapabilities: item.sub_capabilities.map((subCap) => subCap.name)
@@ -107,126 +110,94 @@ const CreateReportContent = ({ issue, onClose }) => {
   }
   // Handling reset button
   const handleRestButton = () => {
-    toast.warn('Data reset successfully')
+    setSnowCase('')
     setSelectedValue((prevState) => ({
       ...prevState,
       customerName: checkDataInList(apiData?.customer_name, apiData?.customer_list, 'customer_name'),
       customerContact: { value: apiData?.customer_contact, label: apiData?.customer_contact },
       product: checkDataInList(apiData?.product, apiData?.product_list, 'product_name'),
       menuCard: checkDataInList(apiData?.menu_card, apiData?.menu_card_list, 'menu_card'),
-      capability: checkDataInList(apiData?.capability, apiData?.capability_list, 'capability'),
+      capability: checkDataInList(apiData?.capability, apiData?.capsubcap_list, 'capability'),
       //capability: { value: apiData?.capability, label: apiData?.capability },
       subCapabilities: { value: apiData?.sub_capability, label: apiData?.sub_capability }
     }))
+    toast.success('Data reset successfully')
   }
 
-  // handle save button
-  const handleSaveButton = async () => {
+  const handleFormSubmission = async (action) => {
     let hasErrors = false
     const fieldsToValidate = ['customerName', 'menuCard', 'customerContact', 'product', 'capability', 'subCapabilities']
-    // Iterate over fields and set errors if values are missing
+
+    // Validate form fields
     fieldsToValidate.forEach((field) => {
       if (!selectedValue[field]?.value) {
         setSelectBoxErrors((prevState) => ({
           ...prevState,
-          [field]: `Please select ${field.replace(/([A-Z])/g, ' $1').trim()}.` // Adds space before capital letters and trims
+          [field]: `Please select ${field.replace(/([A-Z])/g, ' $1').trim()}.`
         }))
         hasErrors = true
       }
     })
+
+    // Validate logo
     if (!logo) {
       setSelectBoxErrors((prevState) => ({
         ...prevState,
-        logo: 'Please select image'
+        logo: 'Please upload a valid logo file.'
       }))
+      hasErrors = true
     }
 
-    // Initialize formData at the beginning of the block where it's used
+    // Validate snowCase
+    if (snowCase === '') {
+      setSelectBoxErrors((prevState) => ({
+        ...prevState,
+        snowCase: 'Please enter snow case number.'
+      }))
+      hasErrors = true
+    }
+
+    // Exit early if there are validation errors
+    if (hasErrors) return
+
+    // Prepare form data
     const formData = new FormData()
+    formData.append('issue_key', issue)
+    formData.append('customer_name', selectedValue.customerName?.value)
+    formData.append('customer_contact', selectedValue.customerContact?.value)
+    formData.append('expert_name', apiData?.expert_name)
+    formData.append('creator_name', apiData?.creator_name)
+    formData.append('menu_card', selectedValue.menuCard?.value)
+    formData.append('product', selectedValue.product?.value)
+    formData.append('capability', selectedValue.capability?.value)
+    formData.append('sub_capability', selectedValue.subCapabilities?.value)
+    formData.append('snow_case_no', apiData?.snow_case_no)
+    formData.append('action', action)
+    formData.append('logo', logo) // Here we append the file instead of the blob URL
+    formData.append('sdm_name', apiData?.sdm_name)
+    formData.append('csm_name', apiData?.csm_name)
+    formData.append('sdo_name', apiData?.sdo_name)
 
-    if (!hasErrors) {
-      console.log('log upload should object->', logo, logo instanceof File)
-
-      if (logo && logo instanceof File) {
-        formData.append('logo', logo) // 'logo' is now a File object
-      } else {
-        // Handle case where logo is not selected or not a file, potentially setting an error
-        setSelectBoxErrors((prevState) => ({
-          ...prevState,
-          logo: 'Please upload a valid logo file.'
-        }))
-        return // Prevent the form submission if there's no valid logo file
-      }
-
-      formData.append('issue_key', issue)
-      formData.append('customer_name', selectedValue.customerName?.value)
-      formData.append('customer_contact', selectedValue.customerContact?.value)
-      formData.append('expert_name', apiData?.expert_name)
-      formData.append('creator_name', apiData?.creator_name)
-      formData.append('menu_card', selectedValue.menuCard?.value)
-      formData.append('product', selectedValue.product?.value)
-      formData.append('capability', selectedValue.capability?.value)
-      formData.append('sub_capability', selectedValue.subCapabilities?.value)
-      formData.append('snow_case_no', apiData?.snow_case_no)
-      formData.append('action', 'saved')
-      formData.append('logo', logo) // Here we append the file instead of the blob URL
-      formData.append('sdm_name', apiData?.sdm_name)
-      formData.append('csm_name', apiData?.csm_name)
-      formData.append('sdo_name', apiData?.sdo_name)
-
-      try {
-        toast.success('Report creation successfully.')
-        const response = await axiosInstance.post('/createreport/', formData)
-        // Handle response here, e.g., show success message, navigate, etc.
-        console.log('Report creation successful', response.data)
-      } catch (error) {
-        console.error('Failed to create report', error)
-        // Handle error here, e.g., show error message
-      }
-      console.log('payload', payload)
+    try {
+      // const response = await axiosInstance.post('/createreport/', formData)
+      // Handle response here, e.g., show success message, navigate, etc.
+      console.log('Report creation successful', formData)
+      toast.success('Report creation successful')
+    } catch (error) {
+      console.error('Failed to create report', error)
+      toast.error('Failed to create report')
+      // Handle error here, e.g., show error message
     }
   }
-  // handle create button
-  const handleCreateReportButton = () => {
-    let hasErrors = false
-    const fieldsToValidate = ['customerName', 'menuCard', 'customerContact', 'product', 'capability', 'subCapabilities']
-    // Iterate over fields and set errors if values are missing
-    fieldsToValidate.forEach((field) => {
-      if (!selectedValue[field]?.value) {
-        setSelectBoxErrors((prevState) => ({
-          ...prevState,
-          [field]: `Please select ${field.replace(/([A-Z])/g, ' $1').trim()}.` // Adds space before capital letters and trims
-        }))
-        hasErrors = true
-      }
-    })
-    if (!logo) {
-      setSelectBoxErrors((prevState) => ({
-        ...prevState,
-        logo: 'Please select image'
-      }))
-    }
 
-    if (!hasErrors) {
-      const payload = {
-        issue_key: issue,
-        customer_name: selectedValue.customerName?.value,
-        customer_contact: selectedValue.customerContact?.value,
-        expert_name: apiData?.expert_name,
-        creator_name: apiData?.creator_name,
-        menu_card: selectedValue.menuCard?.value,
-        product: selectedValue.product?.value,
-        capability: selectedValue.capability?.value,
-        sub_capability: selectedValue.subCapabilities?.value,
-        snow_case_no: apiData?.snow_case_no,
-        action: 'created',
-        logo: logo,
-        sdm_name: apiData?.sdm_name,
-        csm_name: apiData?.csm_name,
-        sdo_name: apiData?.sdo_name
-      }
-      console.log('payload', payload)
-    }
+  // Handle save button
+  const handleSaveButton = async () => {
+    await handleFormSubmission('saved')
+  }
+
+  // Handle create button
+  const handleCreateReportButton = async () => {
+    await handleFormSubmission('created')
   }
 
   console.log('logogg', logo)
@@ -257,7 +228,7 @@ const CreateReportContent = ({ issue, onClose }) => {
             </div>
             <div className="row">
               <div className={`col-md-6 create-report-wrapper`}>
-                <div className="label">Customer Name</div>
+                <div className="required label">Customer Name</div>
                 <div className="custom-select">
                   <CustomSelect
                     options={selectBoxOptions.customerOptions}
@@ -301,7 +272,7 @@ const CreateReportContent = ({ issue, onClose }) => {
                 {selectBoxErrors.menuCard && <span className="error-msg">{selectBoxErrors.menuCard}</span>}
               </div>
               <div className={`col-md-6 create-report-wrapper`}>
-                <div className="label">Customer Contact</div>
+                <div className="required label">Customer Contact</div>
                 <div className="custom-select">
                   <CustomSelect
                     options={selectBoxOptions.customerContact}
@@ -387,14 +358,27 @@ const CreateReportContent = ({ issue, onClose }) => {
               <div className={`col-md-6 create-report-wrapper`}>
                 <div className="required label">Snow Case ID</div>
                 <div>
-                  <input type="text" name="snow_case_no" value={apiData?.snow_case_no} />
+                  <input
+                    type="text"
+                    name="snow_case_no"
+                    value={snowCase}
+                    readOnly={apiData?.snow_case_no !== ''}
+                    onChange={(e) => {
+                      setSnowCase(e.target.value),
+                        setSelectBoxErrors((prevState) => ({
+                          ...prevState,
+                          snowCase: ''
+                        }))
+                    }}
+                  />
                 </div>
+                {selectBoxErrors.snowCase && <span className="error-msg">{selectBoxErrors.snowCase}</span>}
               </div>
             </div>
             <div className="row">
               <div className="create-report-wrapper green-bg">
                 <div className="image-upload-text">
-                  <h5>Customer Logo</h5>
+                  <h5 className="required">Customer Logo</h5>
                   <p>Please upload a Customer logo, file format should be “JPG, JPEG, PNG, and file size should be greater than 500KB</p>
                 </div>
                 <div>

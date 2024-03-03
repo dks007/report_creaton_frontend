@@ -1,11 +1,16 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import FileUploadRoundedIcon from '@mui/icons-material/FileUploadRounded'
 import CloseIcon from '@mui/icons-material/Close'
+import { Box, IconButton, Dialog, DialogContent } from '@mui/material'
 
 const ImageUpload = ({ imgSrc, onSelectImage }) => {
-  const [selectedImage, setSelectedImage] = useState(imgSrc)
+  const [selectedImage, setSelectedImage] = useState('')
   const [openModal, setOpenModal] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
+
+  useEffect(() => {
+    setSelectedImage(imgSrc)
+  }, [imgSrc])
 
   const handleFileUpload = (event) => {
     const file = event.target.files[0]
