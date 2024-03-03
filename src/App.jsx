@@ -7,7 +7,8 @@ import React from 'react'
 import './assets/scss/styles.scss'
 import { CssBaseline, ThemeProvider } from '@mui/material'
 import theme from './theme/theme'
-
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 const MainContent = () => {
   return (
     <div className="App">
@@ -30,6 +31,17 @@ const App = ({ instance }) => {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <MainContent />
+        <ToastContainer
+          position="top-center"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
       </ThemeProvider>
     </MsalProvider>
   )

@@ -6,6 +6,7 @@ import axiosInstance from '../../axiosInstance/axiosInstance'
 import Loader from '../shared/common/Loader'
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft'
+import { toast } from 'react-toastify'
 
 const IssueList = () => {
   const itemPerPage = import.meta.env.VITE_ISSUE_LIST_PERPAGE
@@ -20,13 +21,13 @@ const IssueList = () => {
     const fetchData = async () => {
       try {
         setLoading(true)
-        const response = await axiosInstance.get('issue-listing/', {
-          params: {
-            start: (currentPage - 1) * itemsPerPage,
-            max_result: itemsPerPage
-          }
-        })
-        //const response = await axiosInstance.get('ef96ecfb-11bc-4d83-8509-c4de1f5d1192')
+        // const response = await axiosInstance.get('issue-listing/', {
+        //   params: {
+        //     start: (currentPage - 1) * itemsPerPage,
+        //     max_result: itemsPerPage
+        //   }
+        // })
+        const response = await axiosInstance.get('ef96ecfb-11bc-4d83-8509-c4de1f5d1192')
         setIssueData((prevData) => [...prevData, ...response.data.resdata])
         setTotalRecords(response.data.total_record)
         setLoading(false)

@@ -6,6 +6,7 @@ import ImageUpload from './ImageUpload'
 import RefreshIcon from '@mui/icons-material/Refresh'
 import Loader from '../../shared/common/Loader'
 import { checkDataInList } from '../../../utils/helperFunction'
+import { toast } from 'react-toastify'
 
 const CreateReportContent = ({ issue, onClose }) => {
   const [selectBoxOptions, setSelectBoxOptions] = useState({
@@ -39,8 +40,8 @@ const CreateReportContent = ({ issue, onClose }) => {
   const fetchMasterData = async () => {
     try {
       setLoading(true)
-      //const response = await axiosInstance.get(`dbaad251-ecc2-48c2-aa1c-91d17940e723`)
-      const response = await axiosInstance.get('/get-createreport/${issue}')
+      const response = await axiosInstance.get(`cc6594bc-d43c-44ef-ad2a-78f82b24d84a`)
+      // const response = await axiosInstance.get('/get-createreport/${issue}')
       const masterData = response.data.resdata
       console.log('masterdata', masterData)
       setApiData(masterData)
@@ -64,7 +65,7 @@ const CreateReportContent = ({ issue, onClose }) => {
           value: item.product_name,
           label: item.product_name
         })),
-        capabilityOptions: masterData.capsubcap_list?.map((item) => ({
+        capabilityOptions: masterData.capability_list?.map((item) => ({
           value: item.name,
           label: item.name,
           subCapabilities: item.sub_capabilities.map((subCap) => subCap.name)
@@ -76,7 +77,6 @@ const CreateReportContent = ({ issue, onClose }) => {
         customerContact: { value: masterData?.customer_contact, label: masterData?.customer_contact },
         product: checkDataInList(masterData?.product, masterData?.product_list, 'product_name'),
         menuCard: checkDataInList(masterData?.menu_card, masterData?.menu_card_list, 'menu_card'),
-        //capability: checkDataInList(masterData?.capability, masterData?.capsubcap_list, 'capability'),
         capability: { value: masterData?.capability, label: masterData?.capability },
         subCapabilities: { value: masterData?.sub_capability, label: masterData?.sub_capability }
       }))
@@ -91,7 +91,7 @@ const CreateReportContent = ({ issue, onClose }) => {
   useEffect(() => {
     fetchMasterData()
   }, [])
- 
+
   // getting sub capability option according to capability
   const getSubCapabilityOptions = () => {
     if (selectedValue.capability) {
@@ -107,13 +107,14 @@ const CreateReportContent = ({ issue, onClose }) => {
   }
   // Handling reset button
   const handleRestButton = () => {
+    toast.warn('Data reset successfully')
     setSelectedValue((prevState) => ({
       ...prevState,
       customerName: checkDataInList(apiData?.customer_name, apiData?.customer_list, 'customer_name'),
       customerContact: { value: apiData?.customer_contact, label: apiData?.customer_contact },
       product: checkDataInList(apiData?.product, apiData?.product_list, 'product_name'),
       menuCard: checkDataInList(apiData?.menu_card, apiData?.menu_card_list, 'menu_card'),
-      capability: checkDataInList(apiData?.capability, apiData?.capsubcap_list, 'capability'),
+      capability: checkDataInList(apiData?.capability, apiData?.capability_list, 'capability'),
       //capability: { value: apiData?.capability, label: apiData?.capability },
       subCapabilities: { value: apiData?.sub_capability, label: apiData?.sub_capability }
     }))
@@ -140,46 +141,46 @@ const CreateReportContent = ({ issue, onClose }) => {
       }))
     }
 
-     // Initialize formData at the beginning of the block where it's used
-      const formData = new FormData();
+    // Initialize formData at the beginning of the block where it's used
+    const formData = new FormData()
 
     if (!hasErrors) {
-      
-      console.log("log upload should object->", logo, logo instanceof File);
+      console.log('log upload should object->', logo, logo instanceof File)
 
       if (logo && logo instanceof File) {
-        formData.append('logo', logo); // 'logo' is now a File object
+        formData.append('logo', logo) // 'logo' is now a File object
       } else {
         // Handle case where logo is not selected or not a file, potentially setting an error
-        setSelectBoxErrors(prevState => ({
+        setSelectBoxErrors((prevState) => ({
           ...prevState,
           logo: 'Please upload a valid logo file.'
-        }));
-        return; // Prevent the form submission if there's no valid logo file
+        }))
+        return // Prevent the form submission if there's no valid logo file
       }
 
-    formData.append('issue_key', issue);
-    formData.append('customer_name', selectedValue.customerName?.value);
-    formData.append('customer_contact', selectedValue.customerContact?.value);
-    formData.append('expert_name', apiData?.expert_name);
-    formData.append('creator_name', apiData?.creator_name);
-    formData.append('menu_card', selectedValue.menuCard?.value);
-    formData.append('product', selectedValue.product?.value);
-    formData.append('capability', selectedValue.capability?.value);
-    formData.append('sub_capability', selectedValue.subCapabilities?.value);
-    formData.append('snow_case_no', apiData?.snow_case_no);
-    formData.append('action', 'saved');
-    formData.append('logo', logo); // Here we append the file instead of the blob URL
-    formData.append('sdm_name', apiData?.sdm_name);
-    formData.append('csm_name', apiData?.csm_name);
-    formData.append('sdo_name', apiData?.sdo_name);
+      formData.append('issue_key', issue)
+      formData.append('customer_name', selectedValue.customerName?.value)
+      formData.append('customer_contact', selectedValue.customerContact?.value)
+      formData.append('expert_name', apiData?.expert_name)
+      formData.append('creator_name', apiData?.creator_name)
+      formData.append('menu_card', selectedValue.menuCard?.value)
+      formData.append('product', selectedValue.product?.value)
+      formData.append('capability', selectedValue.capability?.value)
+      formData.append('sub_capability', selectedValue.subCapabilities?.value)
+      formData.append('snow_case_no', apiData?.snow_case_no)
+      formData.append('action', 'saved')
+      formData.append('logo', logo) // Here we append the file instead of the blob URL
+      formData.append('sdm_name', apiData?.sdm_name)
+      formData.append('csm_name', apiData?.csm_name)
+      formData.append('sdo_name', apiData?.sdo_name)
 
       try {
-        const response = await axiosInstance.post('/createreport/', formData);
+        toast.success('Report creation successfully.')
+        const response = await axiosInstance.post('/createreport/', formData)
         // Handle response here, e.g., show success message, navigate, etc.
-        console.log('Report creation successful', response.data);
+        console.log('Report creation successful', response.data)
       } catch (error) {
-        console.error('Failed to create report', error);
+        console.error('Failed to create report', error)
         // Handle error here, e.g., show error message
       }
       console.log('payload', payload)
@@ -226,7 +227,6 @@ const CreateReportContent = ({ issue, onClose }) => {
       }
       console.log('payload', payload)
     }
-
   }
 
   console.log('logogg', logo)
@@ -398,14 +398,14 @@ const CreateReportContent = ({ issue, onClose }) => {
                   <p>Please upload a Customer logo, file format should be “JPG, JPEG, PNG, and file size should be greater than 500KB</p>
                 </div>
                 <div>
-                <ImageUpload
+                  <ImageUpload
                     imgSrc={logo}
                     onSelectImage={(file) => {
-                      setLogo(file); 
-                      setSelectBoxErrors(prevState => ({
+                      setLogo(file)
+                      setSelectBoxErrors((prevState) => ({
                         ...prevState,
-                        logo: '' 
-                      }));
+                        logo: ''
+                      }))
                     }}
                   />
                   {selectBoxErrors.logo && <span className="error-msg">{selectBoxErrors.logo}</span>}
