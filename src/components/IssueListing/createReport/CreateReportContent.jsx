@@ -42,8 +42,8 @@ const CreateReportContent = ({ issue, onClose }) => {
   const fetchMasterData = async () => {
     try {
       setLoading(true)
-      const response = await axiosInstance.get(`da43fcb9-80ea-46ea-a6ff-58d1a9b9dcf2`)
-      // const response = await axiosInstance.get('/get-createreport/${issue}')
+      //const response = await axiosInstance.get(`52a8ef74-e634-46b1-958a-f0d1f7339784`)
+      const response = await axiosInstance.get(`/get-createreport/${issue}`)
       const masterData = response.data?.resdata
       console.log('masterdata', masterData)
       setApiData(masterData)
@@ -179,15 +179,28 @@ const CreateReportContent = ({ issue, onClose }) => {
     formData.append('sdo_name', apiData?.sdo_name)
 
     try {
-      // const response = await axiosInstance.post('/createreport/', formData)
-      // Handle response here, e.g., show success message, navigate, etc.
-      console.log('Report creation successful', formData)
-      toast.success('Report creation successful')
+      const response = await axiosInstance.post('/createreport/', formData);
+      // Check for status code 201 for successful creation
+      if (response.data.status === 201 || response.data.status === 200 ) {
+        // If there's a message in the response body, use it; otherwise, use a default success message
+        const successMessage = response.data.msg || 'Report saved successfully!';
+        toast.success(successMessage);
+      } else {
+        // Handle other success scenarios or unexpected status codes
+        //console.log('Unexpected success status code:', response);
+        const message = response.data.msg || 'Report saved, but with unexpected status code.';
+        toast.warn(message);
+      }
     } catch (error) {
-      console.error('Failed to create report', error)
-      toast.error('Failed to create report')
-      // Handle error here, e.g., show error message
+      console.error('Failed to create report', error);
+  
+      // Attempt to extract and show a dynamic error message from the response body
+      const errorMessage = error.response?.data?.message || 'Failed to create report';
+      toast.error(errorMessage);
+  
+      // Additional error handling logic can go here
     }
+
   }
 
   // Handle save button
@@ -200,7 +213,6 @@ const CreateReportContent = ({ issue, onClose }) => {
     await handleFormSubmission('created')
   }
 
-  console.log('logogg', logo)
   return (
     <div>
       <form>
