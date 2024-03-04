@@ -42,7 +42,7 @@ const CreateReportContent = ({ issue, onClose }) => {
   const fetchMasterData = async () => {
     try {
       setLoading(true)
-      const response = await axiosInstance.get(`52a8ef74-e634-46b1-958a-f0d1f7339784`)
+      const response = await axiosInstance.get(`da43fcb9-80ea-46ea-a6ff-58d1a9b9dcf2`)
       // const response = await axiosInstance.get('/get-createreport/${issue}')
       const masterData = response.data?.resdata
       console.log('masterdata', masterData)

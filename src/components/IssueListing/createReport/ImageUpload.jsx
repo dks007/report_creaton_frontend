@@ -2,14 +2,36 @@ import React, { useEffect, useState } from 'react'
 import FileUploadRoundedIcon from '@mui/icons-material/FileUploadRounded'
 import CloseIcon from '@mui/icons-material/Close'
 import { Box, IconButton, Dialog, DialogContent } from '@mui/material'
+import { string } from 'yup'
 
 const ImageUpload = ({ imgSrc, onSelectImage }) => {
-  const [selectedImage, setSelectedImage] = useState('')
+  const [selectedImage, setSelectedImage] = useState(imgSrc)
   const [openModal, setOpenModal] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
 
   useEffect(() => {
-    setSelectedImage(imgSrc)
+    // Clear any existing object URL to avoid memory leaks
+    if (selectedImage && !selectedImage.startsWith('http')) {
+      URL.revokeObjectURL(selectedImage)
+      setSelectedImage('')
+    }
+    if (typeof imgSrc === 'string') {
+      console.log('imgSrc is a string')
+      setSelectedImage(imgSrc)
+    } else if (imgSrc instanceof Blob) {
+      // Ensure imgSrc is a File/Blob before calling createObjectURL
+      const imageUrl = URL.createObjectURL(imgSrc)
+      setSelectedImage(imageUrl)
+    } else {
+      console.log('imgSrc is not a string or Blob/File')
+      setSelectedImage('') // Reset or set to a default image placeholder if desired
+    }
+    // Cleanup function to revoke object URL when the component unmounts or imgSrc changes
+    return () => {
+      if (selectedImage && !selectedImage.startsWith('http')) {
+        URL.revokeObjectURL(selectedImage)
+      }
+    }
   }, [imgSrc])
 
   const handleFileUpload = (event) => {
@@ -30,8 +52,9 @@ const ImageUpload = ({ imgSrc, onSelectImage }) => {
       setSelectedImage(imageUrl)
       // Update onSelectImage to handle the file object
       console.log('file2222->', file)
-      onSelectImage(file) // Assuming onSelectImage should now handle the file object for upload
+      onSelectImage(file)
       setErrorMessage('')
+      event.target.value = ''
     }
   }
 
