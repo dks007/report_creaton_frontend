@@ -59,15 +59,15 @@ const IssueDetailsPage = () => {
 
       case '2': // Initiated
         return (
-          <MenuItem onClick={handleRefresh}>
-            <DownloadIcon /> Initiatedn
+          <MenuItem>
+            Initiatedn
           </MenuItem>
         )
 
       case '3': // In Progress
         return (
-          <MenuItem onClick={handleRefresh}>
-            <DownloadIcon /> In Progress
+          <MenuItem>
+             In Progress
           </MenuItem>
         )
 

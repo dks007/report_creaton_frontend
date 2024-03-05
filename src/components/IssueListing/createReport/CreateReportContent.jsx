@@ -6,6 +6,7 @@ import ImageUpload from './ImageUpload'
 import RefreshIcon from '@mui/icons-material/Refresh'
 import Loader from '../../shared/common/Loader'
 import { checkDataInList } from '../../../utils/helperFunction'
+import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 const CreateReportContent = ({ issue, onClose }) => {
@@ -39,13 +40,16 @@ const CreateReportContent = ({ issue, onClose }) => {
   })
   const [logo, setLogo] = useState('')
   const logoUrl = import.meta.env.VITE_IMAGE_SERVER_URL
+  //const jira_issue_url =  import.meta.env.VITE_JIRA_ISSUE_LINK`{issue}`
+  const jiraUrl = import.meta.env.VITE_JIRA_ISSUE_LINK;
+  //const openUrl = `${jiraUrl}${issue}`;
   const fetchMasterData = async () => {
     try {
       setLoading(true)
       //const response = await axiosInstance.get(`52a8ef74-e634-46b1-958a-f0d1f7339784`)
       const response = await axiosInstance.get(`/get-createreport/${issue}`)
       const masterData = response.data?.resdata
-      console.log('masterdata', masterData)
+      //console.log('masterdata', masterData)
       setApiData(masterData)
       setSnowCase(masterData?.snow_case_no || '')
       setLogo(masterData?.logo_url ? masterData.logo_url : `${logoUrl}${masterData?.logo_file_name}`)
@@ -99,6 +103,7 @@ const CreateReportContent = ({ issue, onClose }) => {
   const getSubCapabilityOptions = () => {
     if (selectedValue.capability) {
       const capability = selectBoxOptions.capabilityOptions.find((opt) => opt.value === selectedValue.capability.value)
+      console.log("capability--->",capability)
       return capability
         ? capability.subCapabilities.map((subCap) => ({
             label: subCap,
@@ -227,7 +232,7 @@ const CreateReportContent = ({ issue, onClose }) => {
             <div className="row readonly-info">
               <div className="info-left">
                 <div className="label">
-                  Jira ID: <span>{issue}</span>
+                  Jira ID: <a target="_blank" rel="noopener noreferrer" href={`${jiraUrl}${issue}`}>{issue}</a> 
                 </div>
                 <div className="label">
                   Expert: <span>{apiData?.expert_name}</span>

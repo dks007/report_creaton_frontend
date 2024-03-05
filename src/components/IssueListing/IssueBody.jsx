@@ -15,7 +15,7 @@ import CreateReportModal from './CreateReportModal'
 import SyncTwoToneIcon from '@mui/icons-material/SyncTwoTone'
 import SaveIcon from '@mui/icons-material/Save';
 
-const IssueBody = ({ issue, index, onRefresh }) => {
+const IssueBody = ({ issue, index, BasicMenu }) => {
   console.log("testing")
   const [showModal, setShowModal] = useState(false)
 
@@ -23,12 +23,7 @@ const IssueBody = ({ issue, index, onRefresh }) => {
     setShowModal(true)
     handleClose()
   }
-  //const handleHideModal = () => setShowModal(false)
-
-  const handleHideModal = () => {
-    setShowModal(false); // This closes the modal
-    onRefresh(issue.issue_key); // Call the refresh function passed as a prop
-  };
+  const handleHideModal = () => setShowModal(false)
 
   const [anchorEl, setAnchorEl] = React.useState(null)
   const open = Boolean(anchorEl)
@@ -40,23 +35,14 @@ const IssueBody = ({ issue, index, onRefresh }) => {
   }
 
   // ** Start: Action button/column */
-
-
-  const handleRefresh = () => {
-    // Handle refresh action
-  }
-
   const handleDownload = () => {
-    
     if (issue.download_link) {
       const encodedUrl = encodeURI(issue.download_link); // Ensure the URL is correctly encoded
       const anchor = document.createElement('a');
       anchor.href = encodedUrl;
-      anchor.setAttribute('download', true); // Suggest that the link is downloaded rather than navigated to
-      document.body.appendChild(anchor); // Append anchor to the body
-  
-      anchor.click(); // Simulate click to initiate download
-  
+      anchor.setAttribute('download', true); 
+      document.body.appendChild(anchor); 
+      anchor.click(); 
       setTimeout(() => { // Add a slight delay before removing the anchor
         document.body.removeChild(anchor);
       }, 100); // Delay in milliseconds
@@ -64,7 +50,10 @@ const IssueBody = ({ issue, index, onRefresh }) => {
       console.error("No download URL provided.");
     }
   };
-  
+
+  const handleRefresh = () => {
+    // Handle refresh action
+  }
   // ** End: Action button/column */
   const renderActionButton = () => {
     switch (issue.report_status) {
@@ -76,23 +65,15 @@ const IssueBody = ({ issue, index, onRefresh }) => {
         )
 
       case '2': // Initiated
-        return (
-          <MenuItem>
-            <DownloadIcon /> Initiatedn
-          </MenuItem>
-        )
-
+        return null
+        
       case '3': // In Progress
-        return (
-          <MenuItem>
-            <DownloadIcon /> In Progress
-          </MenuItem>
-        )
+        return null
 
       case '4': // Created
         return (
           <MenuItem onClick={handleDownload}>
-            <DownloadIcon /> Created
+            <DownloadIcon /> Download
           </MenuItem>
         )
       case '5': //  Saved
@@ -142,7 +123,7 @@ const IssueBody = ({ issue, index, onRefresh }) => {
       case '4':
         return 'green-row'
       case '5':
-      return 'green-row'
+      return 'saved-with-data'
       case '6':
       return 'red-row'
       default:

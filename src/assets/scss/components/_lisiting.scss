@@ -5,6 +5,7 @@ $main_color: #5C2D91;
 $white_color: #fff;
 $body_color: #f6f6f6;
 $yellow_color:#FFA944;
+$yellow_color_light:#ffd29e;
 $green_color:#07A537;
 $red_color:#D32F2F;
 $black_color: #000;
@@ -250,9 +251,9 @@ body{
 }
 
 .css-s6wrib-MuiPopper-root-MuiTooltip-popper.saved-tooltip .MuiTooltip-tooltip{
-  background-color: $gray_color;
+  background-color: #f04a00;
   .MuiTooltip-arrow{
-    color: $gray_color;
+    color: #993000;
   }
   p{
     line-height: 16px;
@@ -305,16 +306,17 @@ body{
   }
 
   &.status-2 {
-    background-color: $green_color;
+    background-color: $yellow_color_light;
+    color: $black_color;
   }
 
   &.status-3 {
-    background-color: $red_color;
+    background-color: $yellow_color;
   }
 
   &.status-4 {
-    background-color: $gray_light;
-    color: $gray_color;
+    background-color: $green_color;
+    color: $white_color;
     .save-icon{
       width: 14px;
       height: 16px;
@@ -323,8 +325,12 @@ body{
   }
 
   &.status-5 {
-    background-color: $red_color;
+    background-color: #f04a00;
     color: $white_color;
+    svg{
+      width: 14px;
+      height: 14px;
+    }
   }
  
 }

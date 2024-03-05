@@ -42,7 +42,7 @@ const Auth = () => {
       {/* Login container start */}
       <div style={cardStyles} className="login_container">
         <div className="inner_container">
-          <img src="../src/assets/images/login_icon.svg" alt="Login Icon"></img>
+          <img src="../src/assets/images/success-logo-large.svg" alt="Login Icon"></img>
           <h1>Success Pilot</h1>
           <p>Click below button to login using Azure AD</p>
           <button className="login-azure-btn" onClick={handleRedirect}>

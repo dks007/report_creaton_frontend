@@ -35,8 +35,9 @@ const TopNav = ({ name }) => {
               <IconButton onClick={() => navigate('/?active=create-report')}>
                 <ImageElement src={logo} placeholderSrc={logo} height={35} />
               </IconButton>
-              <Typography variant="h6" sx={{ marginLeft: 5, fontWeight: '800', fontSize: 18 }}>
-                {import.meta.env.VITE_APPLICATION_NAME}
+              <Typography className='header-logo'>
+                {/* {import.meta.env.VITE_APPLICATION_NAME} */}
+                <img src="../src/assets/images/success-pilot-header-logo.svg" alt="Success pilot logo"></img>
               </Typography>
             </Box>
             <div className="header-right">
