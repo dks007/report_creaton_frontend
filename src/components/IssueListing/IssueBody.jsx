@@ -15,7 +15,7 @@ import CreateReportModal from './CreateReportModal'
 import SyncTwoToneIcon from '@mui/icons-material/SyncTwoTone'
 import SaveIcon from '@mui/icons-material/Save';
 
-const IssueBody = ({ issue, index, BasicMenu }) => {
+const IssueBody = ({ issue, index, onRefresh }) => {
   console.log("testing")
   const [showModal, setShowModal] = useState(false)
 
@@ -23,7 +23,12 @@ const IssueBody = ({ issue, index, BasicMenu }) => {
     setShowModal(true)
     handleClose()
   }
-  const handleHideModal = () => setShowModal(false)
+  //const handleHideModal = () => setShowModal(false)
+
+  const handleHideModal = () => {
+    setShowModal(false); // This closes the modal
+    onRefresh(issue.issue_key); // Call the refresh function passed as a prop
+  };
 
   const [anchorEl, setAnchorEl] = React.useState(null)
   const open = Boolean(anchorEl)
@@ -36,13 +41,30 @@ const IssueBody = ({ issue, index, BasicMenu }) => {
 
   // ** Start: Action button/column */
 
-  const handleDownload = () => {
-    // Handle download action
-  }
 
   const handleRefresh = () => {
     // Handle refresh action
   }
+
+  const handleDownload = () => {
+    
+    if (issue.download_link) {
+      const encodedUrl = encodeURI(issue.download_link); // Ensure the URL is correctly encoded
+      const anchor = document.createElement('a');
+      anchor.href = encodedUrl;
+      anchor.setAttribute('download', true); // Suggest that the link is downloaded rather than navigated to
+      document.body.appendChild(anchor); // Append anchor to the body
+  
+      anchor.click(); // Simulate click to initiate download
+  
+      setTimeout(() => { // Add a slight delay before removing the anchor
+        document.body.removeChild(anchor);
+      }, 100); // Delay in milliseconds
+    } else {
+      console.error("No download URL provided.");
+    }
+  };
+  
   // ** End: Action button/column */
   const renderActionButton = () => {
     switch (issue.report_status) {
@@ -55,21 +77,21 @@ const IssueBody = ({ issue, index, BasicMenu }) => {
 
       case '2': // Initiated
         return (
-          <MenuItem onClick={handleDownload}>
+          <MenuItem>
             <DownloadIcon /> Initiatedn
           </MenuItem>
         )
 
       case '3': // In Progress
         return (
-          <MenuItem onClick={handleDownload}>
+          <MenuItem>
             <DownloadIcon /> In Progress
           </MenuItem>
         )
 
       case '4': // Created
         return (
-          <MenuItem onClick={handleRefresh}>
+          <MenuItem onClick={handleDownload}>
             <DownloadIcon /> Created
           </MenuItem>
         )
