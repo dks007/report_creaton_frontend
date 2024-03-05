@@ -28,8 +28,8 @@ const IssueList = () => {
           }
         })
         //const response = await axiosInstance.get('ef96ecfb-11bc-4d83-8509-c4de1f5d1192')
-        //setIssueData((prevData) => [...prevData, ...response.data.resdata])
-        setIssueData(response.data.resdata); // Directly set the fetched data
+        setIssueData((prevData) => [...prevData, ...response.data.resdata])
+        //setIssueData(response.data.resdata); // Directly set the fetched data
         setTotalRecords(response.data.total_record)
         setLoading(false)
       } catch (error) {
