@@ -51,6 +51,7 @@ const ImageUpload = ({ imgSrc, onSelectImage }) => {
       const imageUrl = URL.createObjectURL(file)
       setSelectedImage(imageUrl)
       // Update onSelectImage to handle the file object
+      console.log('file2222->', file)
       onSelectImage(file)
       setErrorMessage('')
       event.target.value = ''

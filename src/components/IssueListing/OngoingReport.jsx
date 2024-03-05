@@ -21,7 +21,7 @@ const HtmlTooltip = styled(({ className, ...props }) => <Tooltip {...props} clas
   }
 }))
 const OngoingReport = ({issueData}) => {
- 
+  
   return (
     <div className="tab-container">
       <Box sx={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }} className="mb-4">

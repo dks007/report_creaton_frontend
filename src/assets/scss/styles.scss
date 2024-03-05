@@ -4,14 +4,20 @@ body{
     background: $body_color !important;
     min-height: 100vh;
 }
+.home-page{
+    margin: -20px -20px 0;
+    img{
+        max-width: 100%;
+    }
+}
 // left header
 .header-left{
-    h6{
+    .header-logo{
         margin-left: 15px;
         padding-left: 15px;
         border-left: 1px solid rgba($white_color, 0.3);
-        font-size: 18px;
-        font-weight: 700;
+        display: flex;
+        align-items: center;
     }
 }
 // Right Heder
@@ -372,7 +378,7 @@ button.page-link{
 .main-form-wrapper{
     display: flex;
     justify-content: stretch;
-    height: 520px;
+    height: 560px;
     align-items: center;
 }
 .readonly-info{
@@ -384,7 +390,6 @@ button.page-link{
         min-width: inherit;
       }
     .info-left{
-        display: flex;
         padding: 0;
         align-items: center;
 
@@ -393,9 +398,6 @@ button.page-link{
             font-weight: 500;
             padding-right: 10px;
             margin-right: 10px;
-            &:first-child{
-                border-right: 1px solid $gray_color;
-            }
             span{
                 font-weight: 400;
             }
@@ -410,6 +412,7 @@ button.page-link{
         padding: 3px 8px;
         display: flex;
         border-radius: 3px;
+        height: 30px;
         cursor: pointer;
         svg{
             width: 20px;
@@ -626,4 +629,8 @@ button.page-link{
 .tooltip-content-wrapper{
     max-height: 250px;
     overflow: auto;
+}
+
+.saved-with-data > th{
+    border-left: 2px solid #555;
 }

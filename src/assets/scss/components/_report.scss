@@ -78,6 +78,8 @@
   .css-t3ipsp-control div:first-child {
     width: 142px !important;
     height: 28px;
-    align-items: flex-start;
+    align-items: baseline;
+    display: flex;
+    line-height: 30px !important;
   }
 }
