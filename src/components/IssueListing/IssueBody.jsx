@@ -15,7 +15,7 @@ import CreateReportModal from './CreateReportModal'
 import SyncTwoToneIcon from '@mui/icons-material/SyncTwoTone'
 import SaveIcon from '@mui/icons-material/Save';
 
-const IssueBody = ({ issue, index, BasicMenu }) => {
+const IssueBody = ({ issue, index, onRefresh }) => {
   console.log("testing")
   const [showModal, setShowModal] = useState(false)
 
@@ -23,7 +23,11 @@ const IssueBody = ({ issue, index, BasicMenu }) => {
     setShowModal(true)
     handleClose()
   }
-  const handleHideModal = () => setShowModal(false)
+  //const handleHideModal = () => setShowModal(false)
+  const handleHideModal = () => {
+    setShowModal(false); // This closes the modal
+    onRefresh(); // Call the refresh function passed as a prop
+  };
 
   const [anchorEl, setAnchorEl] = React.useState(null)
   const open = Boolean(anchorEl)
