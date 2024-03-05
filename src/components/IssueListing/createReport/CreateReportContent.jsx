@@ -103,7 +103,6 @@ const CreateReportContent = ({ issue, onClose }) => {
   const getSubCapabilityOptions = () => {
     if (selectedValue.capability) {
       const capability = selectBoxOptions.capabilityOptions.find((opt) => opt.value === selectedValue.capability.value)
-      console.log("capability--->",capability)
       return capability
         ? capability.subCapabilities.map((subCap) => ({
             label: subCap,
