@@ -48,7 +48,7 @@ const IssueDetailsPage = () => {
   }, [id]); // Make sure to include id in the dependency array
 
    // ** End: Action button/column */
-   const renderActionButton = () => {
+   const renderActionButton = (issue) => {
     switch (issue.report_status) {
       case '1': // Not Created
         return (
@@ -103,7 +103,7 @@ const IssueDetailsPage = () => {
           <h3>Issues Details Page</h3>
           <IconBreadcrumbs breadcrumbs={assignedJiraIssuesDetails} />
         </Box>
-        <Box className="col-md-4 action-items">{renderActionButton()}</Box>
+        <Box className="col-md-4 action-items">{renderActionButton({issueData})}</Box>
         <CreateReportModal showModal={showModal} handleHideModal={handleHideModal}  />
       </Box>
       <div className="row" style={{ marginTop: '20px' }}>

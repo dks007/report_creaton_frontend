@@ -28,7 +28,8 @@ const IssueList = () => {
           }
         })
         //const response = await axiosInstance.get('ef96ecfb-11bc-4d83-8509-c4de1f5d1192')
-        setIssueData((prevData) => [...prevData, ...response.data.resdata])
+        //setIssueData((prevData) => [...prevData, ...response.data.resdata])
+        setIssueData(response.data.resdata); // Directly set the fetched data
         setTotalRecords(response.data.total_record)
         setLoading(false)
       } catch (error) {
@@ -40,6 +41,30 @@ const IssueList = () => {
 
     fetchData()
   }, [currentPage])
+
+  const fetchIssueData = async (issueId) => {
+    // Placeholder for fetching a single issue's updated data
+    // Replace this URL with the actual endpoint to fetch a single issue's details
+    try {
+      const response = await axiosInstance.get(`issue-details/${issueId}`);
+      return response.data.resdata[0];
+      console.log("response-->",response)
+    } catch (error) {
+      console.error('Error fetching issue data:', error);
+      toast.error('Failed to refresh issue data');
+    }
+  };
+
+  const handleRefresh = async (issueId) => {
+    const updatedIssue = await fetchIssueData(issueId);
+    if (updatedIssue) {
+      setIssueData((prevData) =>
+        prevData.map((issue) => (issue.id === issueId ? updatedIssue : issue))
+      );
+    }
+  };
+
+  
 
   // Calculate the indexes of the items to be displayed on the current page
   const indexOfLastItem = currentPage * itemsPerPage
@@ -73,7 +98,7 @@ const IssueList = () => {
               <TableHead headers={issueListTableHeaders} />
               <tbody>
                 {currentItems.map((issue, index) => (
-                  <IssueBody key={index.toString()} issue={issue} index={index + indexOfFirstItem} />
+                  <IssueBody key={index.toString()} issue={issue} index={index + indexOfFirstItem} onRefresh={handleRefresh} />
                 ))}
               </tbody>
             </table>
