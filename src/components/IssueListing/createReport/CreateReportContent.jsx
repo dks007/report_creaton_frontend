@@ -16,7 +16,7 @@ const CreateReportContent = ({ issue, onClose }) => {
     productOptions: [],
     menuCardOptions: [],
     capabilityOptions: []
-  })
+  });
   const [selectedValue, setSelectedValue] = useState({
     customerName: null,
     customerContact: null,
@@ -24,7 +24,7 @@ const CreateReportContent = ({ issue, onClose }) => {
     menuCard: null,
     capability: null,
     subCapabilities: null
-  })
+  });
   const [loading, setLoading] = useState(false)
   const [apiData, setApiData] = useState()
   const [snowCase, setSnowCase] = useState('')
@@ -103,6 +103,7 @@ const CreateReportContent = ({ issue, onClose }) => {
   const getSubCapabilityOptions = () => {
     if (selectedValue.capability) {
       const capability = selectBoxOptions.capabilityOptions.find((opt) => opt.value === selectedValue.capability.value)
+      
       return capability
         ? capability.subCapabilities.map((subCap) => ({
             label: subCap,
@@ -114,7 +115,7 @@ const CreateReportContent = ({ issue, onClose }) => {
   }
   // Handling reset button
   const handleRestButton = () => {
-    setSnowCase('')
+    setSnowCase(apiData?.snow_case_no);
     setSelectedValue((prevState) => ({
       ...prevState,
       customerName: checkDataInList(apiData?.customer_name, apiData?.customer_list, 'customer_name'),
@@ -143,6 +144,14 @@ const CreateReportContent = ({ issue, onClose }) => {
       }
     })
 
+    // Capability selection validation
+  if (!selectedValue.capability?.value) {
+    setSelectBoxErrors((prevState) => ({
+      ...prevState,
+      capability: "Please select a capability.",
+    }));
+    hasErrors = true;
+  }
     // Validate logo
     if (!logo) {
       setSelectBoxErrors((prevState) => ({
@@ -162,25 +171,25 @@ const CreateReportContent = ({ issue, onClose }) => {
     }
 
     // Exit early if there are validation errors
-    if (hasErrors) return
+    if (hasErrors) return false
 
     // Prepare form data
     const formData = new FormData()
-    formData.append('issue_key', issue)
-    formData.append('customer_name', selectedValue.customerName?.value)
-    formData.append('customer_contact', selectedValue.customerContact?.value)
-    formData.append('expert_name', apiData?.expert_name)
-    formData.append('creator_name', apiData?.creator_name)
-    formData.append('menu_card', selectedValue.menuCard?.value)
-    formData.append('product', selectedValue.product?.value)
-    formData.append('capability', selectedValue.capability?.value)
-    formData.append('sub_capability', selectedValue.subCapabilities?.value)
-    formData.append('snow_case_no', apiData?.snow_case_no)
-    formData.append('action', action)
-    formData.append('logo', logo) // Here we append the file instead of the blob URL
-    formData.append('sdm_name', apiData?.sdm_name)
-    formData.append('csm_name', apiData?.csm_name)
-    formData.append('sdo_name', apiData?.sdo_name)
+    formData.append('issue_key', issue);
+    formData.append('customer_name', selectedValue.customerName?.value);
+    formData.append('customer_contact', selectedValue.customerContact?.value);
+    formData.append('expert_name', apiData?.expert_name);
+    formData.append('creator_name', apiData?.creator_name);
+    formData.append('menu_card', selectedValue.menuCard?.value);
+    formData.append('product', selectedValue.product?.value);
+    formData.append('capability', selectedValue.capability?.value);
+    formData.append('sub_capability', selectedValue.subCapabilities?.value);
+    formData.append('snow_case_no', snowCase);
+    formData.append('action', action);
+    formData.append('logo', logo); // Here we append the file instead of the blob URL
+    formData.append('sdm_name', apiData?.sdm_name);
+    formData.append('csm_name', apiData?.csm_name);
+    formData.append('sdo_name', apiData?.sdo_name);
 
     try {
       const response = await axiosInstance.post('/createreport/', formData);
@@ -210,12 +219,13 @@ const CreateReportContent = ({ issue, onClose }) => {
   // Handle save button
   const handleSaveButton = async () => {
     await handleFormSubmission('saved')
-  }
+  };
 
   // Handle create button
   const handleCreateReportButton = async () => {
     await handleFormSubmission('created')
-  }
+
+  };
 
   return (
     <div>

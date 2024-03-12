@@ -39,47 +39,4 @@
   content: ' *';
   color: red;
 }
-.custom-select {
-  font-size: 14px;
-  line-height: 27px;
-  font-weight: 500;
-  .css-13cymwt-control,
-  .css-t3ipsp-control {
-    border-color: $gray_color;
-    height: 30px;
-    min-height: 30px;
-  }
 
-  .css-art2ul-ValueContainer2 {
-    width: 142px !important;
-    height: 28px;
-    padding: 0px 8px;
-    .css-1jqq78o-placeholder {
-      min-height: 30px;
-    }
-  }
-  .css-w9q2zk-Input2 {
-    margin: 0;
-    height: 30px;
-  }
-  .css-1xc3v61-indicatorContainer {
-    padding: 1px 8px;
-  }
-  .css-1dimb5e-singleValue {
-    font-size: 14px;
-    line-height: 22px;
-  }
-  .css-4xgw5l-IndicatorsContainer2 {
-    div {
-      padding: 0 8px;
-    }
-  }
-  .css-13cymwt-control div:first-child,
-  .css-t3ipsp-control div:first-child {
-    width: 142px !important;
-    height: 28px;
-    align-items: baseline;
-    display: flex;
-    line-height: 30px !important;
-  }
-}
