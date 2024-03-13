@@ -3,5 +3,6 @@ export const routePath = {
   LOGIN: '/',
   HOME: '/',
   ISSUE_LISTING: '/issue-listing',
-  ISSUEBYID: '/issue-details/'
+  ISSUEBYID: '/issue-details/',
+  SUCCESSANALYZER: '/SuccessAnalyzer'
 }

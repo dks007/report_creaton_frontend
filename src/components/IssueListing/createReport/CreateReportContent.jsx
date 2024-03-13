@@ -8,6 +8,8 @@ import Loader from '../../shared/common/Loader'
 import { checkDataInList } from '../../../utils/helperFunction'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import CheckIcon from '@mui/icons-material/Check';
 
 const CreateReportContent = ({ issue, onClose }) => {
   const [selectBoxOptions, setSelectBoxOptions] = useState({
@@ -36,10 +38,11 @@ const CreateReportContent = ({ issue, onClose }) => {
     capability: '',
     subCapabilities: '',
     logo: '',
-    snowCase: ''
+    snowCase: '',
+    imgUrl:''
   })
   const [logo, setLogo] = useState('')
-  const logoUrl = import.meta.env.VITE_IMAGE_SERVER_URL
+  //const logoUrl = import.meta.env.VITE_IMAGE_SERVER_URL
   //const jira_issue_url =  import.meta.env.VITE_JIRA_ISSUE_LINK`{issue}`
   const jiraUrl = import.meta.env.VITE_JIRA_ISSUE_LINK;
   //const openUrl = `${jiraUrl}${issue}`;
@@ -52,7 +55,8 @@ const CreateReportContent = ({ issue, onClose }) => {
       //console.log('masterdata', masterData)
       setApiData(masterData)
       setSnowCase(masterData?.snow_case_no || '')
-      setLogo(masterData?.logo_url ? masterData.logo_url : `${logoUrl}${masterData?.logo_file_name}`)
+      //setImageUrl(masterData?.logo_url || '')
+      //setLogo(masterData?.logo_url ? masterData.logo_url : `${logoUrl}${masterData?.logo_file_name}`)
       //options for select box
       setSelectBoxOptions((prevState) => ({
         ...prevState,
@@ -152,15 +156,7 @@ const CreateReportContent = ({ issue, onClose }) => {
     }));
     hasErrors = true;
   }
-    // Validate logo
-    if (!logo) {
-      setSelectBoxErrors((prevState) => ({
-        ...prevState,
-        logo: 'Please upload a valid logo file.'
-      }))
-      hasErrors = true
-    }
-
+    
     // Validate snowCase
     if (snowCase === '') {
       setSelectBoxErrors((prevState) => ({
@@ -185,8 +181,9 @@ const CreateReportContent = ({ issue, onClose }) => {
     formData.append('capability', selectedValue.capability?.value);
     formData.append('sub_capability', selectedValue.subCapabilities?.value);
     formData.append('snow_case_no', snowCase);
+    formData.append('logo_url', imgUrl);
     formData.append('action', action);
-    formData.append('logo', logo); // Here we append the file instead of the blob URL
+    //formData.append('logo', logo); // Here we append the file instead of the blob URL
     formData.append('sdm_name', apiData?.sdm_name);
     formData.append('csm_name', apiData?.csm_name);
     formData.append('sdo_name', apiData?.sdo_name);
@@ -224,7 +221,12 @@ const CreateReportContent = ({ issue, onClose }) => {
   // Handle create button
   const handleCreateReportButton = async () => {
     await handleFormSubmission('created')
+  };
 
+  const [imgUrl, setName] = useState("");
+
+  const handleChange = (event) => {
+    setName(event.target.value);
   };
 
   return (
@@ -241,16 +243,16 @@ const CreateReportContent = ({ issue, onClose }) => {
             <div className="row readonly-info">
               <div className="info-left">
                 <div className="label">
-                  Jira ID: <a target="_blank" rel="noopener noreferrer" href={`${jiraUrl}${issue}`}>{issue}</a> 
+                  <span>Jira ID:</span> <a target="_blank" rel="noopener noreferrer" href={`${jiraUrl}${issue}`}>{issue} <OpenInNewIcon  fontSize='extra-small'/> </a> 
                 </div>
                 <div className="label">
-                  Expert: <span>{apiData?.expert_name}</span>
+                  <span>Snow Case ID:</span> <a target="_blank" rel="noopener noreferrer" href={`${jiraUrl}${issue}`}>CS0206572 <OpenInNewIcon fontSize='extra-small'/> </a> 
+                </div>
+                <div className="label">
+                  <span>Expert:</span> <p>{apiData?.expert_name}</p>
                 </div>
               </div>
-              <div className="refresh-btn" onClick={handleRestButton}>
-                <RefreshIcon />
-                <span>Reset Default</span>
-              </div>
+              
             </div>
             <div className="row">
               <div className={`col-md-6 create-report-wrapper`}>
@@ -337,6 +339,7 @@ const CreateReportContent = ({ issue, onClose }) => {
                     }}
                   />
                 </div>
+                {selectBoxErrors.product && <span className="error-msg">{selectBoxErrors.product}</span>}
               </div>
               <div className={`col-md-6 create-report-wrapper `}>
                 <div className="required label">Capability</div>
@@ -386,6 +389,7 @@ const CreateReportContent = ({ issue, onClose }) => {
                 <div>
                   <input
                     type="text"
+                    className='form-cont'
                     name="snow_case_no"
                     value={snowCase}
                     readOnly={apiData?.snow_case_no !== ''}
@@ -405,10 +409,10 @@ const CreateReportContent = ({ issue, onClose }) => {
               <div className="create-report-wrapper green-bg">
                 <div className="image-upload-text">
                   <h5 className="required">Customer Logo</h5>
-                  <p>Please upload a Customer logo, file format should be “JPG, JPEG, PNG, and file size should be greater than 500KB</p>
+                  <p>Please enter the logo image url</p>
                 </div>
                 <div>
-                  <ImageUpload
+                  {/* <ImageUpload
                     imgSrc={logo}
                     onSelectImage={(file) => {
                       setLogo(file)
@@ -418,7 +422,17 @@ const CreateReportContent = ({ issue, onClose }) => {
                       }))
                     }}
                   />
-                  {selectBoxErrors.logo && <span className="error-msg">{selectBoxErrors.logo}</span>}
+                  {selectBoxErrors.logo && <span className="error-msg">{selectBoxErrors.logo}</span>} */}
+                  <div className='logo-image-url'>
+                    <input name='logo_url' type='text' placeholder='Enter url here...' className='form-cont' onChange={handleChange} value={imgUrl}/>  
+                    <div className="uploaded-img-wrapper">                    
+                      <img src={imgUrl} alt="Logo not found" className="uploaded-image" />
+                    </div>                  
+                    <button className='inline-save-btn'> <CheckIcon /> </button>
+                  </div>
+                  
+                  
+                  {selectBoxErrors.imgUrl && <span className="error-msg">{selectBoxErrors.imgUrl}</span>}
                 </div>
               </div>
             </div>
@@ -439,9 +453,14 @@ const CreateReportContent = ({ issue, onClose }) => {
               </IconButton>
               <p className="text-center">Please make sure you are creating the document for the correct Jira ID</p>
               <Box className="popup-action-button">
-                <Button variant="outlined" onClick={handleSaveButton}>
-                  Save
-                </Button>
+                <div className='button-row-one'>
+                  <Button variant="outlined" onClick={handleSaveButton}>
+                    Save
+                  </Button>
+                  <Button  variant="outlined" className="refresh-btn" onClick={handleRestButton}>
+                    <RefreshIcon /> <span>Reset</span>
+                  </Button>
+                </div>
                 <Button variant="contained" onClick={handleCreateReportButton}>
                   Create Report
                 </Button>

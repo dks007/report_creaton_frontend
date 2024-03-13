@@ -52,7 +52,7 @@ const Auth = () => {
             <small>Clicking this button will log you into Success Pilot using Azure AD authentication.</small>
           </p>
           <p className='contact-support'>
-            Facing any difficulties? - <a href="#">Contact support</a>
+            Facing any difficulties? - <a href="mailto:support.successpilot@ifs.com">Contact support</a>
           </p>
         </div>
       </div>
