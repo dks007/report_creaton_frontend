@@ -4,6 +4,9 @@ body{
     background: $body_color !important;
     min-height: 100vh;
 }
+a{
+    color: $main_color;
+}
 .home-page{
     margin: -20px -20px 0;
     img{
@@ -290,6 +293,13 @@ button.page-link{
 // modal 
 .modal-wrapper{
     border-radius: 10px !important;
+    border: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    box-shadow: none;
+    .MuiBox-root{
+        border: 0 !important; 
+    }
     h6{
         font-size: 20px;
         font-weight: 600;
@@ -319,6 +329,7 @@ button.page-link{
                     font-size: 14px;
                     border-radius: 3px;
                     width: 100%;
+                    font-weight: 500;
                 }
             }
             &.readonly-item{
@@ -329,8 +340,37 @@ button.page-link{
                 color: $black_color;
             }
             .uploaded-image{
-                height: 80px;
-                border-radius: 10px;
+                max-height: 100%;
+                max-width: 100%;
+                font-size: 12px;
+                text-align: center;
+            }
+
+            .logo-image-url{
+                display: flex;
+                align-items: center;
+                input{
+                    height: 60px;
+                    margin-right: 10px;
+                }
+                button{
+                    padding: 0 10px;
+                    height: 60px;
+                    border: none;
+                    background-color: $main_light;                    
+                    border-radius: 3px;
+                    svg{
+                        width: 20px;
+                        height: 20px;
+                        fill: $main_color;
+                    }
+                    &:hover{
+                        background-color: $main_color;  
+                        svg{
+                            fill: $white_color;
+                        }
+                    }
+                }
             }
             
         }
@@ -350,12 +390,27 @@ button.page-link{
             }
             .popup-action-button{
                 margin-top: 20px;
-                display: flex;
+                display: grid;
+                width: 100%;
+                justify-content: center;
+                .button-row-one{
+                    display: flex;
+                    align-items: center;
+                    margin-bottom: 10px;
+                }
                 button{
-                    padding: 10px 30px;
+                    padding: 10px 40px;
                     font-size: 14px;
                     font-weight: 700;
                     line-height: 16px;
+                    height: 38px;
+                    span{
+                        height: 16px;
+                    }
+                    svg{
+                        width: 17px;
+                        height: 17px;
+                    }
                     &:first-child{
                         margin-right: 10px;
                     }
@@ -378,8 +433,13 @@ button.page-link{
 .main-form-wrapper{
     display: flex;
     justify-content: stretch;
-    height: 560px;
+    height: 500px;
     align-items: center;
+    .row:last-child{
+        .create-report-wrapper{
+            margin-bottom: 0;
+        }
+    }
 }
 .readonly-info{
     margin-bottom: 10px;
@@ -392,15 +452,35 @@ button.page-link{
     .info-left{
         padding: 0;
         align-items: center;
+        display: flex;
+        width: 100%;
 
         .label{
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 500;
-            padding-right: 10px;
+            padding: 6px 10px;
             margin-right: 10px;
+            display: grid;
+            align-items: center;
+            background-color: $main_light;
+            border-radius: 3px;
             span{
-                font-weight: 400;
+                font-weight: 500;
             }
+            a{
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                color: $main_color;
+                font-weight: 500;
+            }
+        }
+        p{
+            margin: 0;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            font-weight: 500;
         }
     }
     .refresh-btn{
@@ -483,7 +563,7 @@ button.page-link{
     h5{
         font-size: 14px;
         font-weight: 600;
-        margin-bottom: 5px;
+        margin-bottom: 2px;
     }
     p{
         margin-bottom: 5px;
@@ -647,7 +727,7 @@ button.page-link{
     }
   
     .css-art2ul-ValueContainer2 {
-      width: 142px !important;
+    //   width: 142px !important;
       height: 28px;
       padding: 0px 8px;
       .css-1jqq78o-placeholder {
@@ -656,7 +736,11 @@ button.page-link{
     }
     .css-w9q2zk-Input2, .css-19bb58m {
       margin: 0;
-      height: 30px;
+      height: 28px;
+      padding: 0;
+      input{
+        height: 28px;
+      }
     }
     .css-1xc3v61-indicatorContainer {
       padding: 1px 8px;
@@ -672,11 +756,57 @@ button.page-link{
     }
     .css-13cymwt-control div:first-child,
     .css-t3ipsp-control div:first-child {
-      width: 142px !important;
-      height: 28px;
-      align-items: baseline;
+    //   width: 142px !important;
+      height: 30px;
+      align-items: center;
       display: flex;
       line-height: 30px !important;
     }
+    .css-1dimb5e-singleValue{
+        position: absolute;
+        top: 0px;
+    }
+  }
+  .css-t3ipsp-control:hover, .css-t3ipsp-control{
+    border-color: $main_color !important;
+    box-shadow: 0 0 0 1px $main_color !important;
+  }
+  .create-report-wrapper{
+    input.form-cont:focus-visible{
+        border-color: $main_color;
+        outline-color: $main_color;
+    }
   }
 
+  .uploaded-img-wrapper{
+    position: relative;
+    width: 100px;
+    height: 60px;
+    border: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    margin-right: 10px;
+
+    button{
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-color: $red_color;
+        padding: 3px;
+        svg{
+            fill: $white_color;
+            width: 12px;
+            height: auto;
+        }
+    }
+}
+
+
+
+// Auccess Analyzer Page
+  .success-analyzer-api{
+    width: 100%;
+    height: calc(100vh - 80px);
+  }

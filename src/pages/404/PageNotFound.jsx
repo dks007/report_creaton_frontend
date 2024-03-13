@@ -11,14 +11,15 @@ const PageNotFound = () => {
       <Box className='er-inr-wrapper'>
         <Box className='er-inr-content'>
           <h1 className="error-title">404</h1>
-          <h6 className="error-title">Oops! the page not found.</h6>
-          <p className="error-subtitle">Sorry, the page you were looking for at this URL was not found.</p>
+          <h6 className="error-title">Oops! page not found.</h6>
+          <p className="error-subtitle">The resource requested could not be found in Success Copilot.</p>
+          <p className="error-subtitle">The link you followed may be broken. or the page may have been removed.</p>
           <Button variant="contained" sx={{ padding: 1.5, borderRadius: 3, marginTop: 4 }} component={Link} to="/">
             Go back to homepage
           </Button>
         </Box>
       </Box>
-      <Box className="contact-support">Facing any difficulties?  -  <a href='javascript();'>Contact support</a></Box>
+      <Box className="contact-support"><a href='mailto:support.successpilot@ifs.com'>Contact Support</a></Box>
     </Box>
   )
 }

@@ -37,7 +37,22 @@ const IssueBody = ({ issue, index, onRefresh }) => {
     setAnchorEl(null)
   }
 
-  
+  // ** Start: Action button/column */
+  const handleDownload = () => {
+    if (issue.download_link) {
+      const encodedUrl = encodeURI(issue.download_link); // Ensure the URL is correctly encoded
+      const anchor = document.createElement('a');
+      anchor.href = encodedUrl;
+      anchor.setAttribute('download', true); 
+      document.body.appendChild(anchor); 
+      anchor.click(); 
+      setTimeout(() => { // Add a slight delay before removing the anchor
+        document.body.removeChild(anchor);
+      }, 100); // Delay in milliseconds
+    } else {
+      console.error("No download URL provided.");
+    }
+  };
 
   const handleRefresh = () => {
     // Handle refresh action
@@ -61,19 +76,11 @@ const IssueBody = ({ issue, index, onRefresh }) => {
       case '4': // Created
         const prefixToRemove = 'https://successpilot.corpnet.ifsworld.com/report_';
         // Extract the filename from the download link and remove the prefix
-        const filename =""
-        if(issue.download_link) {
-          const downloadLink = issue.download_link;
-          const filename = downloadLink.replace(prefixToRemove, '');
-          const encodeURI = encodeURI(issue.download_link);
-        } else{
-          const downloadLink =""
-        }
-        
+        const filename = issue.download_link.replace(prefixToRemove, '');
         return (
           //<MenuItem onClick={handleDownload}>
           <MenuItem>
-            <a href={encodeURI} download = {filename} >
+            <a href={encodeURI(issue.download_link)} download = {filename} >
             <DownloadIcon /> Download
             </a>
           </MenuItem>

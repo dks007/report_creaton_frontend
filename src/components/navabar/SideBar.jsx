@@ -14,10 +14,10 @@ import SpaceDashboardIcon from '@mui/icons-material/SpaceDashboard'
 const menuItems = [
   { icon: <SpaceDashboardIcon />, label: 'Dashboard', path: routePath.HOME },
   { icon: <AssignmentIcon />, label: 'Report', path: routePath.ISSUE_LISTING },
-  { icon: <BarChartIcon />, label: 'Usage Analyzer', path: '/usage-analyzer' },
-  { icon: <ReceiptLongIcon />, label: 'Health Monitoring', path: '/health-monitoring' },
-  { icon: <SupervisedUserCircleIcon />, label: 'Manage Team', path: '/manage-team' },
-  { icon: <RecentActorsIcon />, label: 'Manage Customer', path: '/manage-customer' }
+  { icon: <BarChartIcon />, label: 'Success Analyzer', path: '/success-analyzer' },
+  // { icon: <ReceiptLongIcon />, label: 'Health Monitoring', path: '/health-monitoring' },
+  // { icon: <SupervisedUserCircleIcon />, label: 'Manage Team', path: '/manage-team' },
+  // { icon: <RecentActorsIcon />, label: 'Manage Customer', path: '/manage-customer' }
 ]
 
 const SideBar = ({ onCloseDrawer }) => {
