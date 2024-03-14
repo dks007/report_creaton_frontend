@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import CheckIcon from '@mui/icons-material/Check';
+import EditIcon from '@mui/icons-material/Edit';
 
 const CreateReportContent = ({ issue, onClose }) => {
   const [selectBoxOptions, setSelectBoxOptions] = useState({
@@ -428,7 +429,7 @@ const CreateReportContent = ({ issue, onClose }) => {
                     <div className="uploaded-img-wrapper">                    
                       <img src={imgUrl} alt="Logo not found" className="uploaded-image" />
                     </div>                  
-                    <button className='inline-save-btn'> <CheckIcon /> </button>
+                    <button className='inline-save-btn'> <EditIcon /> </button>
                   </div>
                   
                   

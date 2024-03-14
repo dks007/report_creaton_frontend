@@ -314,9 +314,16 @@ button.page-link{
             background-color: $white_color;
             // box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.05);
             padding: 0 15px 0 0;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             display: block;
             transition: all 0.15s ease-out;
+            position: relative;
+            .error-msg{
+                position: absolute;
+                background: #fff;
+                bottom: -20px;
+                padding: 0;
+            }
             div{
                 &.label{
                     font-size: 14px;
@@ -405,7 +412,7 @@ button.page-link{
                     line-height: 16px;
                     height: 38px;
                     span{
-                        height: 16px;
+                        height: 14px;
                     }
                     svg{
                         width: 17px;
@@ -433,13 +440,9 @@ button.page-link{
 .main-form-wrapper{
     display: flex;
     justify-content: stretch;
-    height: 500px;
+    height: 470px;
     align-items: center;
-    .row:last-child{
-        .create-report-wrapper{
-            margin-bottom: 0;
-        }
-    }
+    
 }
 .readonly-info{
     margin-bottom: 10px;
@@ -780,7 +783,7 @@ button.page-link{
 
   .uploaded-img-wrapper{
     position: relative;
-    width: 100px;
+    width: 130px;
     height: 60px;
     border: 1px solid #ddd;
     display: flex;
@@ -803,6 +806,40 @@ button.page-link{
     }
 }
 
+.active{
+    display: block;
+}
+.inactive{
+    display: none !important;
+}
+
+// table inside a table
+#sub-table-master{
+    td{
+        background-color: $main_light;
+    }
+}
+.table-wrapper{
+    table{
+        tr{
+            table{
+                width: 100%;
+                thead{
+                    th{
+                        font-weight: 600;
+                    }
+                }
+                tbody{
+                    tr{
+                        td{
+                            background-color: $white_color !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
 
 
 // Auccess Analyzer Page

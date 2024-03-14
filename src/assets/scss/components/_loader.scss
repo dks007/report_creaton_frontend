@@ -4,7 +4,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba($main_color, 0.9);
+  background-color: rgba($white_color, 0.8);
   color: $white_color;
   z-index: 9999; /* Set a high z-index to ensure it's on top of other elements */
   display: flex;
@@ -14,8 +14,9 @@
     max-width: 450px;
     margin: 0 auto;
     text-align: center;
+    color: $black_color;
     .loading-image{
-      background-color: $main_color;
+      background-color: #f1f1f1;
       border-radius: 80px;
       width: 100px;
       height: 100px;
