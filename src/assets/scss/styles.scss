@@ -806,17 +806,24 @@ button.page-link{
     }
 }
 
-.active{
-    display: block;
-}
-.inactive{
-    display: none !important;
-}
+
 
 // table inside a table
-#sub-table-master{
-    td{
+#sub-table-master{    
+    > td{
         background-color: $main_light;
+        border: 1px solid #e0d5ed;
+    }
+    &:hover{
+        td{
+            background-color: $main_light !important;
+        }
+    }
+    &.active{
+        display: table-row !important;
+    }
+    &.inactive{
+        display: none !important;
     }
 }
 .table-wrapper{
@@ -827,18 +834,66 @@ button.page-link{
                 thead{
                     th{
                         font-weight: 600;
+                        padding: 10px 8px;
+                        background: #5C2D91 !important;
+                        color: #fff;
+                        &:last-child{
+                            text-align: left;
+                        }
                     }
                 }
                 tbody{
                     tr{
                         td{
                             background-color: $white_color !important;
+                            &.sub-item-number{
+                                button{
+                                    padding: 3px 5px;
+                                    min-width: inherit;
+                                    margin-left: 5px;
+                                    background: transparent;
+                                    box-shadow: none;
+                                    svg{
+                                        width: 20px;
+                                        fill: #5C2D91;
+                                    }
+                                    &:hover{
+                                        background: $main_light;
+                                    }
+                                }
+                            }
+                            &.status-col{
+                                text-align: left;
+                                width: 120px;   
+                                span{
+                                    display: inline-flex !important;
+                                    padding: 1px 5px !important;
+                                    justify-content: center;
+                                    align-items: center;
+                                    border-radius: 3px;
+                                    font-size: 12px;
+                                    font-weight: 500;
+                                    text-wrap: nowrap;
+                                    width: 75px;
+                                    &.status-1{
+                                        background-color: $main_light;
+                                        color: $main_color;
+                                    }
+                                }
+                            }
                         }
                     }
                 }
             }
         }
     }
+}
+
+.table-wrapper table tbody tr#sub-table-master:hover td  td{
+    background-color: $white_color !important;
+}
+.table-wrapper table tbody tr#sub-table-master:hover td th{
+    background-color: $main_color !important;
 }
 
 
