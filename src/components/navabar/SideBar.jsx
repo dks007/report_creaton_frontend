@@ -5,16 +5,18 @@ import { routePath } from '../../constants/routes'
 
 import HexagonOutlinedIcon from '@mui/icons-material/HexagonOutlined'
 import AssignmentIcon from '@mui/icons-material/Assignment'
-import BarChartIcon from '@mui/icons-material/BarChart'
+import AnalyticsOutlinedIcon from '@mui/icons-material/AnalyticsOutlined';
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong'
 import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle'
 import RecentActorsIcon from '@mui/icons-material/RecentActors'
 import SpaceDashboardIcon from '@mui/icons-material/SpaceDashboard'
+import StackedBarChartOutlinedIcon from '@mui/icons-material/StackedBarChartOutlined';
 
 const menuItems = [
   { icon: <SpaceDashboardIcon />, label: 'Dashboard', path: routePath.HOME },
   { icon: <AssignmentIcon />, label: 'Report', path: routePath.ISSUE_LISTING },
-  { icon: <BarChartIcon />, label: 'Success Analyzer', path: '/success-analyzer' },
+  { icon: <AnalyticsOutlinedIcon />, label: 'Usage & Performance Analyzer', path: '/success-analyzer' },
+  { icon: <StackedBarChartOutlinedIcon />, label: 'License Analyzer', path: '/license-analyzer' },
   // { icon: <ReceiptLongIcon />, label: 'Health Monitoring', path: '/health-monitoring' },
   // { icon: <SupervisedUserCircleIcon />, label: 'Manage Team', path: '/manage-team' },
   // { icon: <RecentActorsIcon />, label: 'Manage Customer', path: '/manage-customer' }

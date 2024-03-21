@@ -15,6 +15,8 @@ import CreateReportModal from "./CreateReportModal";
 import SyncTwoToneIcon from "@mui/icons-material/SyncTwoTone";
 import SaveIcon from "@mui/icons-material/Save";
 import axiosInstance from "../../axiosInstance/axiosInstance";
+import PublicIcon from '@mui/icons-material/Public';
+import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 
 const IssueBody = ({ issue, index, onRefresh }) => {
   console.log("testing");
@@ -95,6 +97,17 @@ const IssueBody = ({ issue, index, onRefresh }) => {
   const handleRefresh = () => {
     // Handle refresh action
   };
+
+
+//making download url
+let download_app =""; 
+let download_browser="";
+let prefixToadd = import.meta.env.VITE_PREFIX_ADD;
+if(issue.download_link){
+  download_browser = issue.download_link;
+  download_app = prefixToadd+issue.download_link;
+}
+      
   // ** End: Action button/column */
   const renderActionButton = () => {
     switch (issue.report_status) {
@@ -106,24 +119,27 @@ const IssueBody = ({ issue, index, onRefresh }) => {
         );
 
       case "2": // Initiated
-        return null;
+        return (<MenuItem>Initiated</MenuItem>);
 
       case "3": // In Progress
-        return null;
+        return (<MenuItem>In Progress</MenuItem>);
 
       case "4": // Created
-        const prefixToRemove =
-          "https://successpilot.corpnet.ifsworld.com/report_";
-        // Extract the filename from the download link and remove the prefix
-        const filename = issue.download_link.replace(prefixToRemove, "");
+
+          if(download_app && download_browser){
         return (
-          //<MenuItem onClick={handleDownload}>
-          <MenuItem>
-            <a href={encodeURI(issue.download_link)} download={filename}>
-              <DownloadIcon /> Download
-            </a>
-          </MenuItem>
-        );
+            //<MenuItem onClick={handleDownload}>
+            <MenuItem className="file-download-opt">
+              <a href={encodeURI(download_app)} download={download_app}>
+                <InsertDriveFileIcon />Open in App
+              </a>
+              <a target="_blank" rel="noopener noreferrer" href={encodeURI(download_browser)} download={download_browser}>
+                <PublicIcon />Open in browser
+              </a>
+            </MenuItem>
+           );
+          }
+          return (<MenuItem>File Not Available</MenuItem>);
       case "5": //  Saved
         return (
           <MenuItem onClick={handleShowModal}>
@@ -149,7 +165,9 @@ const IssueBody = ({ issue, index, onRefresh }) => {
       case "2":
         return "Initiated";
       case "3":
-        return "In Progress ";
+        return (
+          <><img src="../src/assets/Images/loader-sml.svg"/> In Progress</>
+        );
       case "4":
         return "Created";
       case "5":
@@ -193,6 +211,15 @@ const IssueBody = ({ issue, index, onRefresh }) => {
       color: theme.palette.common.black,
     },
   }));
+
+  // function to show csm/psm
+  function csmpsmFormat(csmVal,psmVal){
+    if(psmVal !==null && psmVal !== undefined && psmVal !==''){
+      return psmVal;
+    }
+    return csmVal;
+
+  }
 
   return (
     <>
@@ -246,10 +273,12 @@ const IssueBody = ({ issue, index, onRefresh }) => {
                         className="custom-tooltip-html contentonly"
                       >
                         <Typography component="div" color="inherit">
-                          Task ID: <span>{subtask.key}</span>
+                          <p>Task ID:</p>
+                          <p className="value">{subtask.key}</p>
                         </Typography>
                         <Typography component="div" color="inherit">
-                          Title: <span>{subtask.summary}</span>
+                          <p>Title:</p>
+                          <p className="value">{subtask.summary}</p>
                         </Typography>
                       </div>
                     ))}
@@ -268,7 +297,7 @@ const IssueBody = ({ issue, index, onRefresh }) => {
         </td>
         <td className="customer-col fw-medium">
           <div className="customer-information">
-            <span>{issue.project_name}</span>
+            <span>{issue.customer_name}</span>
             <HtmlTooltip
               placement="right-start"
               arrow
@@ -276,6 +305,10 @@ const IssueBody = ({ issue, index, onRefresh }) => {
                 <React.Fragment>
                   <div className="custom-tooltip-html">
                     <p>Customer Name</p>
+                    <p className="value">{issue.customer_name}</p>
+                  </div>
+                  <div className="custom-tooltip-html">
+                    <p>Project Name</p>
                     <p className="value">{issue.project_name}</p>
                   </div>
                   <div className="custom-tooltip-html">
@@ -351,7 +384,7 @@ const IssueBody = ({ issue, index, onRefresh }) => {
           <div>{issue.issue_summary}</div>
         </td>
         <td className="csm-col">
-          <div>{issue.csm_name}</div>
+          <div>{csmpsmFormat(issue.csm_name,issue.psm_name)}</div>
         </td>
         <td className="sdm-col">
           <div>{issue.sdm_name}</div>
@@ -418,6 +451,7 @@ const IssueBody = ({ issue, index, onRefresh }) => {
           </div>
         </td>
       </tr>
+      
       {subtaskVisible && subtasks.length > 0 && (
         <tr id="sub-table-master" className={isActive ? "inactive" : "active"}>
           <td colSpan={11}>
@@ -425,7 +459,7 @@ const IssueBody = ({ issue, index, onRefresh }) => {
               <thead>
                 <tr>
                   <th width="85">#</th>
-                  <th>Jira ID</th>
+                  <th>Sub Task ID</th>
                   <th>Description</th>
                   <th>Assignee</th>
                   <th>Created</th>
@@ -450,8 +484,11 @@ const IssueBody = ({ issue, index, onRefresh }) => {
                         {subtask.jira_status}
                       </span>
                     </td>
-                  </tr>
+                  </tr>                  
                 ))}
+                {/* <tr className="loading-row">
+                  <td colSpan={7}><img src="../src/assets/Images/loader-sml.svg"/>Loading...</td>
+                </tr> */}
               </tbody>
             </table>
           </td>

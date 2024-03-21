@@ -103,6 +103,9 @@ const IssueDetailsPage = () => {
         </Box>
         <Box className="col-md-4 action-items">
           {renderActionButton({ issueData })}
+          <button className='btn primery-btn'><AddIcon/>Create Report</button>
+          <button className='btn primery-btn sml-btn'><DownloadIcon/></button>
+          <button className='btn blue-btn sml-btn'><SyncTwoToneIcon/></button>
         </Box>
         <CreateReportModal
           showModal={showModal}
@@ -117,8 +120,6 @@ const IssueDetailsPage = () => {
                 <ImageElement
                   src={issueData.logo_url}
                   placeholderSrc={profile}
-                  width={140}
-                  height={140}
                 />
                 {/* <ImageElement src={profile} placeholderSrc={profile} width={140} height={140} /> */}
               </Box>

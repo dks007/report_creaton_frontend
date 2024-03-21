@@ -21,6 +21,10 @@ a{
         border-left: 1px solid rgba($white_color, 0.3);
         display: flex;
         align-items: center;
+        img{
+            position: relative;
+            top: -3px;
+        }
     }
 }
 // Right Heder
@@ -88,6 +92,12 @@ a{
         li{
             font-size: 14px;
             font-weight: 500;
+            a{
+                display: flex;
+                align-items: center;
+                color: $black_color;
+                text-decoration: none;
+            }
             .MuiListItemIcon-root{
                 min-width: auto;
                 margin-right: 12px;
@@ -591,6 +601,9 @@ button.page-link{
 
 // manage table error color
 .table-wrapper table tr.red-row{
+    th{
+        border-left: 3px solid $red_color;
+    }
     td, th{
         background-color: $red_light !important;
     }
@@ -769,7 +782,20 @@ button.page-link{
         position: absolute;
         top: 0px;
     }
+    .css-1cfo1cf{
+        margin: 0;
+        padding: 0;
+        height: 27px;
+    }
+    
+    
   }
+.css-15lsz6c-indicatorContainer{
+    padding: 1px 8px !important;
+}
+.css-1wy0on6{
+    height: 28px !important;
+}
   .css-t3ipsp-control:hover, .css-t3ipsp-control{
     border-color: $main_color !important;
     box-shadow: 0 0 0 1px $main_color !important;
@@ -835,7 +861,7 @@ button.page-link{
                     th{
                         font-weight: 600;
                         padding: 10px 8px;
-                        background: #5C2D91 !important;
+                        background: #736387 !important;
                         color: #fff;
                         &:last-child{
                             text-align: left;
@@ -846,6 +872,7 @@ button.page-link{
                     tr{
                         td{
                             background-color: $white_color !important;
+                            border-bottom: 1px solid #dfd6e9;
                             &.sub-item-number{
                                 button{
                                     padding: 3px 5px;
@@ -882,6 +909,15 @@ button.page-link{
                                 }
                             }
                         }
+                        &.loading-row{
+                            td{
+                                text-align: center;
+                                background-color: $main_light;
+                                img {
+                                    width: 20px;
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -893,12 +929,148 @@ button.page-link{
     background-color: $white_color !important;
 }
 .table-wrapper table tbody tr#sub-table-master:hover td th{
-    background-color: $main_color !important;
+    background-color: #736387 !important;
 }
 
+
+// filter style
+.filter-wrapper{
+    margin-bottom: 10px;
+    margin-top: 10px;
+    .filter-btn{
+        display: inline-block;
+        span{
+            font-size: 14px;
+            padding: 5px 10px;
+            background-color: $main_light;
+            color: $main_color;
+            display: flex;
+            align-items: center;
+            width: auto;
+            border-radius: 3px;
+            cursor: pointer;
+            svg{
+                width: 18px;
+                height: 18px;
+                fill: $main_color;
+            }
+        }
+        
+    }
+
+    #filter-content-sec{
+        border: 1px solid #ddd;
+        padding: 10px;
+        margin-top: 10px;
+        box-sizing: border-box;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: 3px;
+        &.hide{
+            display: none;
+        }
+        &.show{            
+            display: flex;
+        }
+        .filter-control{
+            display: flex;
+            
+            button{
+                background-color: transparent;
+                color: $black_color;
+                box-shadow: none;
+                font-size: 14px;
+                padding: 2px 12px;
+                text-transform: inherit;
+                .MuiButton-endIcon{
+                    margin-left: 0px;
+                }
+               
+            }
+            .added-value{
+                button{
+                    background-color: $main_light;
+                }
+            }
+        }
+        .filter-action-btn{
+            button{
+                padding: 5px 10px 2px;
+                border-radius: 3px;
+                text-transform: uppercase;
+                font-size: 12px;
+                font-weight: 500;
+                border: 0;
+                &.apply-filter{
+                    background-color: $main_color;
+                    color: $white_color;
+                    margin-right: 10px;                    
+                    margin-left: 15px;
+                }
+                &.clear-filter{
+                    background-color: rgba($black_color, 0.1);
+                    color: $black_color;
+                }
+                
+            }
+        }
+    }
+}
+// .css-3dzjca-MuiPaper-root-MuiPopover-paper-MuiMenu-paper{
+//     box-shadow: none !important;
+// }
+
+
+.filter-wrapper[aria-hidden="true"]{
+    .css-3dzjca-MuiPaper-root-MuiPopover-paper-MuiMenu-paper{
+        box-shadow: none !important;
+    }
+}
+
+.css-10nakn3-MuiModal-root-MuiPopover-root-MuiMenu-root{
+    
+    ul{
+        padding: 0;
+        li{
+            padding: 6px;
+            &.file-download-opt{
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 0;
+                a{
+                    padding: 10px 15px;
+                    width: 100%;
+                    text-decoration: none;
+                    color: $black_color;
+                    &:hover{
+                        background-color: $main_light;
+                        color: $main_color;
+                        svg{
+                            fill: $main_color;
+                        }
+                    }
+                }
+            }
+            
+            input{
+                height: 26px;
+                padding: 5px 6px;
+                width: 170px;
+                font-size: 14px;
+                &:focus-visible{
+                    outline: none;
+                }
+            }
+        }
+    }
+}
 
 // Auccess Analyzer Page
   .success-analyzer-api{
     width: 100%;
     height: calc(100vh - 80px);
   }
+
+  
+ 

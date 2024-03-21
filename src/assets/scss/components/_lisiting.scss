@@ -103,8 +103,9 @@ body{
       tr{
         box-shadow: none;
         th{
-          background-color: transparent;
-          padding-top: 0;
+          background-color: $main_color;
+          color: $white_color;
+          
         }
       }
     }
@@ -176,8 +177,8 @@ body{
 
 .report-col{
   span{
-    min-width: 80px;
-    max-width: 80px;
+    min-width: 100px;
+    max-width: 100px;
     svg{
       margin-right: 5px;
       margin-left: 0;
@@ -295,10 +296,7 @@ body{
 
 
 .report-col .report-status {
-  // &.status-0{
-  //   background: #F5EFFC;
-  //   color: $main_color;
-  // }
+  line-height: 19px;
   
   &.status-1 {
     background-color: $main_light;
@@ -312,6 +310,9 @@ body{
 
   &.status-3 {
     background-color: $yellow_color;
+    img{
+      width: 20px;
+    }
   }
 
   &.status-4 {
@@ -326,6 +327,15 @@ body{
 
   &.status-5 {
     background-color: #f04a00;
+    color: $white_color;
+    svg{
+      width: 14px;
+      height: 14px;
+    }
+  }
+
+  &.status-6 {
+    background-color: $red_color;
     color: $white_color;
     svg{
       width: 14px;
