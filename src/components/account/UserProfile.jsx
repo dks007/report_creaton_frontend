@@ -100,11 +100,13 @@ const UserProfile = ({ name }) => {
           </ListItemIcon>
           Activity Log
         </MenuItem>
-        <MenuItem onClick={handleClose}>
+        <MenuItem>
+          <a href="mailto:support.successpilot@ifs.com">
           <ListItemIcon>
             <ContactSupportIcon fontSize="small" />
           </ListItemIcon>
           Support
+          </a>
         </MenuItem>
         <MenuItem onClick={handleLogoutRedirect}>
           <ListItemIcon>

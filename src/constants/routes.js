@@ -4,5 +4,6 @@ export const routePath = {
   HOME: '/',
   ISSUE_LISTING: '/issue-listing',
   ISSUEBYID: '/issue-details/',
-  SUCCESSANALYZER: '/SuccessAnalyzer'
+  SUCCESSANALYZER: '/SuccessAnalyzer',
+  LICENSEANALYZER: '/LicenseAnalyzer'
 }

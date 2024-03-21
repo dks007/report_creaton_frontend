@@ -5,6 +5,8 @@ import IssueDetailsPage from '../components/IssueListing/IssueDetailsPage'
 import PageNotFound from '../pages/404/PageNotFound'
 import Dashboard from '../pages/dashboard/Dashboard'
 import SuccessAnalyzer from '../pages/success-analyzer/success-analyzer'
+import LicenseAnalyzer from '../pages/license-analyzer/license-analyzer'
+
 import AppLayout from '../layout/AppLayout'
 import Report from '../pages/report/Report'
 import { useMsal } from '@azure/msal-react'
@@ -38,6 +40,7 @@ const AppRoutes = () => {
           <Route path={routePath.ISSUE_LISTING} element={<Report />} />
           <Route path="/issue-details/:id" element={<IssueDetailsPage />} />
           <Route path="/success-analyzer" element={<SuccessAnalyzer />} />
+          <Route path="/license-analyzer" element={<LicenseAnalyzer />} />
           <Route path="*" element={<PageNotFound />} />
         </Route>
       </Routes>

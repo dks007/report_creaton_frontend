@@ -45,6 +45,7 @@ const CreateReportContent = ({ issue, onClose }) => {
   });
   const [logoUrl, setLogoUrl] = useState("");
   const [editLogo, setEditLogo] = useState(false);
+  const [imageAvailable, setImageAvailable] = useState(false);
 
   //const jira_issue_url =  import.meta.env.VITE_JIRA_ISSUE_LINK`{issue}`
   const jiraUrl = import.meta.env.VITE_JIRA_ISSUE_LINK;
@@ -59,8 +60,6 @@ const CreateReportContent = ({ issue, onClose }) => {
       setApiData(masterData);
       setLogoUrl(masterData?.logo_url || "");
       setSnowCase(masterData?.snow_case_no || "");
-      //setImageUrl(masterData?.logo_url || '')
-      //setLogo(masterData?.logo_url ? masterData.logo_url : `${logoUrl}${masterData?.logo_file_name}`)
       //options for select box
       setSelectBoxOptions((prevState) => ({
         ...prevState,
@@ -223,6 +222,21 @@ const CreateReportContent = ({ issue, onClose }) => {
       hasErrors = true;
     }
 
+    // Validate logo url
+    if (!imageAvailable) {
+      setSelectBoxErrors((prevState) => ({
+        ...prevState,
+        imgUrl: "Logo not found. Please provide a valid logo URL.",
+      }));
+      hasErrors = true;
+    } else {
+      // Clear the error message if the logo URL is valid
+      setSelectBoxErrors((prevState) => ({
+        ...prevState,
+        imgUrl: "",
+      }));
+    }
+
     // Exit early if there are validation errors
     if (hasErrors) return false;
 
@@ -232,6 +246,7 @@ const CreateReportContent = ({ issue, onClose }) => {
     formData.append("customer_name", selectedValue.customerName?.value);
     formData.append("customer_contact", selectedValue.customerContact?.value);
     formData.append("expert_name", apiData?.expert_name);
+    formData.append("expert_email", apiData?.assignee_email);
     formData.append("creator_name", apiData?.creator_name);
     formData.append("menu_card", selectedValue.menuCard?.value);
     formData.append("product", selectedValue.product?.value);
@@ -285,6 +300,7 @@ const CreateReportContent = ({ issue, onClose }) => {
   const handleImageError = (error) => {
     // Additional error handling logic can go here
     console.log("An error occurred loading an image:", error);
+    setImageAvailable(false);
   };
 
   return (
@@ -545,6 +561,8 @@ const CreateReportContent = ({ issue, onClose }) => {
                         src={logoUrl}
                         alt="Logo not found"
                         className="uploaded-image"
+                        onError={handleImageError}
+                        onLoad={()=>setImageAvailable(true)}
                       />
                     </div>
                     {!editLogo && (

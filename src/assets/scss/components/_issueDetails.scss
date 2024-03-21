@@ -33,8 +33,17 @@
         margin-bottom: 30px;
         .customer-logo{
           background: #f2f2f2;
-          border-radius: 50%;
           overflow: hidden;
+          height: 160px;
+          width: 160px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 20px;          
+          border-radius: 50%;
+          img{
+            max-width: 100%;
+          }
         }
         h6{
           font-size: 22px;
@@ -103,11 +112,12 @@
       }
     }
   }
+  .subtask-icon{
+    margin-left: 10px ;
+  }
 }
 
-.subtask-icon{
-  margin-left: 0px  ;
-}
+
 .custom-tooltip-html{
   p{
     font-size: 14px;
