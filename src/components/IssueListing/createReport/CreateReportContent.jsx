@@ -12,6 +12,7 @@ import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import CheckIcon from "@mui/icons-material/Check";
 import EditIcon from "@mui/icons-material/Edit";
 import ImageElement from "../../shared/common/ImageElement";
+import ConfirmationDialog from "../../shared/common/ConfirmationDialog";
 
 const CreateReportContent = ({ issue, onClose }) => {
   const [selectBoxOptions, setSelectBoxOptions] = useState({
@@ -46,6 +47,8 @@ const CreateReportContent = ({ issue, onClose }) => {
   const [logoUrl, setLogoUrl] = useState("");
   const [editLogo, setEditLogo] = useState(false);
   const [imageAvailable, setImageAvailable] = useState(false);
+
+  const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
 
   //const jira_issue_url =  import.meta.env.VITE_JIRA_ISSUE_LINK`{issue}`
   const jiraUrl = import.meta.env.VITE_JIRA_ISSUE_LINK;
@@ -265,6 +268,9 @@ const CreateReportContent = ({ issue, onClose }) => {
       // Check for status code 201 for successful creation
       if (response.data.status === 201 || response.data.status === 200) {
         // If there's a message in the response body, use it; otherwise, use a default success message
+        if (action == "created") {
+          onClose();
+        }
         const successMessage =
           response.data.msg || "Report saved successfully!";
         toast.success(successMessage);
@@ -562,7 +568,7 @@ const CreateReportContent = ({ issue, onClose }) => {
                         alt="Logo not found"
                         className="uploaded-image"
                         onError={handleImageError}
-                        onLoad={()=>setImageAvailable(true)}
+                        onLoad={() => setImageAvailable(true)}
                       />
                     </div>
                     {!editLogo && (
@@ -622,9 +628,22 @@ const CreateReportContent = ({ issue, onClose }) => {
                     <RefreshIcon /> <span>Reset</span>
                   </Button>
                 </div>
-                <Button variant="contained" onClick={handleCreateReportButton}>
+                <Button
+                  variant="contained"
+                  onClick={() => setOpenConfirmDialog(true)}
+                >
                   Create Report
                 </Button>
+                <ConfirmationDialog
+                  open={openConfirmDialog}
+                  onClose={() => setOpenConfirmDialog(false)}
+                  onConfirm={() => {
+                    handleCreateReportButton("created");
+                    setOpenConfirmDialog(false);
+                  }}
+                  title="Confirm Report Creation"
+                  message="Are you sure you want to create this report?"
+                />
               </Box>
             </Box>
           </Box>
