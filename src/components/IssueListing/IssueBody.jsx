@@ -15,8 +15,8 @@ import CreateReportModal from "./CreateReportModal";
 import SyncTwoToneIcon from "@mui/icons-material/SyncTwoTone";
 import SaveIcon from "@mui/icons-material/Save";
 import axiosInstance from "../../axiosInstance/axiosInstance";
-import PublicIcon from '@mui/icons-material/Public';
-import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
+import PublicIcon from "@mui/icons-material/Public";
+import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
 
 const IssueBody = ({ issue, index, onRefresh }) => {
   console.log("testing");
@@ -30,18 +30,17 @@ const IssueBody = ({ issue, index, onRefresh }) => {
   const [subtaskVisible, setSubtaskVisible] = useState(false); // To manage visibility of subtasks
 
   const fetchSubtasks = async (issueKey) => {
-    //if (subtasks) return; // Consider refining this logic if you need to fetch different subtasks based on the issueKey
-    setLoading(true);
+    setLoadingSubtasks(true); // Start loading
     try {
       const response = await axiosInstance.get(`/subtask-listing/${issueKey}`);
-      setSubtasks(response.data.resdata); // Assuming 'resdata' is the correct field containing your data
+      setSubtasks(response.data.resdata); // Assuming 'resdata' is the correct field
     } catch (error) {
       console.error("Error fetching data:", error);
       setError(
         "An error occurred while fetching data. Please try again later."
       );
     } finally {
-      setLoading(false);
+      setLoadingSubtasks(false); // End loading
     }
   };
 
@@ -76,38 +75,19 @@ const IssueBody = ({ issue, index, onRefresh }) => {
     setAnchorEl(null);
   };
 
-  // ** Start: Action button/column */
-  const handleDownload = () => {
-    if (issue.download_link) {
-      const encodedUrl = encodeURI(issue.download_link); // Ensure the URL is correctly encoded
-      const anchor = document.createElement("a");
-      anchor.href = encodedUrl;
-      anchor.setAttribute("download", true);
-      document.body.appendChild(anchor);
-      anchor.click();
-      setTimeout(() => {
-        // Add a slight delay before removing the anchor
-        document.body.removeChild(anchor);
-      }, 100); // Delay in milliseconds
-    } else {
-      console.error("No download URL provided.");
-    }
-  };
-
   const handleRefresh = () => {
     // Handle refresh action
   };
 
+  //making download url
+  let download_app = "";
+  let download_browser = "";
+  let prefixToadd = import.meta.env.VITE_PREFIX_ADD;
+  if (issue.download_link) {
+    download_browser = issue.download_link;
+    download_app = prefixToadd + issue.download_link;
+  }
 
-//making download url
-let download_app =""; 
-let download_browser="";
-let prefixToadd = import.meta.env.VITE_PREFIX_ADD;
-if(issue.download_link){
-  download_browser = issue.download_link;
-  download_app = prefixToadd+issue.download_link;
-}
-      
   // ** End: Action button/column */
   const renderActionButton = () => {
     switch (issue.report_status) {
@@ -119,27 +99,33 @@ if(issue.download_link){
         );
 
       case "2": // Initiated
-        return (<MenuItem>Initiated</MenuItem>);
+        return <MenuItem>Initiated</MenuItem>;
 
       case "3": // In Progress
-        return (<MenuItem>In Progress</MenuItem>);
+        return <MenuItem>In Progress</MenuItem>;
 
       case "4": // Created
-
-          if(download_app && download_browser){
-        return (
+        if (download_app && download_browser) {
+          return (
             //<MenuItem onClick={handleDownload}>
             <MenuItem className="file-download-opt">
               <a href={encodeURI(download_app)} download={download_app}>
-                <InsertDriveFileIcon />Open in App
+                <InsertDriveFileIcon />
+                Open in App
               </a>
-              <a target="_blank" rel="noopener noreferrer" href={encodeURI(download_browser)} download={download_browser}>
-                <PublicIcon />Open in browser
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                href={encodeURI(download_browser)}
+                download={download_browser}
+              >
+                <PublicIcon />
+                Open in browser
               </a>
             </MenuItem>
-           );
-          }
-          return (<MenuItem>File Not Available</MenuItem>);
+          );
+        }
+        return <MenuItem>File Not Available</MenuItem>;
       case "5": //  Saved
         return (
           <MenuItem onClick={handleShowModal}>
@@ -166,7 +152,9 @@ if(issue.download_link){
         return "Initiated";
       case "3":
         return (
-          <><img src="../src/assets/Images/loader-sml.svg"/> In Progress</>
+          <>
+            <img src="../src/assets/Images/loader-sml.svg" /> In Progress
+          </>
         );
       case "4":
         return "Created";
@@ -213,12 +201,11 @@ if(issue.download_link){
   }));
 
   // function to show csm/psm
-  function csmpsmFormat(csmVal,psmVal){
-    if(psmVal !==null && psmVal !== undefined && psmVal !==''){
+  function csmpsmFormat(csmVal, psmVal) {
+    if (psmVal !== null && psmVal !== undefined && psmVal !== "") {
       return psmVal;
     }
     return csmVal;
-
   }
 
   return (
@@ -384,7 +371,7 @@ if(issue.download_link){
           <div>{issue.issue_summary}</div>
         </td>
         <td className="csm-col">
-          <div>{csmpsmFormat(issue.csm_name,issue.psm_name)}</div>
+          <div>{csmpsmFormat(issue.csm_name, issue.psm_name)}</div>
         </td>
         <td className="sdm-col">
           <div>{issue.sdm_name}</div>
@@ -451,8 +438,8 @@ if(issue.download_link){
           </div>
         </td>
       </tr>
-      
-      {subtaskVisible && subtasks.length > 0 && (
+
+      {subtaskVisible && (
         <tr id="sub-table-master" className={isActive ? "inactive" : "active"}>
           <td colSpan={11}>
             <table aria-colspan={11}>
@@ -468,27 +455,36 @@ if(issue.download_link){
                 </tr>
               </thead>
               <tbody>
-                {subtasks.map((subtask, index) => (
-                  <tr key={`${issue.issue_key}-${subtask.key}`}>
-                    <td className="sub-item-number">
-                      <span>{index + 1}</span>
+                {loadingSubtasks ? (
+                  <tr>
+                    <td colSpan={7} style={{ textAlign: "center" }}>
+                      {/* Use your preferred loading spinner or indicator here */}
+                      <img
+                        src="../src/assets/Images/subtask_loader.gif"
+                        alt="Loading..."
+                      />
                     </td>
-                    <td className="issue-id-col">{subtask.issue_key}</td>
-                    <td className="issue-des-col">{subtask.issue_summary}</td>
-                    {/* Assuming the API returns these fields, or adjust as necessary */}
-                    <td className="assign-by-col">{subtask.assignee_name}</td>
-                    <td className="assign-to-col">{subtask.created_date}</td>
-                    <td className="created-on-col">{subtask.assign_date}</td>
-                    <td className="status-col">
-                      <span className={`status-${subtask.status}`}>
-                        {subtask.jira_status}
-                      </span>
-                    </td>
-                  </tr>                  
-                ))}
-                {/* <tr className="loading-row">
-                  <td colSpan={7}><img src="../src/assets/Images/loader-sml.svg"/>Loading...</td>
-                </tr> */}
+                  </tr>
+                ) : (
+                  subtasks.map((subtask, index) => (
+                    <tr key={`${issue.issue_key}-${subtask.key}`}>
+                      <td className="sub-item-number">
+                        <span>{index + 1}</span>
+                      </td>
+                      <td className="issue-id-col">{subtask.issue_key}</td>
+                      <td className="issue-des-col">{subtask.issue_summary}</td>
+                      {/* Assuming the API returns these fields, or adjust as necessary */}
+                      <td className="assign-by-col">{subtask.assignee_name}</td>
+                      <td className="assign-to-col">{subtask.created_date}</td>
+                      <td className="created-on-col">{subtask.assign_date}</td>
+                      <td className="status-col">
+                        <span className={`status-${subtask.status}`}>
+                          {subtask.jira_status}
+                        </span>
+                      </td>
+                    </tr>
+                  ))
+                )}
               </tbody>
             </table>
           </td>
