@@ -23,12 +23,12 @@ const IssueList = () => {
 
   const [filters, setFilters] = useState({}); // Add this line
 
-  /*  const activeFilters = Object.entries(filters).reduce((acc, [key, value]) => {
+  const activeFilters = Object.entries(filters).reduce((acc, [key, value]) => {
     if (value !== null && value !== "") {
       acc[key] = value;
     }
     return acc;
-  }, {}); */
+  }, {});
 
   useEffect(() => {
     const fetchData = async () => {
@@ -43,12 +43,20 @@ const IssueList = () => {
           params: {
             start: (currentPage - 1) * itemsPerPage,
             max_result: itemsPerPage,
-            ...filters, // Spread the filters into params
+            ...activeFilters, // Spread the filters into params
           },
         });
         //const response = await axiosInstance.get('ef96ecfb-11bc-4d83-8509-c4de1f5d1192')
-        setIssueData((prevData) => [...prevData, ...response.data.resdata]);
-        //setIssueData(response.data.resdata); // Directly set with new data
+        // Update issueData state properly based on currentPage
+        setIssueData((prevData) => {
+          // If currentPage is 1, replace existing data
+          if (currentPage === 1) {
+            return response.data.resdata;
+          } else {
+            // If currentPage > 1, append new data to existing data
+            return [...prevData, ...response.data.resdata];
+          }
+        });
         setTotalRecords(response.data.total_record);
         setLoading(false);
       } catch (error) {
@@ -74,6 +82,7 @@ const IssueList = () => {
 
   const handleFilterReset = useCallback(() => {
     setFilters({}); // Reset filters
+    setCurrentPage(1);
   }, []);
 
   // Satrt : Fetch and update particular issue when creating report
