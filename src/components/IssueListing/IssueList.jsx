@@ -23,6 +23,13 @@ const IssueList = () => {
 
   const [filters, setFilters] = useState({}); // Add this line
 
+  /*  const activeFilters = Object.entries(filters).reduce((acc, [key, value]) => {
+    if (value !== null && value !== "") {
+      acc[key] = value;
+    }
+    return acc;
+  }, {}); */
+
   useEffect(() => {
     const fetchData = async () => {
       console.log(
@@ -124,11 +131,10 @@ const IssueList = () => {
     );
   };
 
-  // Other state initializations
-  const [isActive, setActive] = useState(false); // Corrected to boolean
+  const [isActive, setActive] = useState("false");
 
-  // ToggleClass function corrected to properly toggle boolean state
-  const ToggleClass = () => {
+  const ToggleClass = (event) => {
+    event.stopPropagation(); // Add this to prevent unwanted event bubbling
     setActive(!isActive);
   };
 

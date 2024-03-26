@@ -8,15 +8,14 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import TextField from "@mui/material/TextField";
 import axiosInstance from "../../../axiosInstance/axiosInstance";
-import { makeStyles } from "@mui/styles";
+//import { makeStyles } from "@mui/styles";
 import { toast } from "react-toastify";
-import { useNavigate, useLocation } from "react-router-dom";
 
-const useStyles = makeStyles({
+/* const useStyles = makeStyles({
   selectFormControl: {
     minWidth: 240, // Adjust the minimum width of the Select dropdown as needed
   },
-});
+}); */
 const FilterComp = ({ onFilterApply, onFilterReset }) => {
   const [filterValues, setFilterValues] = useState({
     jiraId: "",
@@ -32,9 +31,7 @@ const FilterComp = ({ onFilterApply, onFilterReset }) => {
     expertEmail: "",
   });
 
-  const navigate = useNavigate();
-  const location = useLocation();
-  const classes = useStyles();
+  //const classes = useStyles();
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [activeFilter, setActiveFilter] = useState("");
@@ -56,6 +53,8 @@ const FilterComp = ({ onFilterApply, onFilterReset }) => {
   }, []); // Empty dependency array to run once on component mount
 
   const handleClick = (filterType) => (event) => {
+    event.stopPropagation();
+
     setAnchorEl(event.currentTarget);
     setActiveFilter(filterType);
   };
@@ -79,48 +78,59 @@ const FilterComp = ({ onFilterApply, onFilterReset }) => {
       status: "",
       expertEmail: "",
     });
-    navigate("/"); // Reset the URL when filters are cleared
   };
 
   const handleExpertChange = (event) => {
     const selectedEmail = event.target.value;
+    // Find the expert object to get the name for display
     const selectedExpert = experts.find(
       (expert) => expert.expert_email === selectedEmail
     );
 
-    setFilterValues((prev) => ({ ...prev, expertName: selectedEmail }));
+    setFilterValues((prev) => ({
+      ...prev,
+      expertEmail: selectedEmail, // Update the email for filtering
+    }));
 
+    // Update the displayed expert name
     if (selectedExpert) {
       setSelectedExpertName(selectedExpert.expert_name);
     } else {
+      // Default case or reset
       setSelectedExpertName("All");
     }
 
-    handleClose();
+    handleClose(); // Assuming handleClose properly manages the state to close the Menu
   };
-
   const applyFilters = () => {
-    if (Object.values(filterValues).every((value) => !value)) {
+    // Check if all filter values are empty or default values
+    const areFiltersEmpty = Object.values(filterValues).every(
+      (value) => value === "" || value === null || value === "All"
+    );
+
+    if (areFiltersEmpty) {
       toast.error("Please select a filter value");
       return;
     }
-
-    const searchParams = new URLSearchParams(filterValues).toString();
-    navigate(`?${searchParams}`); // Update the URL with selected filter values
-
+    console.log("Filters applied:", filterValues);
     onFilterApply(filterValues);
     handleClose();
   };
 
-  // Initialize filter values from URL parameters
   useEffect(() => {
-    const searchParams = new URLSearchParams(location.search);
-    setFilterValues((fv) => ({
-      ...fv,
-      jiraId: searchParams.get("jiraId") || "",
-      expertName: searchParams.get("expertName") || "",
-    }));
-  }, [location.search]);
+    const savedFilters = localStorage.getItem("filterValues");
+    if (savedFilters) {
+      const parsedFilters = JSON.parse(savedFilters);
+      setFilterValues(parsedFilters);
+      // Additionally, find and set the displayed expert name based on the expertEmail in parsedFilters
+      const selectedExpert = experts.find(
+        (expert) => expert.expert_email === parsedFilters.expertEmail
+      );
+      if (selectedExpert) {
+        setSelectedExpertName(selectedExpert.expert_name);
+      }
+    }
+  }, [experts]); // Make sure to i
 
   const handleClose = () => {
     setAnchorEl(null); // This should close the Menu
