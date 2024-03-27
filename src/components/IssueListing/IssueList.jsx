@@ -10,8 +10,10 @@ import { toast } from "react-toastify";
 import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
 import HighlightOffOutlinedIcon from "@mui/icons-material/HighlightOffOutlined";
 import FilterComp from "../shared/common/Filters";
+import { useNavigate } from "react-router-dom";
 
 const IssueList = () => {
+  const navigate = useNavigate();
   const itemPerPage = import.meta.env.VITE_ISSUE_LIST_PERPAGE;
   const [loading, setLoading] = useState(false);
   const [issueData, setIssueData] = useState([]);
@@ -76,11 +78,23 @@ const IssueList = () => {
 
   // Function to update filters from FilterComp
   const updateFilters = useCallback((newFilters) => {
+    const { jiraId, expertEmail } = newFilters;
+    console.log("newFilters", newFilters);
+    let queryParams = "?active=create-report";
+    if (jiraId) {
+      queryParams += `&jiraId=${jiraId}`;
+    }
+    if (expertEmail) {
+      queryParams += `&expertEmail
+      =${expertEmail}`;
+    }
+    navigate(queryParams);
     setFilters(newFilters);
     setCurrentPage(1); // Reset to the first page to apply filters from the beginning
   }, []);
 
   const handleFilterReset = useCallback(() => {
+    navigate("?active=create-report");
     setFilters({}); // Reset filters
     setCurrentPage(1);
   }, []);

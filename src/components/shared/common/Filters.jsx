@@ -10,6 +10,7 @@ import TextField from "@mui/material/TextField";
 import axiosInstance from "../../../axiosInstance/axiosInstance";
 //import { makeStyles } from "@mui/styles";
 import { toast } from "react-toastify";
+import { useSearchParams } from "react-router-dom";
 
 /* const useStyles = makeStyles({
   selectFormControl: {
@@ -17,18 +18,18 @@ import { toast } from "react-toastify";
   },
 }); */
 const FilterComp = ({ onFilterApply, onFilterReset }) => {
+  const [searcParams] = useSearchParams();
+  const jiraId = searcParams.get("jiraId");
+  const expertName = searcParams.get("expertName");
+  const expertEmail = searcParams.get("expertEmail");
   const [filterValues, setFilterValues] = useState({
-    jiraId: "",
-    expertName: "",
+    jiraId: jiraId || "",
+    expertName: expertName || "",
     customer: "",
     menuCardId: "",
-    csmPsm: "",
-    sdm: "",
-    sdo: "",
-    issueCreatedDate: null, // null for date pickers
     assignedDate: null, // null for date pickers
     status: "",
-    expertEmail: "",
+    expertEmail: expertEmail || "",
   });
 
   //const classes = useStyles();
@@ -70,11 +71,7 @@ const FilterComp = ({ onFilterApply, onFilterReset }) => {
       expertName: "",
       customer: "",
       menuCardId: "",
-      csmPsm: "",
-      sdm: "",
-      sdo: "",
       issueCreatedDate: null,
-      assignedDate: null,
       status: "",
       expertEmail: "",
     });
@@ -117,21 +114,6 @@ const FilterComp = ({ onFilterApply, onFilterReset }) => {
     onFilterApply(filterValues);
     handleClose();
   };
-
-  useEffect(() => {
-    const savedFilters = localStorage.getItem("filterValues");
-    if (savedFilters) {
-      const parsedFilters = JSON.parse(savedFilters);
-      setFilterValues(parsedFilters);
-      // Additionally, find and set the displayed expert name based on the expertEmail in parsedFilters
-      const selectedExpert = experts.find(
-        (expert) => expert.expert_email === parsedFilters.expertEmail
-      );
-      if (selectedExpert) {
-        setSelectedExpertName(selectedExpert.expert_name);
-      }
-    }
-  }, [experts]); // Make sure to i
 
   const handleClose = () => {
     setAnchorEl(null); // This should close the Menu
@@ -194,7 +176,7 @@ const FilterComp = ({ onFilterApply, onFilterReset }) => {
           onClick={(event) => handleClick("expertName")(event)}
           endIcon={<KeyboardArrowDownIcon />}
         >
-          Expert Name: {selectedExpertName || "All"}
+          Expert: {selectedExpertName || "All"}
         </Button>
         <Menu
           id="expert-menu"
@@ -237,7 +219,7 @@ const FilterComp = ({ onFilterApply, onFilterReset }) => {
           onClick={(event) => handleClick("customer")(event)}
           endIcon={<KeyboardArrowDownIcon />}
         >
-          Customer
+          Customer:
         </Button>
         <Menu
           id="cus-menu"
@@ -270,7 +252,7 @@ const FilterComp = ({ onFilterApply, onFilterReset }) => {
           onClick={(event) => handleClick("menuCardId")(event)}
           endIcon={<KeyboardArrowDownIcon />}
         >
-          Menu Card ID
+          Menu Card:
         </Button>
         <Menu
           id="menu-menu"
@@ -292,104 +274,6 @@ const FilterComp = ({ onFilterApply, onFilterReset }) => {
           </MenuItem>
         </Menu>
       </div>
-      {/* csm/psm  Filter */}
-      <div className="csm-filter-control">
-        <Button
-          id="csm-filter"
-          aria-controls={isMenuOpen("csmPsm") ? "csm-menu" : undefined}
-          aria-haspopup="true"
-          aria-expanded={isMenuOpen("csmPsm") ? "true" : undefined}
-          variant="contained"
-          onClick={(event) => handleClick("csmPsm")(event)}
-          endIcon={<KeyboardArrowDownIcon />}
-        >
-          CSM / PSM
-        </Button>
-        <Menu
-          id="csm-menu"
-          className="filter-wrapper"
-          MenuListProps={{ "aria-labelledby": "csm-filter" }}
-          anchorEl={anchorEl}
-          open={isMenuOpen("csmPsm")}
-          onClose={handleClose}
-        >
-          <MenuItem>
-            <TextField
-              variant="outlined"
-              name="csmPsm"
-              placeholder="Search CSM / PSM..."
-              value={filterValues.csmPsm}
-              onChange={handleInputChange}
-              fullWidth
-            />
-          </MenuItem>
-        </Menu>
-      </div>
-
-      {/* SDM Filter */}
-      <div className="sdm-filter-control">
-        <Button
-          id="sdm-filter"
-          aria-controls="sdm-menu"
-          aria-haspopup="true"
-          aria-expanded={isMenuOpen("sdm") ? "true" : undefined}
-          variant="contained"
-          onClick={(event) => handleClick("sdm")(event)}
-          endIcon={<KeyboardArrowDownIcon />}
-        >
-          SDM
-        </Button>
-        <Menu
-          id="sdm-menu"
-          anchorEl={anchorEl}
-          open={isMenuOpen("sdm")}
-          onClose={handleClose}
-        >
-          <MenuItem>
-            <TextField
-              name="sdm"
-              variant="outlined"
-              placeholder="Search SDM..."
-              value={filterValues.sdm}
-              onChange={handleInputChange}
-              fullWidth
-            />
-          </MenuItem>
-        </Menu>
-      </div>
-      {/* SDO Filter */}
-      <div className="sdo-filter-control">
-        <Button
-          id="sdo-filter"
-          aria-controls={isMenuOpen("sdo") ? "sdo-menu" : undefined}
-          aria-haspopup="true"
-          aria-expanded={isMenuOpen("sdo") ? "true" : undefined}
-          variant="contained"
-          onClick={(event) => handleClick("sdo")(event)}
-          endIcon={<KeyboardArrowDownIcon />}
-        >
-          SDO
-        </Button>
-        <Menu
-          id="sdo-menu"
-          className="filter-wrapper"
-          MenuListProps={{ "aria-labelledby": "sdo-filter" }}
-          anchorEl={anchorEl}
-          open={isMenuOpen("sdo")}
-          onClose={handleClose}
-        >
-          <MenuItem>
-            <TextField
-              variant="outlined"
-              name="sdo"
-              placeholder="Search SDO..."
-              value={filterValues.sdo}
-              onChange={handleInputChange}
-              fullWidth
-            />
-          </MenuItem>
-        </Menu>
-      </div>
 
       {/* Issue Created Date Filter */}
       <div className="created-filter-control">
@@ -404,7 +288,7 @@ const FilterComp = ({ onFilterApply, onFilterReset }) => {
           onClick={(event) => handleClick("issueCreatedDate")(event)}
           endIcon={<KeyboardArrowDownIcon />}
         >
-          Issue Created Date
+          Created:
         </Button>
         <Menu
           id="created-menu"
@@ -421,38 +305,6 @@ const FilterComp = ({ onFilterApply, onFilterReset }) => {
               value={filterValues.issueCreatedDate || ""}
               onChange={(e) => handleInputChange(e)}
               className="date-input" // You can style this as needed
-            />
-          </MenuItem>
-        </Menu>
-      </div>
-
-      {/* assign Date Filter */}
-      <div className="assign-filter-control">
-        <Button
-          id="assign-filter"
-          aria-haspopup="true"
-          aria-expanded={isMenuOpen("assignedDate") ? "true" : undefined}
-          variant="contained"
-          onClick={(event) => handleClick("assignedDate")(event)}
-          endIcon={<KeyboardArrowDownIcon />}
-        >
-          Assigned Date
-        </Button>
-        <Menu
-          id="assign-menu"
-          className="filter-wrapper"
-          MenuListProps={{ "aria-labelledby": "assign-filter" }}
-          anchorEl={anchorEl}
-          open={isMenuOpen("assignedDate")}
-          onClose={handleClose}
-        >
-          <MenuItem>
-            <input
-              type="date"
-              name="assignedDate"
-              value={filterValues.assignedDate || ""}
-              onChange={(e) => handleInputChange(e)}
-              className="date-input" // Ensure to style this class as needed
             />
           </MenuItem>
         </Menu>
